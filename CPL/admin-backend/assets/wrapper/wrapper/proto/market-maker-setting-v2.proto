@@ -1,0 +1,117 @@
+syntax = "proto3";
+package market_maker_setting_v2;
+
+
+service MarketMakerV2Service {
+  rpc AddMarketMakerPair(MarketMakerPair) returns (MarketMakerPairResponse) {}
+  rpc DeleteMarketMakerPair(MarketMakerPair) returns (MarketMakerPairResponse) {}
+  rpc GetMarketMakerSetting(MarketMakerParams) returns (MarketMakerRespone) {}
+  rpc GetMarketMakerSettings(SystemParams) returns (MarketMakerSettingsRespone) {}
+  rpc GetMarketMakerSystemTarget(SystemParams) returns (SystemGetResponse) {}
+  rpc SetMarketMakerSetting(MarketMakerSettingItem) returns (MarketMakerSettingItem) {}
+  rpc UpdateMarketMakerSettings (MarketMakerSettingsBody) returns (MarketMakerSettingsUpdateResponse);
+}
+
+message MarketMakerPair {
+  string coin = 1;
+  string currency = 2;
+}
+
+message MarketMakerPairResponse {
+  bool success = 1;
+}
+
+message MarketMakerParams {
+  string coin = 1;
+  string currency = 2;
+  string exchange = 3;
+}
+
+message MarketMakerConfigure {
+  string price_precision = 1;
+  string volume_precision = 2;
+  string min_total = 3;
+  string min_amount = 4;
+  string max_amount = 5;
+  string spread_price = 6;
+  string volume_scale = 7;
+  string order_count_package = 8;
+  bool active_flag = 9;
+  int32 status = 10;
+}
+
+message MarketMakerSettingItem {
+  string coin = 1;
+  string currency = 2;
+  string exchange = 3;
+  MarketMakerConfigure configure = 4;
+  string updated_at = 5;
+}
+
+message MarketMakerRespone {
+  string name = 1;
+  string bot_id = 2;
+  MarketMakerSettingItem data = 3;
+}
+
+message MarketMakerSettingsRespone {
+  string name = 1;
+  repeated MarketMakerSettingItem data = 2;
+}
+
+// Get SystemTarget
+message SystemParams {
+  optional string exchange = 1;
+  optional string coin = 2;
+  optional string currency = 3;
+}
+
+message SystemItem {
+  message PairSysData {
+    string exchange = 1;
+    int32 status = 2;
+    bool active_flag = 3;
+  }
+  repeated PairSysData data = 3;
+}
+
+message SystemGetResponse {
+  map<string,SystemItem> data = 1;
+  string name = 2;
+}
+// end get SystemTarget
+
+message MarketMakerConfigureOptional {
+  optional string price_precision = 1;
+  optional string volume_precision = 2;
+  optional string min_total = 3;
+  optional string min_amount = 4;
+  optional string max_amount = 5;
+  optional string spread_price = 6;
+  optional string volume_scale = 7;
+  optional string order_count_package = 8;
+  optional bool active_flag = 9;
+  optional int32 status = 10;
+}
+
+message MarketMakerSettingsBody {
+  message ExchangePairsUpdateDto {
+    string coin = 1;
+    string currency = 2;
+    string exchange = 3;
+    MarketMakerConfigureOptional configure = 4;
+
+  }
+  repeated ExchangePairsUpdateDto data = 1;
+  string name = 2;
+}
+
+message MarketMakerSettingsUpdateResponse {
+  message PairItemResponse {
+    string coin = 1;
+    string currency = 2;
+    string exchange = 3;
+  }
+  repeated PairItemResponse data = 1;
+  string name = 2;
+}

@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package grpc.setting.v1;
+
+service SettingService {
+    rpc Get(GetRequest) returns (SettingEntity);
+    rpc List(ListRequest) returns (ListResponse);
+    rpc Create(CreateRequest) returns (SettingEntity);
+    rpc Update(UpdateRequest) returns (SettingEntity);
+    rpc Delete(DeleteRequest) returns (SettingEntity);
+}
+
+
+///////////////// BEGIN ENUM /////////////////
+enum SettingStatus {
+    ENABLE = 1;
+    DISABLE = 2;
+}
+///////////////// END ENUM  /////////////////
+
+message SettingEntity {
+    string id = 1;
+    string module = 2;
+    string code = 3;
+    string value = 4;
+    SettingStatus status = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message ListRequest {
+    optional string search_field = 1;
+    optional string search_text = 2;
+    optional string sort = 3;
+    optional string sort_type = 4;
+    optional uint32 page = 5;
+    optional uint32 size = 6;
+}
+
+message CreateRequest {
+    string module = 1;
+    string code = 2;
+    string value = 3;
+    SettingStatus status = 4;
+}
+
+message UpdateRequest {
+    string id = 1;
+    optional string module = 2;
+    optional string code = 3;
+    optional string value = 4;
+    optional SettingStatus status = 5;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message ListResponse {
+    repeated SettingEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

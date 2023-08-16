@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package bo_trading_pair;
+
+import "google/protobuf/empty.proto";
+
+service BOTradingPairService {
+  rpc Add(AddRequest) returns (BOTradingPairResponse);
+  rpc FindOne(ID) returns (BOTradingPairResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOTradingPairResponse);
+  rpc Delete(DeleteRequest) returns (BOTradingPairResponse);
+  rpc GetTradingPair(ListRequest) returns (ListDataResponse);
+};
+
+message BOTradingPair {
+  string id = 1;
+  string symbol = 2;
+  string active = 3;
+  string image = 4;
+  string binance_symbol = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  string symbol = 1;
+  uint32 active = 2;
+  string image = 3;
+  string binance_symbol = 4;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string symbol = 2;
+  string active = 3;
+  string image = 4;
+  string binance_symbol = 5;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+  string symbol = 2;
+  string active = 3;
+  string image = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string get_only = 8;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOTradingPairResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOTradingPair data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOTradingPair items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOTradingPairResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

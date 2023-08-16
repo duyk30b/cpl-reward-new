@@ -1,0 +1,43 @@
+syntax = "proto3";
+package market_maker_data_point;
+
+service MarketMakerDataPointService {
+  rpc InsertDataPoint(DataPointItem) returns (DataPointRes) {}
+  rpc DeleteDataPoint(DeleteDataPointParams) returns (DeleteDataPointRes) {}
+  rpc GetDataPoint(DataPointParams) returns (GetDataPointRes) {}
+}
+
+message DataPointItem {
+  string coin = 1;
+  string currency = 2;
+  string created_at = 3;
+  string start_time = 4;
+  string end_time = 5;
+  string start_price = 6;
+  string end_price = 7;
+}
+
+message DataPointRes {
+  string response = 1;
+}
+
+message DeleteDataPointParams {
+  string coin = 1;
+  string currency = 2;
+}
+
+message DeleteDataPointRes {
+  string response = 1;
+}
+
+message DataPointParams {
+  string coin = 1;
+  string currency = 2;
+  string start_time = 3;
+  string end_time = 4;
+}
+
+message GetDataPointRes {
+  string version = 1;
+  repeated DataPointItem data_point = 2;
+}

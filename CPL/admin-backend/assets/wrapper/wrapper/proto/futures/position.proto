@@ -1,0 +1,111 @@
+// protoc --go_out=plugins=grpc:. *.proto
+
+syntax = "proto3";
+
+package positionService;
+option go_package = ".;positionService";
+
+message Error {
+  uint32 status_code = 1;
+  string code = 2;
+  string detail = 3;
+}
+
+message AdjustMarginRequest {
+  string user_id = 1;
+  string position_id = 2;
+  string margin = 3;
+  string action = 4;
+}
+
+message Position {
+  string id = 1;
+  string user_id = 2;
+  string symbol = 3;
+  string entry_price = 4;
+  string leverage = 5;
+  string margin = 6;
+  string initial_margin = 7;
+  string size = 8;
+  string side = 9;
+  string position_type = 10;
+  string status = 11;
+  string take_profit_price = 12;
+  string stop_loss_price = 13;
+  string liquidation_price = 14;
+  string created_at = 15;
+  string updated_at = 16;
+}
+
+message AdjustMarginResponse {
+  Position position = 1;
+  Error error = 2;
+}
+
+message GetPositionListRequest {
+  enum OrderBy {
+    ID_ASC = 0;
+    ID_DESC = 1;
+    USER_ID_ASC = 2;
+    USER_ID_DESC = 3;
+    SYMBOL_ASC = 4;
+    SYMBOL_DESC = 5;
+    CREATED_AT_ASC = 6;
+    CREATED_AT_DESC = 7;
+  }
+
+  enum Side {
+    NONE = 0;
+    LONG = 1;
+    SHORT = 2;
+  }
+
+  repeated string user_id = 1;
+  repeated string symbols = 2;
+  repeated string status = 3;
+  Side side = 4;
+  repeated OrderBy order_by = 5;
+  uint32 page = 6;
+  uint32 per_page = 7;
+  string from = 8;
+  string to = 9;
+}
+
+message PositionInList {
+  string id = 1;
+  string user_id = 2;
+  string symbol = 3;
+  string entry_price = 4;
+  string leverage = 5;
+  string margin = 6;
+  string initial_margin = 7;
+  string size = 8;
+  string side = 9;
+  string position_type = 10;
+  string status = 11;
+  string take_profit_price = 12;
+  string stop_loss_price = 13;
+  string liquidation_price = 14;
+  string unrealized_pnl = 15;
+  string mark_price = 16;
+  string created_at = 17;
+  string updated_at = 18;
+}
+
+message Pagination {
+  uint32 page = 1;
+  uint32 per_page = 2;
+  uint32 total_rows = 3;
+  uint32 total_pages = 4;
+}
+
+message GetPositionListResponse {
+  repeated PositionInList positions = 1;
+  Pagination pagination = 2;
+  Error error = 3;
+}
+
+service PositionService{
+  rpc AdjustMargin(AdjustMarginRequest) returns (AdjustMarginResponse);
+  rpc GetPositionList(GetPositionListRequest) returns (GetPositionListResponse);
+}

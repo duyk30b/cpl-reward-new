@@ -1,0 +1,276 @@
+syntax = "proto3";
+
+package bo_trading_mode;
+
+import "google/protobuf/empty.proto";
+
+service BOTradingModeService {
+  rpc Create(AddRequest) returns (BOTradingModeResponse);
+  rpc FindOne(FindOneRequest) returns (BOTradingModeResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOTradingModeResponse);
+  rpc Delete(DeleteRequest) returns (BOTradingModeResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+  rpc GetPeriod(ListRequest) returns (PeriodResponse);
+};
+
+message BOTradingMode {
+  string id = 1;
+  string mode = 2;
+  string period = 3;
+  string start_time = 4;
+  string end_time = 5;
+  string payout = 6;
+  string suggestion_1 = 7;
+  string suggestion_2 = 8;
+  string suggestion_3 = 9;
+  string scaling_active = 10;
+  string scaling_bcast = 11;
+  string rank_scaling_active = 12;
+  string limit_order_min = 13;
+  string limit_order_max = 14;
+  string limit_order_max_amount = 15;
+  string order_expire_time = 16;
+  string limit_day_unit = 17;
+  string limit_order_times = 18;
+  string limit_order_amount = 19;
+  string stop_threshold_value = 20;
+  string restricted_day_unit = 21;
+  string restricted_order_times = 22;
+  string restricted_day_order_times = 23;
+  string restricted_day_order_amount = 24;
+  string active_threshold_value = 25;
+  string restricted_order_amount = 26;
+  string scaling_value = 27;
+  string rank1_scale_bcast = 28;
+  string rank2_scale_bcast = 29;
+  string rank3_scale_bcast = 30;
+  string api_token = 31;
+  string allow_resell = 32;
+  string odds_mode = 33;
+  string odds_free = 34;
+  string payout_scaling_unit = 35;
+  string order_minimum = 36;
+  string expire_time = 37;
+  string emergency_threshold = 38;
+  string max_usdt_per_order = 39;
+  string max_bcast_per_order = 40;
+  string same_direction_interval = 41;
+  string diff_direction_interval = 42;
+  string created_at = 43;
+  string updated_at = 44;
+  string order_unit = 45;
+  string payout_max = 46;
+  string odds_fee = 47;
+  string pair_id = 48;
+  string status = 49;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  string mode = 1;
+  string period = 2;
+  string start_time = 3;
+  string end_time = 4;
+  double payout = 5;
+  uint32 suggestion_1 = 6;
+  uint32 suggestion_2 = 7;
+  uint32 suggestion_3 = 8;
+  uint32 scaling_active = 9;
+  uint32 scaling_bcast = 10;
+  uint32 rank_scaling_active = 11;
+  uint32 limit_order_min = 12;
+  uint32 limit_order_max = 13;
+  uint32 limit_order_max_amount = 14;
+  string order_expire_time = 15;
+  double limit_day_unit = 16;
+  uint32 limit_order_times = 17;
+  uint32 limit_order_amount = 18;
+  uint32 stop_threshold_value = 19;
+  uint32 restricted_day_unit = 20;
+  uint32 restricted_order_times = 21;
+  uint32 restricted_day_order_times = 22;
+  uint32 restricted_day_order_amount = 23;
+  uint32 active_threshold_value = 24;
+  uint32 restricted_order_amount = 25;
+  double scaling_value = 26;
+  double rank1_scale_bcast = 27;
+  double rank2_scale_bcast = 28;
+  double rank3_scale_bcast = 29;
+  string api_token = 30;
+  uint32 allow_resell = 31;
+  uint32 odds_mode = 32;
+  uint32 odds_free = 33;
+  double payout_scaling_unit = 34;
+  uint32 order_minimum = 35;
+  uint32 expire_time = 36;
+  uint32 emergency_threshold = 37;
+  uint32 max_usdt_per_order = 38;
+  uint32 max_bcast_per_order = 39;
+  double same_direction_interval = 40;
+  double diff_direction_interval = 41;
+  uint32 order_unit = 42;
+  string payout_max = 43;
+  string odds_fee = 44;
+  string pair_id = 45;
+  string status = 46;
+};
+
+message UpdateRequest {
+  uint32 id = 1;
+  string mode = 2;
+  string period = 3;
+  string start_time = 4;
+  string end_time = 5;
+  double payout = 6;
+  uint32 suggestion_1 = 7;
+  uint32 suggestion_2 = 8;
+  uint32 suggestion_3 = 9;
+  uint32 scaling_active = 10;
+  uint32 scaling_bcast = 11;
+  uint32 rank_scaling_active = 12;
+  uint32 limit_order_min = 13;
+  uint32 limit_order_max = 14;
+  uint32 limit_order_max_amount = 15;
+  string order_expire_time = 16;
+  double limit_day_unit = 17;
+  uint32 limit_order_times = 18;
+  uint32 limit_order_amount = 19;
+  uint32 stop_threshold_value = 20;
+  uint32 restricted_day_unit = 21;
+  uint32 restricted_order_times = 22;
+  uint32 restricted_day_order_times = 23;
+  uint32 restricted_day_order_amount = 24;
+  uint32 active_threshold_value = 25;
+  uint32 restricted_order_amount = 26;
+  double scaling_value = 27;
+  double rank1_scale_bcast = 28;
+  double rank2_scale_bcast = 29;
+  double rank3_scale_bcast = 30;
+  string api_token = 31;
+  uint32 allow_resell = 32;
+  uint32 odds_mode = 33;
+  uint32 odds_free = 34;
+  double payout_scaling_unit = 35;
+  uint32 order_minimum = 36;
+  uint32 expire_time = 37;
+  uint32 emergency_threshold = 38;
+  uint32 max_usdt_per_order = 39;
+  uint32 max_bcast_per_order = 40;
+  double same_direction_interval = 41;
+  double diff_direction_interval = 42;
+  uint32 order_unit = 43;
+  string payout_max = 44;
+  string odds_fee = 45;
+  string pair_id = 46;
+  string status = 47;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+  optional string mode = 2;
+  optional string period = 3;
+  optional string start_time = 4;
+  optional string end_time = 5;
+  optional string payout = 6;
+  optional string suggestion_1 = 7;
+  optional string suggestion_2 = 8;
+  optional string suggestion_3 = 9;
+  optional string scaling_active = 10;
+  optional string scaling_bcast = 11;
+  optional string rank_scaling_active = 12;
+  optional string limit_order_min = 13;
+  optional string limit_order_max = 14;
+  optional string limit_order_max_amount = 15;
+  optional string order_expire_time = 16;
+  optional string limit_day_unit = 17;
+  optional string limit_order_times = 18;
+  optional string limit_order_amount = 19;
+  optional string stop_threshold_value = 20;
+  optional string restricted_day_unit = 21;
+  optional string restricted_order_times = 22;
+  optional string restricted_day_order_times = 23;
+  optional string restricted_day_order_amount = 24;
+  optional string active_threshold_value = 25;
+  optional string restricted_order_amount = 26;
+  optional string scaling_value = 27;
+  optional string rank1_scale_bcast = 28;
+  optional string rank2_scale_bcast = 29;
+  optional string rank3_scale_bcast = 30;
+  optional string api_token = 31;
+  optional string allow_resell = 32;
+  optional string odds_mode = 33;
+  optional string odds_free = 34;
+  optional string payout_scaling_unit = 35;
+  optional string order_minimum = 36;
+  optional string expire_time = 37;
+  optional string emergency_threshold = 38;
+  optional string max_usdt_per_order = 39;
+  optional string max_bcast_per_order = 40;
+  optional string same_direction_interval = 41;
+  optional string diff_direction_interval = 42;
+  optional string order_unit = 43;
+  optional string payout_max = 44;
+  optional string odds_fee = 45;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string get_only = 8;
+  optional string mode = 9;
+  optional string period = 10;
+  optional string lang = 11;
+  optional string pair_id = 12;
+  optional string status = 13;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOTradingModeResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOTradingMode data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOTradingMode items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message PeriodRequest {
+  string period = 1;
+}
+
+message PeriodRequestData {
+  repeated PeriodRequest items = 1;
+}
+
+message PeriodResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional PeriodRequestData data = 3;
+}

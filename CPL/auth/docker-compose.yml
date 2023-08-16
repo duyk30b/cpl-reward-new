@@ -1,0 +1,139 @@
+services:
+  api_public:
+    image: authenticate-dev:1.0.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: development
+    command: npm run start:debug api-public
+    ports:
+      - 3000:${SERVER_PORT:-3000}
+    networks:
+      - authenticate_server
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - db
+      - redis
+
+  # Database
+  db:
+    image: mariadb:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - '${LOCAL_DB_PORT:-3361}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${AUTHENTICATE_MYSQL_MASTER_PASS}
+      MYSQL_DATABASE: ${AUTHENTICATE_MYSQL_MASTER_DB}
+      MYSQL_USER: ${AUTHENTICATE_MYSQL_MASTER_USER}
+      MYSQL_PASSWORD: ${AUTHENTICATE_MYSQL_MASTER_PASS}
+    networks:
+      - authenticate_server
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - '${REDIS_LOCAL_PORT:-6379}:${AUTHENTICATE_REDIS_PORT:-6379}'
+    command: --port ${AUTHENTICATE_REDIS_PORT:-6379}
+    restart: unless-stopped
+    networks:
+      - authenticate_server
+
+  grpc_internal:
+    image: authenticate-dev:1.0.0
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: development
+    command: npm run start:debug grpc-internal
+    ports:
+      - 12345:${GRPC_PORT:-5000}
+    networks:
+      - authenticate_server
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  api_internal:
+   image: authenticate-dev:1.0.0
+   build:
+     context: .
+     dockerfile: ./Dockerfile
+     target: development
+   command: npm run start:debug api-internal
+   ports:
+     - 3001:${SERVER_PORT:-3000}
+   networks:
+     - authenticate_server
+   volumes:
+     - .:/usr/src/app
+     - node_modules:/usr/src/app/node_modules
+   restart: unless-stopped
+   depends_on:
+     - db
+     - redis
+
+  worker:
+   image: authenticate-dev:1.0.0
+   build:
+     context: .
+     dockerfile: ./Dockerfile
+     target: development
+   command: npm run start:debug worker
+   networks:
+     - authenticate_server
+   volumes:
+     - .:/usr/src/app
+     - node_modules:/usr/src/app/node_modules
+   restart: unless-stopped
+   depends_on:
+     - db
+     - redis
+
+  scheduler:
+   image: authenticate-dev:1.0.0
+   build:
+     context: .
+     dockerfile: ./Dockerfile
+     target: development
+   command: npm run start:debug scheduler
+   networks:
+     - authenticate_server
+   volumes:
+     - .:/usr/src/app
+     - node_modules:/usr/src/app/node_modules
+   restart: unless-stopped
+   depends_on:
+     - db
+
+  commandline:
+   image: authenticate-dev:1.0.0
+   build:
+     context: .
+     dockerfile: ./Dockerfile
+     target: development
+   command: npm run start:debug commandline
+   networks:
+     - authenticate_server
+   volumes:
+     - .:/usr/src/app
+     - node_modules:/usr/src/app/node_modules
+   restart: unless-stopped
+   depends_on:
+     - db
+
+networks:
+  authenticate_server:
+volumes:
+  db_data:
+  redis_data:
+  node_modules:

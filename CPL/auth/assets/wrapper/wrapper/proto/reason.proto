@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package reason;
+
+import "common.proto";
+import "reason_category.proto";
+import "google/protobuf/empty.proto";
+
+message ReasonId {
+  string id = 1;
+}
+
+message Reason {
+  string id = 1;
+  map<string, string> name = 2;
+  string category_id = 3;
+  reason_category.ReasonCategory category = 4;
+}
+
+message CreateReason {
+  map<string, string> name = 1;
+  string category_id = 2;
+}
+
+message FindAllResponse {
+  repeated Reason data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message ReasonFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  string search_field = 3;
+  string search_text = 4;
+  string sort = 5;
+  string sort_type = 6;
+  string category_id = 7;
+}
+
+message BaseReasonCategoryResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional Reason data = 3;
+}
+
+service ReasonService {
+  rpc Create(CreateReason) returns (BaseReasonCategoryResponse) {}
+  rpc FindAll(ReasonFilter) returns (FindAllResponse) {}
+  rpc FindById(ReasonId) returns (Reason) {}
+  rpc Update(Reason) returns (BaseReasonCategoryResponse) {}
+  rpc Delete(ReasonId) returns (BaseReasonCategoryResponse) {}
+}
+

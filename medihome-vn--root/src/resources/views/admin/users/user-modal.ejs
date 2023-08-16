@@ -1,0 +1,291 @@
+<div class="modal fade" id="infoUserModal" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form id="infoUserForm">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-envelope fa-fw"></i></span>
+								</div>
+								<input name="Gmail" placeholder="Gmail..." type="text" class="form-control" />
+								<div class="input-group-append">
+									<span class="input-group-text">@gmail.com</span>
+								</div>
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
+								</div>
+								<input name="Info.Phone" placeholder="Phone..." type="text" maxlength="10" class="form-control" />
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+								</div>
+								<input name="Password" class="form-control" placeholder="Password" type="password" />
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fa fa-lock fa-fw"></i></span>
+								</div>
+								<input class="form-control" placeholder="Repeat Password" type="password" />
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-building fa-fw"></i></span>
+								</div>
+								<input name="Info.Address" class="form-control" placeholder="Address" type="text" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-user-tie fa-fw"></i></span>
+								</div>
+								<input name="Info.Name" class="form-control" placeholder="Full Name" type="text" />
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-birthday-cake fa-fw"></i></span>
+								</div>
+								<input name="Info.Birthday" class="form-control" placeholder="Birthday" type="date" />
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-transgender fa-fw"></i></span>
+								</div>
+								<select name="Info.Gender" class="form-control">
+									<option value="" selected disabled>Gender</option>
+									<option value="Male">Nam</option>
+									<option value="Female">Nữ</option>
+								</select>
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-project-diagram"></i></span>
+								</div>
+								<select name="Role" class="form-control">
+									<option value="" selected disabled>Role</option>
+									<option value="Admin">Admin</option>
+									<option value="Manager">Manager</option>
+									<option value="User">User</option>
+								</select>
+							</div>
+
+							<div class="input-group mb-2">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-hat-wizard fa-fw"></i></span>
+								</div>
+								<input name="PhongKhamID" class="form-control" placeholder="Manager" type="text" />
+							</div>
+						</div>
+						<div class="col-md-6 row">
+							<div class="col-sm-4 col-form-label pt-0">Chức Danh:</div>
+							<div class="col-sm-8">
+								<div class="position-relative form-check">
+									<label class="form-check-label"
+										><input class="form-check-input" type="radio" name="ChucDanh" value="Bác sĩ" />Bác sĩ</label
+									>
+								</div>
+								<div class="position-relative form-check">
+									<label class="form-check-label"
+										><input class="form-check-input" type="radio" name="ChucDanh" value="Điều dưỡng" />Điều dưỡng</label
+									>
+								</div>
+								<div class="position-relative form-check">
+									<label class="form-check-label"
+										><input class="form-check-input" type="radio" name="ChucDanh" value="Hành Chính" />Hành Chính</label
+									>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 row">
+							<div class="col-sm-4 col-form-label pt-0">Quản Lý:</div>
+							<div class="col-sm-8">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="pq-nhansu" name="QuanLy[]" value="Nhân Viên" />
+									<label class="form-check-label" for="pq-nhansu"> Nhân Viên </label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="pq-benhnhan" name="QuanLy[]" value="Bệnh Nhân" />
+									<label class="form-check-label" for="pq-benhnhan"> Bệnh Nhân </label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" id="pq-tuthuoc" name="QuanLy[]" value="Tủ Thuốc" />
+									<label class="form-check-label" for="pq-tuthuoc"> Tủ Thuốc </label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+					<button type="submit" class="btn btn-primary" data-dismiss="modal">Lưu Lại</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="jsonUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin data nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body row">
+				<div class="col-4"><pre id="show-item-json"></pre></div>
+				<div class="col-4">
+					<textarea
+						id="edit-data-json"
+						style="
+							width: 100%;
+							height: 100%;
+							font-size: 87.5%;
+							font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+						"
+					></textarea>
+				</div>
+				<div class="col-4"><pre id="show-result-json"></pre></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Thay thế dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa tài khoản nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn xóa tài khoản này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="restoreUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Khôi phục tài khoản nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn khôi phục tài khoản này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Khôi phục dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="destroyUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa vĩnh viễn tài khoản nhân viên</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">Hành động này không thể khôi phục dữ liệu. Bạn chắc chắn vẫn muốn xóa tài khoản này</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa vĩnh viễn</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$('#infoUserModal').on('show.bs.modal', function (event) {
+		let elm = event.relatedTarget,
+			id = null,
+			action = elm.getAttribute('data-action'),
+			form = document.getElementById('infoUserForm'),
+			btnSubmit = this.querySelectorAll('button[type=submit]')[0];
+
+		form.reset();
+		if (action == 'EDIT') {
+			id = elm.closest('tr').getAttribute('data-id');
+			bangUser.eventFetchData(action, id);
+			action = 'UPDATE';
+		}
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			let formData = MyForm.getData(form);
+			bangUser.eventFetchData(action, id, formData);
+		};
+	});
+
+	[$('#removeUserModal'), $('#restoreUserModal'), $('#destroyUserModal')].forEach((item, index) => {
+		item.on('show.bs.modal', function (event) {
+			let elm = event.relatedTarget,
+				id = elm.closest('tr').getAttribute('data-id'),
+				action = elm.getAttribute('data-action'),
+				btnSubmit = this.querySelectorAll('button[type=submit]')[0];
+
+			btnSubmit.onclick = function (e) {
+				e.preventDefault();
+				bangUser.eventFetchData(action, id);
+			};
+		});
+	});
+
+	$('#jsonUserModal').on('show.bs.modal', function (event) {
+		let infoElem = document.getElementById('show-item-json'),
+			editElm = document.getElementById('edit-data-json'),
+			resultElem = document.getElementById('show-result-json'),
+			btnSubmit = document.getElementById('jsonUserModal').querySelectorAll('button[type=submit]')[0],
+			elm = event.relatedTarget,
+			id = elm.closest('tr').getAttribute('data-id'),
+			action = elm.getAttribute('data-action'),
+			item = bangUser.getItemData(bangUser.data, id),
+			result;
+
+		infoElem.innerHTML = 'item = ' + JSON.stringify(item, undefined, 4);
+		editElm.value = JSON.stringify(item, undefined, 4);
+		eval('result=' + editElm.value);
+		resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+
+		editElm.onkeyup = function (event) {
+			eval('result=' + this.value);
+			resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+		};
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			console.log(action);
+			bangUser.eventFetchData(action, id, result);
+		};
+	});
+</script>

@@ -1,0 +1,152 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api-public/src",
+  "monorepo": true,
+  "root": "apps/api-public",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/api-public/tsconfig.app.json"
+  },
+  "projects": {
+    "api-public": {
+      "type": "application",
+      "root": "apps/api-public",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-public/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-public/tsconfig.app.json"
+      }
+    },
+    "grpc-internal": {
+      "type": "application",
+      "root": "apps/grpc-internal",
+      "entryFile": "main",
+      "sourceRoot": "apps/grpc-internal/src",
+      "compilerOptions": {
+        "assets": [
+          "**/*.proto",
+          "*.proto"
+        ],
+        "watchAssets": true,
+        "tsConfigPath": "apps/grpc-internal/tsconfig.app.json"
+      }
+    },
+    "event-dispatcher": {
+      "type": "application",
+      "root": "apps/event-dispatcher",
+      "entryFile": "main",
+      "sourceRoot": "apps/event-dispatcher/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/event-dispatcher/tsconfig.app.json"
+      }
+    },
+    "worker": {
+      "type": "application",
+      "root": "apps/worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/worker/tsconfig.app.json"
+      }
+    },
+    "command-line": {
+      "type": "application",
+      "root": "apps/command-line",
+      "entryFile": "main",
+      "sourceRoot": "apps/command-line/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/command-line/tsconfig.app.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "id-generator": {
+      "type": "library",
+      "root": "libs/id-generator",
+      "entryFile": "index",
+      "sourceRoot": "libs/id-generator/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/id-generator/tsconfig.lib.json"
+      }
+    },
+    "new-balance": {
+      "type": "library",
+      "root": "libs/new-balance",
+      "entryFile": "index",
+      "sourceRoot": "libs/new-balance/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/new-balance/tsconfig.lib.json"
+      }
+    },
+    "exchange": {
+      "type": "library",
+      "root": "libs/exchange",
+      "entryFile": "index",
+      "sourceRoot": "libs/exchange/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/exchange/tsconfig.lib.json"
+      }
+    },
+    "typeorm": {
+      "type": "library",
+      "root": "libs/typeorm",
+      "entryFile": "index",
+      "sourceRoot": "libs/typeorm/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/typeorm/tsconfig.lib.json"
+      }
+    },
+    "check-user-condition": {
+      "type": "library",
+      "root": "libs/check-user-condition",
+      "entryFile": "index",
+      "sourceRoot": "libs/check-user-condition/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/check-user-condition/tsconfig.lib.json"
+      }
+    },
+    "grpc-client": {
+      "type": "library",
+      "root": "libs/grpc-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/grpc-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/grpc-client/tsconfig.lib.json"
+      }
+    },
+    "kafka": {
+      "type": "library",
+      "root": "libs/kafka",
+      "entryFile": "index",
+      "sourceRoot": "libs/kafka/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kafka/tsconfig.lib.json"
+      }
+    },
+    "api-internal": {
+      "type": "application",
+      "root": "apps/api-internal",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-internal/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-internal/tsconfig.app.json"
+      }
+    }
+  }
+}

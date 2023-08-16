@@ -1,0 +1,38 @@
+.breakcrumb {
+    background-color: #f1f5f8;
+    .container {
+        padding: 10px 20px;
+        .breakcrumb-content {
+            line-height: 2;
+            * {
+                text-transform: uppercase;
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--color-text-head);
+                &:not(:first-child)::before {
+                    content: " » ";
+                    font-size: 20px;
+                    padding: 0 8px;
+                }
+            }
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    .page-numbers {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        padding: 5px 16px;
+        margin: 0 5px;
+        border: 1px solid #cdcdcd;
+        border-radius: 4px;
+        &.current {
+            color: #fff;
+            background-color: #f5ae42;
+        }
+    }
+}

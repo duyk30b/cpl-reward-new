@@ -1,0 +1,11 @@
+#auto-withdraw-group-modal {
+  .wallet-key-label {
+    display: flex;
+    justify-content: space-between;
+    .generate-wallet-key {
+      border: none;
+      background: transparent;
+      color: #1ea1f2;
+    }
+  }
+}

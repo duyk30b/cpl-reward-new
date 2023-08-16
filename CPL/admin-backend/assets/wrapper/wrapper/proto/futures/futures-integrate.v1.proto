@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package future.integrate.admin.v1;
+
+service FutureIntegrateAdminService {
+  rpc GetList(SearchOrderRequest) returns (OrderData);
+  rpc GetListOrderHistories(SearchOrderRequest) returns (OrderData);
+  rpc CancelOrder(CancelOrderRequest) returns (CancelOrderResponse);
+  rpc CancelAllOrder(EmptyData) returns (CancelOrderResponse);
+}
+
+message EmptyData {
+}
+
+message SearchOrderRequest {
+  optional string coin = 1;
+  optional string currency = 2;
+  optional int32 order_type = 3;
+  optional int32 order_mode = 4;
+  optional int32 order_side = 5;
+  repeated int32 order_status = 6;
+  optional string order_id = 7;
+  optional string user_id = 8;
+  optional string user_type = 9;
+  optional string position_id = 10;
+  optional string from = 11;
+  optional string to = 12;
+
+  optional int32 per_page = 13;
+  optional int32 page = 14;
+
+  optional string sort_type = 15;
+  optional string sort_by = 16;
+}
+
+message CancelOrderRequest {
+  repeated string orderId = 1;
+}
+
+message OrderData {
+  repeated Order data = 1;
+  PaginationData pagination = 2;
+}
+
+message PaginationData {
+  uint32 page = 1;
+  uint32 size = 2;
+  uint32 total = 3;
+}
+
+message Order {
+  string id = 1;
+  string price = 2;
+  string volume = 3;
+  uint32 leverage = 4;
+  uint32 side = 5;
+  uint32 type = 6;
+  uint32 status = 7;
+  uint32 user_type = 8;
+  string coin = 9;
+  string currency = 10;
+  string addition_margin = 11;
+  string margin = 12;
+  string fee = 13;
+  string collateral = 14;
+  string user_id = 15;
+  uint32 mode = 16;
+  string position_id = 17;
+  string create_time = 18;
+  string update_time = 19;
+  string matching_price = 20;
+  string pnl = 21;
+}
+
+message CancelOrderResponse {
+  message OrderId {
+    repeated string id = 1;
+  }
+  OrderId data = 1;
+}
+

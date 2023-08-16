@@ -1,0 +1,28 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") Dear Mr./Ms. #{name}
+
+	div(class="mb-10")
+		div Thank you for using our services.
+		div It is bitcastle support.
+
+	div(class="mb-10") 
+		div Thank you for your patience.
+		div The verification of identity confirmation has completed, please log in and visit to [My Page] from here and check the result of the verification result.
+		div 
+			a(href=`${loginLink}`) #{loginLink}
+
+	div(class="mb-10") The result of your verification will be indicated as [Verified] or [Rejected] in your My Page right beside your email address.　
+
+	div(class="mb-10") 
+		div If the indicator shows [Verified], it means your KYC has been approved, you may start explore all the functions in bitcastle.
+		div If the indicator shows [Rejected], It means your KYC has been rejected and it may due to due to inappropriate submission or image error, so please check the identity confirmation document once again and resubmit it.
+
+	div(class="mb-10") 
+		div The reason for rejection in your My Page right beside the indicator.　
+		div For security reasons, the information displayed is only for cases that may be applicable.
+
+	div(class="mb-10") **Please DO NOT reply to this email as it is for announcement purposes only.
+
+	div(class="mb-10") Thank you for your attention and looking forward to seeing you in bitcastle!

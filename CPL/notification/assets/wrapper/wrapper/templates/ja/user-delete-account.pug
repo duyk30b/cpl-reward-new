@@ -1,0 +1,17 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content 
+	div(class="mb-10") #{fullName ? fullName + '様' : 'お客様'}
+
+	div(class="mb-10")
+		div 平素はbitcastleをご利用頂き、誠にありがとうございました。
+		div bitcastleの退会手続きが完了しましたので、お知らせいたします。
+
+	div(class="mb-10")
+		div #{fullName ? fullName + '様' : 'お客様'}のbitcastleにおけるデータは、一定期間経過後に削除されます。
+		div またの機会がありましたら、ご利用よろしくお願い申し上げます。
+
+	div(class="mb-10") 
+		div このメールは送信専用アドレスより送信しております。
+		div そのため返信頂いても内容の確認ができません。
+		div こちらのメールに心当たりがない場合はすぐにお知らせください。

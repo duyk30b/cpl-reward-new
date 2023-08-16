@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package user_info;
+
+service UserInfoService {
+  rpc FindByUserId (DataByUserId) returns (UserInfoResponse);
+};
+
+message DataByUserId {
+  string user_id = 1;
+};
+
+message UserInfoResponse {
+  message UserInfo {
+    string id = 1;
+    string user_id = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string furigana_1 = 5;
+    string furigana_2 = 6;
+    string birthday = 7;
+    string phone = 8;
+    string building_room = 9;
+    string address = 10;
+    string city = 11;
+    string state_region = 12;
+    string zip_code = 13;
+    int32 country_id = 14;
+    int32 nationality_id = 15;
+    int32 gender = 16;
+    string created_at = 17;
+    string updated_at = 18;
+    string user_info_history_id = 19;
+    string phone_country = 20;
+    string full_name = 21;
+  }
+  UserInfo data = 1;
+}

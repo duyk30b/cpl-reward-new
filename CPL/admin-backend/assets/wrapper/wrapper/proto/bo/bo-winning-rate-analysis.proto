@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package bo_winning_rate_analysis;
+
+import "google/protobuf/empty.proto";
+
+message BOWinningRateSeconds {
+  string key = 2;
+  string count_down = 3;
+  string count_up = 4;
+  string count_up_rate = 5;
+  uint32 count_down_rate = 6;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+// REQUEST
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string pair = 3;
+  optional string mode = 4;
+  optional string period = 5;
+}
+
+// RESPONSE
+message ListDataWinningRateSeconds {
+  repeated BOWinningRateSeconds items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListDataWinningRateSeconds data = 3;
+}
+
+service BOWinningRateAnalysisService {
+  rpc ListSeconds(ListRequest) returns (ListDataResponse);
+  rpc ListMinutes(ListRequest) returns (ListDataResponse);
+  rpc ListHours(ListRequest) returns (ListDataResponse);
+};

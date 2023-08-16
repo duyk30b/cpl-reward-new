@@ -1,0 +1,292 @@
+<%- include('../../layouts/main-before') %>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<div class="row mb-1">
+					<div class="col-xl-1 col-md-2 col-4 mb-1">
+						<select id="select-rows-page" name="select-rows-page" class="form-control">
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
+					</div>
+
+					<div class="col row col-4 mb-1" id="action-list" style="display: none">
+						<select id="select-action-list" class="form-control col-6 mr-2">
+							<option value="" selected>Hành động</option>
+							<option value="REMOVE-LIST">Xóa hàng loạt</option>
+						</select>
+						<button class="btn btn-danger" id="btn-action-list" class="col-6" style="display: none">
+							<i class="fas fa-radiation"></i> Thực hiện
+						</button>
+					</div>
+
+					<div class="input-group col-6 ml-auto mb-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-search"></i></span>
+						</div>
+						<input id="input-search" placeholder="Search..." type="text" class="form-control" />
+						<div class="input-group-append">
+							<select id="select-search" class="form-control">
+								<option value="" selected>Tất cả</option>
+								<option value="TenThuoc">Tên Thuốc</option>
+								<option value="ThanhPhan">Thành Phần</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12">
+						<table id="mytable" class="mb-0 table table-bordered">
+							<thead>
+								<tr>
+									<th style="width: 6%">
+										<input id="checkbox-item-all" type="checkbox" />
+										&nbsp;#
+									</th>
+									<th style="width: 20%">Tên Thuốc</th>
+									<th style="width: 20%">Thành Phần</th>
+									<th style="width: 30%">Số Lượng</th>
+									<th style="width: 10%">Giá Bán</th>
+									<th style="width: 10%">Action</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<nav class="float-right" aria-label="Page navigation example">
+							<ul class="pagination justify-content-end" id="pagination">
+								<li class="page-item">
+									<a class="page-link" aria-label="Previous"
+										><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a
+									>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item">
+									<a class="page-link" aria-label="Next"
+										><span aria-hidden="true">»</span><span class="sr-only">Next</span></a
+									>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<h6>Tổng giá trị trong tủ thuốc: <span class="tong-gia-tri"></span> vnđ</h6>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	let listElement = {
+		table: document.getElementById('mytable'),
+		ipSearch: document.getElementById('input-search'),
+		pagination: document.getElementById('pagination'),
+		slRowsPerPage: document.getElementById('select-rows-page'),
+		actionList: document.getElementById('action-list'),
+		slSearch: document.getElementById('select-search'),
+		checkboxThead: document.getElementById('checkbox-item-all'),
+		actionForm: document.getElementById('infoTuThuocForm'),
+	};
+	let listFetcher = {
+		LIST: () => {
+			return window.location.pathname + '/list';
+		},
+		ADD: () => {
+			return window.location.pathname + '/add';
+		},
+		EDIT: (id) => {
+			return window.location.pathname + '/find/' + id;
+		},
+		UPDATE: (id) => {
+			return window.location.pathname + '/update/' + id;
+		},
+		REPLACE: (id) => {
+			return window.location.pathname + '/replace/' + id;
+		},
+		REMOVE: (id) => {
+			return window.location.pathname + '/remove/' + id;
+		},
+		'REMOVE-LIST': () => {
+			return window.location.pathname + '/remove-list';
+		},
+	};
+	let actionCol = (data) => {
+		return `<a onclick='showDetailRow(this)' class='show-detail-row'>
+                        <i class='fas fa-plus-square'></i>
+                    </a>`
+                    // +`<a href='' class='mx-2' data-action='EDIT' 
+					// 	data-toggle='modal' data-target='#infoTuThuocModal'>
+                    //     <i class='fas fa-edit' style='color: green;'></i>
+                    // </a>
+					// <a href='' class='mr-2' data-action='REPLACE' 
+					// 	data-toggle='modal' data-target='#jsonTuThuocModal'>
+                    //     <i class='fas fa-calendar-week'></i>
+                    // </a>
+                    // <a href='' data-action='REMOVE' data-toggle='modal'
+                    //      data-target='#removeTuThuocModal'>
+                    //     <i class='fas fa-trash-alt' style='color: red'></i>
+                    // </a>`;
+	};
+	let showDetailRow = (elm) => {
+		let id = elm.closest('tr').getAttribute('data-id');
+		let show = bangTuThuoc.event.toggleDetailRow(id);
+		if (show) {
+			elm.innerHTML = '<i class="fas fa-minus-square"></i>';
+		} else {
+			elm.innerHTML = '<i class="fas fa-plus-square"></i>';
+		}
+	};
+
+	let thongtinThem = (data) => {
+		return `<table class="table"><tbody>
+			<tr><td>Nhóm Thuốc</td><td>${data.NhomThuoc}</td>
+			<tr><td>Dạng Thuốc</td><td>${data.PhanLoai.DangThuoc}</td>
+			<tr><td>Đường Dùng</td><td>${data.PhanLoai.DuongDung}</td>
+			<tr><td>Đóng Hộp</td><td>${data.PhanLoai.DongHop}</td>
+			<tr><td>Nguồn Gốc</td><td>${data.NguonGoc.NuocSanXuat}</td>
+			</tbody></table>`;
+	};
+	let hangtonCol = (data) => {
+		let col = data.HangTon.reduce((acc, item) => {
+			return (acc += `<li>
+				 ${item.SoLuong} ${data.PhanLoai.DangThuoc}
+				- HSD: ${MyDateTime.format(item.HanSuDung, 'dd/MM/YYYY')}
+				</li>`);
+		}, '');
+		return `<ul>${col}</ul>`;
+	};
+	let bangTuThuoc = new MyTable({
+		elm: listElement,
+		fetch: listFetcher,
+		contents: {
+			dataSrc: 'data',
+			rowMain: [
+				'TenThuoc',
+				'ThanhPhan',
+				hangtonCol,
+				(data) => {
+					return data.GiaBan.toFixed(3);
+				},
+				actionCol,
+			],
+			rowPlus: thongtinThem,
+		},
+	});
+</script>
+
+<%- include('../../layouts/main-after') %>
+
+<script>
+	let listElement = {
+		table: document.getElementById('mytable'),
+		ipSearch: document.getElementById('input-search'),
+		pagination: document.getElementById('pagination'),
+		slRowsPerPage: document.getElementById('select-rows-page'),
+		actionList: document.getElementById('action-list'),
+		slSearch: document.getElementById('select-search'),
+		checkboxThead: document.getElementById('checkbox-item-all'),
+		actionForm: document.getElementById('infoTuThuocForm'),
+	};
+	let listFetcher = {
+		LIST: () => {
+			return window.location.pathname + '/list';
+		},
+		ADD: () => {
+			return window.location.pathname + '/add';
+		},
+		EDIT: (id) => {
+			return window.location.pathname + '/find/' + id;
+		},
+		UPDATE: (id) => {
+			return window.location.pathname + '/update/' + id;
+		},
+		REPLACE: (id) => {
+			return window.location.pathname + '/replace/' + id;
+		},
+		REMOVE: (id) => {
+			return window.location.pathname + '/remove/' + id;
+		},
+		'REMOVE-LIST': () => {
+			return window.location.pathname + '/remove-list';
+		},
+	};
+	let actionCol = (data) => {
+		return `<a onclick='showDetailRow(this)' class='show-detail-row'>
+                        <i class='fas fa-plus-square'></i>
+                    </a>`
+                    // +`<a href='' class='mx-2' data-action='EDIT' 
+					// 	data-toggle='modal' data-target='#infoTuThuocModal'>
+                    //     <i class='fas fa-edit' style='color: green;'></i>
+                    // </a>
+					// <a href='' class='mr-2' data-action='REPLACE' 
+					// 	data-toggle='modal' data-target='#jsonTuThuocModal'>
+                    //     <i class='fas fa-calendar-week'></i>
+                    // </a>
+                    // <a href='' data-action='REMOVE' data-toggle='modal'
+                    //      data-target='#removeTuThuocModal'>
+                    //     <i class='fas fa-trash-alt' style='color: red'></i>
+                    // </a>`;
+	};
+	let showDetailRow = (elm) => {
+		let id = elm.closest('tr').getAttribute('data-id');
+		let show = bangTuThuoc.event.toggleDetailRow(id);
+		if (show) {
+			elm.innerHTML = '<i class="fas fa-minus-square"></i>';
+		} else {
+			elm.innerHTML = '<i class="fas fa-plus-square"></i>';
+		}
+	};
+
+	let thongtinThem = (data) => {
+		return `<table class="table"><tbody>
+			<tr><td>Nhóm Thuốc</td><td>${data.NhomThuoc}</td>
+			<tr><td>Dạng Thuốc</td><td>${data.PhanLoai.DangThuoc}</td>
+			<tr><td>Đường Dùng</td><td>${data.PhanLoai.DuongDung}</td>
+			<tr><td>Đóng Hộp</td><td>${data.PhanLoai.DongHop}</td>
+			<tr><td>Nguồn Gốc</td><td>${data.NguonGoc.NuocSanXuat}</td>
+			</tbody></table>`;
+	};
+	let hangtonCol = (data) => {
+		let col = data.HangTon.reduce((acc, item) => {
+			return (acc += `<li>
+				 ${item.SoLuong} ${data.PhanLoai.DangThuoc}
+				- Mua: ${item.GiaMua.toFixed(3)} 
+				- HSD: ${MyDateTime.format(item.HanSuDung, 'dd/MM/YYYY')}
+				</li>`);
+		}, '');
+		return `<ul>${col}</ul>`;
+	};
+	let bangTuThuoc = new MyTable({
+		elm: listElement,
+		fetch: listFetcher,
+		contents: {
+			dataSrc: 'data',
+			rowMain: [
+				'TenThuoc',
+				'ThanhPhan',
+				hangtonCol,
+				(data) => {
+					return data.GiaBan.toFixed(3);
+				},
+				actionCol,
+			],
+			rowPlus: thongtinThem,
+		},
+	});
+</script>

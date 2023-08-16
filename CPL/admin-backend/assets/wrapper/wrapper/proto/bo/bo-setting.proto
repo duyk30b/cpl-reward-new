@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+package bo_setting;
+
+import "google/protobuf/empty.proto";
+
+service BOSettingService {
+  rpc AddBOSetting(AddRequest) returns (BOSettingResponse);
+  rpc FindOneBOSetting(ID) returns (BOSettingResponse);
+  rpc ListBOSetting(ListRequest) returns (ListDataResponse);
+  rpc UpdateBOSetting(UpdateRequest) returns (BOSettingResponse);
+  rpc DeleteBOSetting(DeleteRequest) returns (BOSettingResponse);
+  rpc GetBTCTransferSetting(ListRequest) returns (ListDataResponse);
+  rpc UpdateBTCTransferSetting(UpdateBTCTransfer) returns (ListDataResponse);
+  rpc GetMajorCoin(google.protobuf.Empty) returns (ListDataResponse);
+  rpc GetDetailMajorCoin(BOMajorCoinRequest) returns (BOMajorCoinReponse);
+  rpc CreateMajorCoin(BOMajorCoinCreateRequest) returns (BOMajorCoinReponse);
+  rpc UpdateMajorCoin(BOMajorCoinUpdateRequest) returns (BOMajorCoinReponse);
+  rpc DeleteMajorCoin(BOMajorCoinRequest) returns (BOMajorCoinReponse);
+};
+
+message BOSetting {
+  string id = 1;
+  string code = 2;
+  string value = 3;
+  string active = 4;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  string code = 1;
+  string value = 2;
+  uint32 active = 3;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string code = 2;
+  string value = 3;
+  uint32 active = 4;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOSetting data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOSetting items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message UpdateBTCTransfer {
+  repeated UpdateRequest items = 1;
+}
+
+message BOMajorCoinRequest {
+  string coin = 1;
+}
+
+message BOMajorCoinCreateRequest {
+  string coin = 1;
+  double transfer_fee = 2;
+  double transfer_max_fee = 3;
+  double transfer_min_fee = 4;
+  double transfer_max_amount = 5;
+  double transfer_min_amount = 6;
+  double transfer_fee_ratio = 7;
+  bool transfer_active = 8;
+  double transfer_max_amount_per_day = 9;
+}
+
+message BOMajorCoinUpdateRequest {
+  string coin = 1;
+  double transfer_fee = 2;
+  double transfer_max_fee = 3;
+  double transfer_min_fee = 4;
+  double transfer_max_amount = 5;
+  double transfer_min_amount = 6;
+  double transfer_fee_ratio = 7;
+  bool transfer_active = 8;
+  double transfer_max_amount_per_day = 9;
+}
+
+message BOMajorCoinReponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOMajorCoin data = 3;
+}
+
+message BOMajorCoin {
+  string coin = 1;
+  double transfer_fee = 2;
+  double transfer_max_fee = 3;
+  double transfer_min_fee = 4;
+  double transfer_max_amount = 5;
+  double transfer_min_amount = 6;
+  double transfer_fee_ratio = 7;
+  bool transfer_active = 8;
+  double transfer_max_amount_per_day = 9;
+}

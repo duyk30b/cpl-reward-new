@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package bo_crawl_pair_price;
+
+import "google/protobuf/empty.proto";
+
+service BOCrawlPairPriceService {
+  rpc Add(AddRequest) returns (BOCrawlPairPriceResponse);
+  rpc FindOne(ID) returns (BOCrawlPairPriceResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOCrawlPairPriceResponse);
+  rpc Delete(DeleteRequest) returns (BOCrawlPairPriceResponse);
+};
+
+message BOCrawlPairPrice {
+  string id = 1;
+  string symbol = 2;
+  string price = 3;
+  string price_time = 4;
+  string source = 5;
+  string data_raw = 6;
+  string force_flag = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  string symbol = 1;
+  uint32 price = 2;
+  string price_time = 3;
+  string source = 4;
+  string force_flag = 5;
+  string data_raw = 6;
+};
+
+message ID {
+  uint32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string symbol = 2;
+  uint32 price = 3;
+  string price_time = 4;
+  string source = 5;
+  string force_flag = 6;
+  string data_raw = 7;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message BOCrawlPairPriceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOCrawlPairPrice data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOCrawlPairPrice items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOCrawlPairPriceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

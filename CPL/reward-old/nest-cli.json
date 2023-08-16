@@ -1,0 +1,288 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/reward/src",
+  "monorepo": true,
+  "root": "apps/reward",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/reward/tsconfig.app.json"
+  },
+  "projects": {
+    "reward": {
+      "type": "application",
+      "root": "apps/reward",
+      "entryFile": "main",
+      "sourceRoot": "apps/reward/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/reward/tsconfig.app.json"
+      }
+    },
+    "kafka": {
+      "type": "library",
+      "root": "libs/kafka",
+      "entryFile": "index",
+      "sourceRoot": "libs/kafka/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kafka/tsconfig.lib.json"
+      }
+    },
+    "common": {
+      "type": "library",
+      "root": "libs/common",
+      "entryFile": "index",
+      "sourceRoot": "libs/common/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/common/tsconfig.lib.json"
+      }
+    },
+    "mission-user": {
+      "type": "library",
+      "root": "libs/mission-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/mission-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mission-user/tsconfig.lib.json"
+      }
+    },
+    "mission": {
+      "type": "library",
+      "root": "libs/mission",
+      "entryFile": "index",
+      "sourceRoot": "libs/mission/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mission/tsconfig.lib.json"
+      }
+    },
+    "mission-user-log": {
+      "type": "library",
+      "root": "libs/mission-user-log",
+      "entryFile": "index",
+      "sourceRoot": "libs/mission-user-log/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mission-user-log/tsconfig.lib.json"
+      }
+    },
+    "mysql": {
+      "type": "library",
+      "root": "libs/mysql",
+      "entryFile": "index",
+      "sourceRoot": "libs/mysql/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mysql/tsconfig.lib.json"
+      }
+    },
+    "user": {
+      "type": "library",
+      "root": "libs/user",
+      "entryFile": "index",
+      "sourceRoot": "libs/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user/tsconfig.lib.json"
+      }
+    },
+    "external-user": {
+      "type": "library",
+      "root": "libs/external-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/external-user/src",
+      "compilerOptions": {
+        "assets": [
+          "**/*.proto",
+          "*.proto"
+        ],
+        "watchAssets": true,
+        "tsConfigPath": "libs/external-user/tsconfig.lib.json"
+      }
+    },
+    "missions": {
+      "type": "application",
+      "root": "apps/missions",
+      "entryFile": "main",
+      "sourceRoot": "apps/missions/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/missions/tsconfig.app.json"
+      }
+    },
+    "campaign": {
+      "type": "library",
+      "root": "libs/campaign",
+      "entryFile": "index",
+      "sourceRoot": "libs/campaign/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/campaign/tsconfig.lib.json"
+      }
+    },
+    "affiliate-internal": {
+      "type": "library",
+      "root": "libs/affiliate-internal",
+      "entryFile": "index",
+      "sourceRoot": "libs/affiliate-internal/src",
+      "compilerOptions": {
+        "assets": [
+          "**/*.proto",
+          "*.proto"
+        ],
+        "watchAssets": true,
+        "tsConfigPath": "libs/affiliate-internal/tsconfig.lib.json"
+      }
+    },
+    "reward-rule": {
+      "type": "library",
+      "root": "libs/reward-rule",
+      "entryFile": "index",
+      "sourceRoot": "libs/reward-rule/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/reward-rule/tsconfig.lib.json"
+      }
+    },
+    "admin": {
+      "type": "application",
+      "root": "apps/admin",
+      "entryFile": "main",
+      "sourceRoot": "apps/admin/src",
+      "compilerOptions": {
+        "assets": [
+          "**/*.proto",
+          "*.proto"
+        ],
+        "watchAssets": true,
+        "tsConfigPath": "apps/admin/tsconfig.app.json"
+      }
+    },
+    "admin-action-log": {
+      "type": "library",
+      "root": "libs/admin-action-log",
+      "entryFile": "index",
+      "sourceRoot": "libs/admin-action-log/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/admin-action-log/tsconfig.lib.json"
+      }
+    },
+    "external-balance": {
+      "type": "library",
+      "root": "libs/external-balance",
+      "entryFile": "index",
+      "sourceRoot": "libs/external-balance/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/external-balance/tsconfig.lib.json"
+      }
+    },
+    "mission-event": {
+      "type": "library",
+      "root": "libs/mission-event",
+      "entryFile": "index",
+      "sourceRoot": "libs/mission-event/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mission-event/tsconfig.lib.json"
+      }
+    },
+    "user-reward-history": {
+      "type": "library",
+      "root": "libs/user-reward-history",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-reward-history/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-reward-history/tsconfig.lib.json"
+      }
+    },
+    "external-cashback": {
+      "type": "library",
+      "root": "libs/external-cashback",
+      "entryFile": "index",
+      "sourceRoot": "libs/external-cashback/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/external-cashback/tsconfig.lib.json"
+      }
+    },
+    "mongo": {
+      "type": "library",
+      "root": "libs/mongo",
+      "entryFile": "index",
+      "sourceRoot": "libs/mongo/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mongo/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "international-price": {
+      "type": "library",
+      "root": "libs/international-price",
+      "entryFile": "index",
+      "sourceRoot": "libs/international-price/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/international-price/tsconfig.lib.json"
+      }
+    },
+    "id-generator": {
+      "type": "library",
+      "root": "libs/id-generator",
+      "entryFile": "index",
+      "sourceRoot": "libs/id-generator/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/id-generator/tsconfig.lib.json"
+      }
+    },
+    "queue": {
+      "type": "library",
+      "root": "libs/queue",
+      "entryFile": "index",
+      "sourceRoot": "libs/queue/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/queue/tsconfig.lib.json"
+      }
+    },
+    "user-checkin-log": {
+      "type": "library",
+      "root": "libs/user-checkin-log",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-checkin-log/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-checkin-log/tsconfig.lib.json"
+      }
+    },
+    "external-new-balance": {
+      "type": "library",
+      "root": "libs/external-new-balance",
+      "entryFile": "index",
+      "sourceRoot": "libs/external-new-balance/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/external-new-balance/tsconfig.lib.json"
+      }
+    },
+    "wallet-gateway": {
+      "type": "library",
+      "root": "libs/wallet-gateway",
+      "entryFile": "index",
+      "sourceRoot": "libs/wallet-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/wallet-gateway/tsconfig.lib.json"
+      }
+    },
+    "new-balance": {
+      "type": "library",
+      "root": "libs/new-balance",
+      "entryFile": "index",
+      "sourceRoot": "libs/new-balance/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/new-balance/tsconfig.lib.json"
+      }
+    },
+    "exchange": {
+      "type": "library",
+      "root": "libs/exchange",
+      "entryFile": "index",
+      "sourceRoot": "libs/exchange/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/exchange/tsconfig.lib.json"
+      }
+    }
+  }
+}

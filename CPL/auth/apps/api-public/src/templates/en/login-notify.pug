@@ -1,0 +1,15 @@
+extends ../layouts/layout.pug
+
+block content 
+	div(class="mb-10") This is to notify you that your account has logged into bitcastle
+
+	div(class="mb-10") Login information
+
+	div(class="mb-10") 
+		div •  IP Address:  #{ip}
+		div •  Browser: #{browser}
+		div •  Device: #{device}
+		div •  Login date: #{time} (UTC) 
+
+	div(class="mb-10") *This e-mail has been sent from our send-only e-mail address and cannot be replied to.
+	div(class="mb-10") If this activity is not your own operation, please disable your account and contact us immediately.

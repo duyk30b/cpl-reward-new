@@ -1,0 +1,9 @@
+.idea
+.env
+.env.local
+node_modules
+dist
+start_stop_services.sh
+.vscode
+.DS_Store
+/health

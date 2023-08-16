@@ -1,0 +1,110 @@
+export const DisableAuthenticatorError = {
+  AUTHENTICATOR_ALREADY_DISABLED: {
+    code: 40001,
+    message: 'DISABLE_AUTHENTICATOR.AUTHENTICATOR_ALREADY_DISABLED',
+  },
+  WRONG_PASSWORD: {
+    code: 40002,
+    message: 'DISABLE_AUTHENTICATOR.WRONG_PASSWORD',
+  },
+  WRONG_OTP: { code: 40003, message: 'DISABLE_AUTHENTICATOR.WRONG_OTP' },
+}
+
+export const AddAuthenticatorError = {
+  AUTHENTICATOR_ALREADY_VERIFIED: {
+    code: 39001,
+    message: 'ADD_AUTHENTICATOR.AUTHENTICATOR_ALREADY_VERIFIED',
+  },
+  WRONG_PASSWORD: { code: 39002, message: 'ADD_AUTHENTICATOR.WRONG_PASSWORD' },
+  WRONG_OTP: { code: 39003, message: 'ADD_AUTHENTICATOR.WRONG_OTP' },
+}
+
+export const AuthenticatorError = {
+  WRONG_AUTHENTICATOR_OTP: {
+    code: 49001,
+    message: 'AUTHENTICATOR.WRONG_AUTHENTICATOR_OTP',
+  },
+  AUTHENTICATOR_CODE_USED: {
+    code: 49002,
+    message: 'AUTHENTICATOR.AUTHENTICATOR_CODE_USED',
+  },
+}
+
+export enum ValidationError {
+  FAIL = 'VALIDATION.FAIL',
+  REQUIRED = 'VALIDATION.REQUIRED',
+  IS_EMAIL = 'VALIDATION.EMAIL',
+  IS_NUMBER = 'VALIDATION.IS_NUMBER',
+  IS_STRING = 'VALIDATION.IS_STRING',
+  IS_DATE = 'VALIDATION.IS_DATE',
+  MIN_LENGTH = 'VALIDATION.MIN_LENGTH_$constraint1',
+  MAX_LENGTH = 'VALIDATION.MAX_LENGTH_$constraint1',
+  MATCHES = 'VALIDATION.MATCHES',
+  PASSWORD_TOO_WEAK = 'VALIDATION.PASSWORD_TOO_WEAK',
+  IS_ENUM = 'VALIDATION.IS_ENUM',
+  IS_FILE_TYPE = 'VALIDATION.IS_FILE_TYPE',
+  IS_FILE_EXTENSION = 'VALIDATION.IS_FILE_EXTENSION',
+  MAX_FILE_SIZE = 'VALIDATION.MAX_FILE_SIZE_$constraint1',
+  ARRAY_MAX_SIZE = 'VALIDATION.ARRAY_MAX_SIZE_$constraint1',
+  MAX_NUMBER = 'VALIDATION.MAX_NUMBER_$constraint1',
+  MAX_DATE = 'VALIDATION.MAX_DATE_$constraint1',
+  EXISTED_IN_SYSTEM = 'VALIDATION.EXISTED_IN_SYSTEM',
+  PASSWORD_NOT_MATCH = 'VALIDATION.PASSWORD_NOT_MATCH',
+  SAME_AS_OLD_PASSWORD = 'VALIDATION.SAME_AS_OLD_PASSWORD',
+}
+
+// export const TokenError = {
+//   INVALID: { code: 42001, message: 'TOKEN.INVALID' },
+//   EXPIRED: { code: 42002, message: 'TOKEN.EXPIRED' },
+//   DEVICE_NOT_FOUND: { code: 42003, message: 'TOKEN.DEVICE_NOT_FOUND' },
+//   DEVICE_NOT_MATCH: { code: 42004, message: 'TOKEN.DEVICE_NOT_MATCH' },
+// }
+
+export const RoleError = {
+  NOT_FOUND: { code: 43002, message: 'ROLE.NOT_FOUND' },
+}
+
+export const UploadFileError = {
+  UPLOAD_FAIL: {
+    code: 46001,
+    message: 'UPLOAD_FILE.UPLOAD_FAIL',
+  },
+  METADATA_NOT_SUPPORTED: {
+    code: 46002,
+    message: 'UPLOAD_FILE.METADATA_NOT_SUPPORTED',
+  },
+  WRONG_FILE_TYPE: {
+    code: 46003,
+    message: 'UPLOAD_FILE.WRONG_FILE_TYPE',
+  },
+  BLANK_FILE: {
+    code: 46004,
+    message: 'UPLOAD_FILE.BLANK_FILE',
+  },
+  OVER_ROWS: {
+    code: 46005,
+    message: 'UPLOAD_FILE.OVER_ROWS',
+  },
+  OVER_1MB: {
+    code: 46006,
+    message: 'UPLOAD_FILE.OVER_1MB',
+  },
+  WRONG_HEADER: {
+    code: 46007,
+    message: 'UPLOAD_FILE.WRONG_HEADER',
+  },
+}
+
+export const BalanceImportFileErrors = {
+  MAX_FILE_AMOUNT: {
+    code: 47001,
+    message: 'BALANCE.MAX_FILE_AMOUNT',
+  },
+}
+
+export const FuturesErrors = {
+  URL_NOT_FOUND: {
+    code: 48000,
+    message: 'FUTURE.URL_NOT_FOUND',
+  },
+}

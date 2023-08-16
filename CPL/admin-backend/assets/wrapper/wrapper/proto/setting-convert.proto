@@ -1,0 +1,130 @@
+syntax = "proto3";
+
+package grpc.setting.convert.v1;
+
+service SettingConvertService {
+    rpc Get(GetRequest) returns (SettingConvertEntity);
+    rpc List(ListRequest) returns (ListResponse);
+    rpc ListLog(ListRequest) returns (ListLogResponse);
+    rpc Create(CreateRequest) returns (SettingConvertEntity);
+    rpc Update(UpdateRequest) returns (SettingConvertEntity);
+    rpc Delete(DeleteRequest) returns (SettingConvertEntity);
+}
+
+
+///////////////// BEGIN ENUM /////////////////
+enum BalanceType {
+    UNKNOWN = 0;
+    CASHBACK = 1;
+    BO = 2;
+    EXCHANGE = 3;
+    REWARD = 4;
+    FUTURES = 5;
+}
+
+enum SettingConvertStatus {
+    ENABLE = 1;
+    DISABLE = 2;
+}
+
+enum SettingConvertFeeType {
+    AMOUNT = 1;
+    RATIO = 2;
+}
+
+///////////////// END ENUM  /////////////////
+
+message SettingConvertEntity {
+    string id = 1;
+    string coin_from = 2;
+    string coin_to = 3;
+    BalanceType balance_type = 4;
+    SettingConvertStatus status = 5;
+    string maximum_amount = 6;
+    string maximum_convert_amount_per_day = 7;
+    string fee_coin = 8;
+    SettingConvertFeeType fee_type = 9;
+    BalanceType fee_balance_type = 10;
+    string fee_value = 11;
+    string created_at = 12;
+    string updated_at = 13;
+}
+
+message SettingConvertLogEntity {
+    string id = 1;
+    string coin_from = 2;
+    string coin_to = 3;
+    BalanceType balance_type = 4;
+    SettingConvertStatus status = 5;
+    string maximum_amount = 6;
+    string maximum_convert_amount_per_day = 7;
+    string fee_coin = 8;
+    SettingConvertFeeType fee_type = 9;
+    BalanceType fee_balance_type = 10;
+    string fee_value = 11;
+    string config_by = 12;
+    string created_at = 13;
+    string updated_at = 14;
+}
+
+message GetRequest {
+    string id = 1;
+}
+
+message ListRequest {
+    optional string search_field = 1;
+    optional string search_text = 2;
+    optional string sort = 3;
+    optional string sort_type = 4;
+    optional uint32 page = 5;
+    optional uint32 size = 6;
+}
+
+message CreateRequest {
+    string coin_from = 1;
+    string coin_to = 2;
+    BalanceType balance_type = 3;
+    SettingConvertStatus status = 4;
+    string maximum_amount = 5;
+    string maximum_convert_amount_per_day = 6;
+    string fee_coin = 7;
+    SettingConvertFeeType fee_type = 8;
+    BalanceType fee_balance_type = 9;
+    string fee_value = 10;
+    string config_by = 11;
+}
+
+message UpdateRequest {
+    string id = 1;
+    optional string coin_from = 2;
+    optional string coin_to = 3;
+    optional BalanceType balance_type = 4;
+    optional SettingConvertStatus status = 5;
+    optional string maximum_amount = 6;
+    optional string maximum_convert_amount_per_day = 7;
+    optional string fee_coin = 8;
+    optional SettingConvertFeeType fee_type = 9;
+    optional BalanceType fee_balance_type = 10;
+    optional string fee_value = 11;
+    string config_by = 12;
+}
+
+message DeleteRequest {
+    string id = 1;
+}
+
+message ListResponse {
+    repeated SettingConvertEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message ListLogResponse {
+    repeated SettingConvertLogEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

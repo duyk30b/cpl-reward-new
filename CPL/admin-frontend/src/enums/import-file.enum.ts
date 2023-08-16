@@ -1,0 +1,12 @@
+export enum BALANCE_IMPORT_FILE_STATUS {
+  PROCESSING = 1,
+  SUCCESS = 2,
+  CANCELLED = 3,
+}
+
+export enum BALANCE_IMPORT_ROW_STATUS {
+  PROCESSING = 1,
+  SUCCESS = 2,
+  CANCELLED = 3,
+  ERROR = 4,
+}

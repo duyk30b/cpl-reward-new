@@ -1,0 +1,62 @@
+<html>
+
+<head>
+    <title>WebSDK CDN Example</title>
+</head>
+
+<body>
+    <textarea id="access-token" rows="15" cols="80" placeholder="access-token"></textarea><br />
+    <button id="btnStart">Start</button>
+    <script src="https://static.sumsub.com/idensic/static/sns-websdk-builder.js"></script>
+    <script src="https://unpkg.com/browser-signature@1.0.4/dist/browser-signature.umd.js"></script>
+    <div id="sumsub-websdk-container"></div>
+
+    <script>
+        document.getElementById('btnStart').onclick = async () => {
+            const accessToken = document.getElementById("access-token").value
+            const res = await fetch('http://localhost:3000/sumsub/token', {
+                headers: {
+                    device: "eyJ2aXNpdG9ySWQiOiJmNjI3ZjM0Yzc3N2MzMzQ2Njg1Zjk5YjMzMTk3ZjlmZCIsInRpbWV6b25lIjp7InZhbHVlIjoiQXNpYS9TYWlnb24iLCJkdXJhdGlvbiI6MH0sInBsYXRmb3JtIjp7InZhbHVlIjoiTWFjSW50ZWwiLCJkdXJhdGlvbiI6MH0sInNjcmVlblJlc29sdXRpb24iOnsidmFsdWUiOls5MDAsMTQ0MF0sImR1cmF0aW9uIjowfSwiYXVkaW8iOnsidmFsdWUiOjEyNC4wNDM0NDk2ODQ3NTE5OCwiZHVyYXRpb24iOjJ9LCJicm93c2VyIjp7InZhbHVlIjoiQ2hyb21lIn19",
+                    Authorization: `Bearer ${accessToken}`
+                }
+            })
+            const resJson = await res.json()
+            launchWebSdk(resJson.token)
+        }
+
+        function launchWebSdk(accessToken, applicantEmail, applicantPhone) {
+            let snsWebSdkInstance = snsWebSdk.init(
+                accessToken,
+                () => this.getNewAccessToken()
+            ).withConf({
+                lang: 'en',
+                email: applicantEmail,
+                phone: applicantPhone,
+                i18n: { "document": { "subTitles": { "IDENTITY": "Upload a document that proves your identity" } } },
+                onMessage: (type, payload) => {
+                    console.log('WebSDK onMessage', type, payload)
+                },
+                uiConf: {
+                    customCssStr: ":root {\n  --black: #000000;\n   --grey: #F5F5F5;\n  --grey-darker: #B2B2B2;\n  --border-color: #DBDBDB;\n}\n\np {\n  color: var(--black);\n  font-size: 16px;\n  line-height: 24px;\n}\n\nsection {\n  margin: 40px auto;\n}\n\ninput {\n  color: var(--black);\n  font-weight: 600;\n  outline: none;\n}\n\nsection.content {\n  background-color: var(--grey);\n  color: var(--black);\n  padding: 40px 40px 16px;\n  box-shadow: none;\n  border-radius: 6px;\n}\n\nbutton.submit,\nbutton.back {\n  text-transform: capitalize;\n  border-radius: 6px;\n  height: 48px;\n  padding: 0 30px;\n  font-size: 16px;\n  background-image: none !important;\n  transform: none !important;\n  box-shadow: none !important;\n  transition: all 0.2s linear;\n}\n\nbutton.submit {\n  min-width: 132px;\n  background: none;\n  background-color: var(--black);\n}\n\n.round-icon {\n  background-color: var(--black) !important;\n  background-image: none !important;\n}"
+                },
+                onError: (error) => {
+                    console.error('WebSDK onError', error)
+                },
+            }).withOptions({ addViewportTag: false, adaptIframeHeight: true })
+                .on('stepCompleted', (payload) => {
+                    console.log('stepCompleted', payload)
+                })
+                .on('onError', (error) => {
+                    console.log('onError', payload)
+                })
+                .onMessage((type, payload) => {
+                    console.log('onMessage', type, payload)
+                })
+                .build();
+            snsWebSdkInstance.launch('#sumsub-websdk-container')
+        }
+    </script>
+
+</body>
+
+</html>

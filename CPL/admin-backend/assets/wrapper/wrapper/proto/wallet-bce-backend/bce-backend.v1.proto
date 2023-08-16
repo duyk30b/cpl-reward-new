@@ -1,0 +1,31 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+package bce_backend;
+
+service BceBackendService {
+  rpc CreateBceManualDeposit(CreateBceManualDepositBody) returns (BceManualDepositResponse) {}
+}
+
+message CreateBceManualDepositBody {
+  string user_id = 1;
+  string currency = 2;
+  string tx_hash = 3;
+  string from_address = 4;
+  string to_address = 5;
+  string amount = 6;
+  string date = 7;
+  string destination_tag = 8;
+}
+
+message BceManualDepositResponse {
+  message BceManualDepositResult {
+    bool result = 1;
+  }
+
+  BceManualDepositResult data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}

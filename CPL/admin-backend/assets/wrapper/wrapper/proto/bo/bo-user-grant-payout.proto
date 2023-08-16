@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package bo_user_grant_payout;
+
+import "google/protobuf/empty.proto";
+
+service BOUserGrantPayoutService {
+  rpc Add(AddRequest) returns (BOUserGrantPayoutResponse);
+  rpc Update(UpdateRequest) returns (BOUserGrantPayoutResponse);
+  rpc FindOne(FindOneRequest) returns (BOUserGrantPayoutResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Delete(DeleteRequest) returns (BOUserGrantPayoutResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+};
+
+message BOUserGrantPayout {
+  string id = 1;
+  uint32 user_id = 2;
+  string email = 3;
+  double payout_bonus = 4;
+  string updated_at = 5;
+  string created_at = 6;
+  string note = 7;
+  uint32 status = 8;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  uint32 user_id = 1;
+  double payout_bonus = 2;
+  string note = 3;
+  uint32 status = 4;
+};
+
+message UpdateRequest {
+  uint32 user_id = 1;
+  double payout_bonus = 2;
+  string note = 3;
+  uint32 status = 4;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+  optional uint32 user_id = 2;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string lang = 8;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOUserGrantPayoutResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOUserGrantPayout data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOUserGrantPayout items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

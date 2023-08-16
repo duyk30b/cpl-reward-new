@@ -1,0 +1,256 @@
+<%- include('../../layouts/main-before') %>
+<style>
+	#search-drugs {
+		position: relative;
+	}
+	.autocomplete-items {
+		position: absolute;
+		z-index: 99;
+		top: 100%;
+		left: 15px;
+		right: 15px;
+		border: 1px solid #d4d4d4;
+	}
+	.autocomplete-items > div {
+		position: relative;
+		padding: 8px;
+		cursor: pointer;
+		background-color: #fff;
+		border-bottom: 1px solid #d4d4d4;
+	}
+	.autocomplete-items > div:hover {
+		background-color: #e9e9e9;
+	}
+	.autocomplete-active {
+		background-color: DodgerBlue !important;
+		color: #ffffff;
+	}
+</style>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<form id="infoLuotKhamForm">
+					<div style="float: left; width: 60%" class="row pr-4">
+						<div class="input-group col-12" style="margin-bottom: 10px; padding-bottom: 0px">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-search"></i></span>
+							</div>
+							<input
+								name="TenBenhNhan"
+								id="ip-tim-benh-nhan"
+								placeholder="Nhập Tên Bệnh Nhân ..."
+								type="text"
+								class="form-control form-control-lg"
+								style="height: 100%"
+							/>
+						</div>
+                        <div class="col-12 position-relative form-group">
+							<label for="ChanDoan" class=""> Triệu chứng:</label>
+							<textarea id="TrieuChung" type="text" class="form-control" ></textarea>
+						</div>
+
+						<div class="col-12 position-relative form-group">
+							<label for="ChanDoan" class=""> Chẩn đoán:</label>
+							<input id="ChanDoan" placeholder="Viêm ..." type="text" class="form-control" />
+						</div>
+					</div>
+				</form>
+				<form id="infoBenhNhanForm">
+					<div style="float: left; width: 40%" class="pl-3">
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
+							</div>
+							<input name="Phone" type="text" class="form-control" placeholder="Điện Thoại" />
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-user-tie fa-fw"></i></span>
+							</div>
+							<input name="Birthday" type="date" class="form-control" placeholder="Ngày Sinh" />
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-building fa-fw"></i></span>
+							</div>
+							<input name="Address" type="text" class="form-control" placeholder="Địa chỉ" />
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-transgender fa-fw"></i></span>
+							</div>
+							<select name="Gender" class="custom-select">
+								<option value="" selected disabled>Giới Tính</option>
+								<option value="Male">Nam</option>
+								<option value="Female">Nữ</option>
+							</select>
+						</div>
+
+						<div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-file-medical-alt fa-fw"></i></span>
+							</div>
+							<input name="TienSuBenh" type="text" class="form-control" placeholder="Tiền sử bệnh" />
+						</div>
+
+                        <div class="input-group mb-2">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-money-bill-wave fa-fw"></i></span>
+							</div>
+							<input name="TienNo" type="number" class="form-control" placeholder="Dư nợ" />
+						</div>
+					</div>
+				</form>
+
+				<div class="clearfix"></div>
+                <div class="divider mt-0" style="margin-bottom: 30px;"></div>
+
+
+				<div class="row justify-content-center">
+					<button id="btn-nhap-thuoc" class="btn btn-primary btn-lg">KẾT THÚC</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%- include('../../layouts/main-after') %>
+
+<script>
+	let ipTimBN = document.getElementById('ip-tim-benh-nhan'),
+		infoBenhNhanForm = document.getElementById('infoBenhNhanForm');
+
+	let dsBenhNhan = [];
+	let selectPatient;
+
+	MyFetch.fetch({
+		url: '/manager/benh-nhan/list',
+		succ: (resp) => {
+			dsBenhNhan = resp.data;
+		},
+	});
+
+	!function () {
+		let actionSearch = {
+			currentFocus: -1,
+			createContainDiv: (val) => {
+				let contain = document.createElement('div');
+				contain.setAttribute('id', ipTimBN.id + '-autocomplete-list');
+				contain.setAttribute('class', 'autocomplete-items');
+				ipTimBN.parentNode.appendChild(contain);
+				for (let i = 0, count = 0; i < dsBenhNhan.length; i++) {
+					if (actionSearch.logicSearch(dsBenhNhan[i], val)) {
+						let elm = document.createElement('div');
+						actionSearch.drawContainSearch(dsBenhNhan[i], elm, val);
+						elm.addEventListener('click', function (e) {
+							let itemJson = elm.getAttribute('data-item');
+							let item = JSON.parse(itemJson);
+							actionSearch.completeSearch(item);
+							actionSearch.removeContainDiv();
+						});
+						contain.appendChild(elm);
+						count++;
+					}
+					if (count == 8) break;
+				}
+			},
+			removeContainDiv: (elm) => {
+				let list = document.getElementsByClassName('autocomplete-items');
+				for (let i = 0; i < list.length; i++) {
+					if (elm != list[i] && elm != ipTimBN) {
+						list[i].remove();
+					}
+				}
+			},
+			reset: () => {
+				selectDrug = null;
+				infoBenhNhanForm.reset();
+				MyForm.disabled(infoBenhNhanForm, false);
+			},
+			logicSearch: (item, key) => {
+				if (MyString.search(item['Name'], key)) {
+					return true;
+				}
+				if (MyString.search(item['Phone'], key)) {
+					return true;
+				}
+				return false;
+			},
+			drawContainSearch: (item, elm, val) => {
+				elm.innerHTML = `<strong>${item.Name}</strong><br>
+								<span>${item.Phone}</span>`;
+				elm.setAttribute('data-item', JSON.stringify(item));
+			},
+			completeSearch: (item) => {
+				ipTimBN.value = item.Name;
+				selectDrug = item;
+				actionSearch.drawDetailPatient(item);
+			},
+			drawDetailPatient: (item) => {
+				MyForm.setData(item, infoBenhNhanForm);
+				MyForm.disabled(infoBenhNhanForm, true);
+			},
+			addActive: (div, index) => {
+				if (!div) return false;
+				for (let i = 0; i < div.length; i++) {
+					div[i].classList.remove('autocomplete-active');
+				}
+				div[index].classList.add('autocomplete-active');
+				let itemJson = div[index].getAttribute('data-item');
+				let item = JSON.parse(itemJson);
+				actionSearch.drawDetailPatient(item);
+			},
+		};
+		ipTimBN.addEventListener('input', function (e) {
+			actionSearch.currentFocus = -1;
+			actionSearch.removeContainDiv();
+			actionSearch.reset();
+			let val = this.value;
+			if (!val) return;
+			actionSearch.createContainDiv(val);
+		});
+		ipTimBN.addEventListener('keydown', function (e) {
+			let contain = document.getElementById(ipTimBN.id + '-autocomplete-list');
+			let list;
+			if (contain) list = contain.getElementsByTagName('div');
+			if (e.keyCode == 40) {
+				e.preventDefault();
+				actionSearch.currentFocus++;
+				if (actionSearch.currentFocus >= list.length) actionSearch.currentFocus = 0;
+				actionSearch.addActive(list, actionSearch.currentFocus);
+			} else if (e.keyCode == 38) {
+				e.preventDefault();
+				actionSearch.currentFocus--;
+				if (actionSearch.currentFocus < 0) actionSearch.currentFocus = list.length - 1;
+				actionSearch.addActive(list, actionSearch.currentFocus);
+			} else if (e.keyCode == 13) {
+				e.preventDefault();
+				if (actionSearch.currentFocus >= 0) {
+					if (list) list[actionSearch.currentFocus].click();
+				}
+			} else if (e.keyCode == 9) {
+				if (actionSearch.currentFocus >= 0) {
+					if (list) list[actionSearch.currentFocus].click();
+				} else if (actionSearch.currentFocus < 0) {
+					if (list) actionSearch.removeContainDiv();
+				}
+			}
+		});
+		document.addEventListener('click', function (e) {
+			actionSearch.removeContainDiv(e.target);
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.keyCode == 27) {
+				e.preventDefault();
+				actionSearch.removeContainDiv();
+			}
+		});
+	}();
+
+
+</script>

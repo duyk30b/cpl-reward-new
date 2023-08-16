@@ -1,0 +1,597 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+package hot_wallet;
+
+service HotWalletService {
+  rpc GetDeposit(FilterTransactionQuery) returns (GetDepositResponse) {}
+  rpc GetWithdraw(FilterTransactionQuery) returns (GetWithdrawResponse) {}
+  rpc GetWallet(FilterWalletQuery) returns (GetWalletResponse) {}
+  rpc GetSmartContract(SmartContractQuery) returns (SmartContractResponse) {}
+
+  rpc GetIncidentCollection (FilterIncidentCollectionQuery) returns (GetIncidentCollectionResponse) {}
+  rpc PostIncidentCollection (FilterIncidentCollectionQuery) returns (PostIncidentCollectionResponse) {}
+
+  rpc GetSetting(FilterSettingQuery) returns (GetSettingResponse) {}
+  rpc UpdateSetting(UpdateSettingBody) returns (UpdateSettingResponse) {}
+
+  rpc GetErc20Token(google.protobuf.Empty) returns (GetErc20TokenResponse) {}
+  rpc GetChainNetwork(google.protobuf.Empty) returns (GetChainNetworkResponse) {}
+
+  rpc GetListBlacklist(FilterQuery) returns (GetBlacklistAddressResponse) {}
+  rpc AddListBlacklist(AddListBlacklistQuery) returns (GetBlacklistAddressResponse) {}
+  rpc UpdateIgnoreBlacklist(UpdateIgnoreBlacklistQuery) returns (UpdateBlacklistResponse) {}
+  rpc UpdateBlacklist(BlacklistAddressDto) returns (UpdateBlacklistResponse) {}
+  rpc RemoveBlacklist(RemoveBlacklistQuery) returns (RemoveBlacklistResponse) {}
+
+  rpc GetListBlacklistUser(FilterPagination) returns (GetBlacklistUserResponse) {}
+  rpc AddListBlacklistUser(AddListBlacklistUserQuery) returns (GetBlacklistUserResponse) {}
+  rpc UpdateIgnoreBlacklistUser(UpdateIgnoreBlacklistUserQuery) returns (UpdateBlacklistUserResponse) {}
+  rpc UpdateBlacklistUser(BlacklistUserDto) returns (UpdateBlacklistUserResponse) {}
+  rpc RemoveBlacklistUser(RemoveBlacklistQuery) returns (RemoveBlacklistResponse) {}
+
+  rpc ExportDeposit(FilterTransactionQuery) returns (ExportResponse) {}
+  rpc ExportWithdraw(FilterTransactionQuery) returns (ExportResponse) {}
+  rpc RetryFailedWithdraw(RetryFailedWithdrawQuery) returns (RetryFailedWithdrawResponse) {}
+
+  rpc CreateManualDeposit(CreateManualDepositBody) returns (ManualDepositResponse) {}
+  rpc RetryManualDeposit(RetryDepositBody) returns (ManualDepositResponse) {}
+
+  rpc ForceStopQueue(ForceStopQueueBody) returns (ForceStopQueueResponse) {}
+
+  rpc GetDepositById(IdQuery) returns (DetailDepositResponse) {}
+  rpc GetWithdrawById(IdQuery) returns (DetailWithdrawResponse) {}
+
+  rpc GetTrezorWallet(FilterTrezorWalletQuery) returns (GetTrezorWalletReponse) {}
+  rpc GetTrezorCollectorAddress(google.protobuf.Empty) returns (GetTrezorCollectorAddressResponse) {}
+  rpc CreateTrezorTransaction(TrezorTransactionParam) returns (CreateTrezorTransactionResponse) {}
+}
+
+message FilterQuery {
+  int32 size = 1;
+  int32 page = 2;
+
+  string keyword = 3;
+  string symbol = 4;
+  string chain_code = 5;
+  string sort = 6;
+  string sort_type = 7;
+}
+
+message FilterTransactionQuery {
+  int32 size = 1;
+  int32 page = 2;
+
+  string keyword = 3;
+  string symbol = 4;
+  string chain_code = 5;
+  string sort = 6;
+  string sort_type = 7;
+  string search_address = 8;
+  string search_transaction_hash = 9;
+  string search_transaction_id = 10;
+  string from_date = 11;
+  string to_date = 12;
+  string status = 13;
+
+  string lang = 14;
+}
+
+message FilterPagination {
+  int32 page = 1;
+  int32 size = 2;
+  string sort = 3;
+  string sort_type = 4;
+}
+
+message DepositDto {
+  int32 id = 1;
+  string wallet_address = 2;
+  string symbol = 3;
+  string chain_code = 4;
+  string amount = 5;
+  string block = 6;
+  int32 confirmations = 7;
+  string status = 8;
+  string transaction_hash = 9;
+  string network = 10;
+  string created_at = 11;
+  string updated_at = 12;
+  string bce_transaction_transaction_id = 13;
+  string parsed_amount = 14;
+  string queue_status = 15;
+}
+
+message GetDepositResponse {
+  repeated DepositDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message WithdrawDto {
+  int32 id = 1;
+  string bce_transaction_id = 2;
+  string chain_code = 3;
+  bool confirmation_passed = 4;
+  int32 confirmation_passed_date = 5;
+  int32 confirmations = 6;
+  string from = 7;
+  string interactor = 8;
+  string interactor_id = 9;
+  string network = 10;
+  string amount = 11;
+  string parsed_amount = 12;
+  string requested_date = 13;
+  string signed_date = 14;
+  string status = 15;
+  string symbol = 16;
+  string to = 17;
+  string transaction_hash = 18;
+  string user_id = 19;
+  string created_at = 20;
+  string updated_at = 21;
+  string bce_transaction_transaction_id = 22;
+  string domain = 23;
+}
+
+message GetWithdrawResponse {
+  repeated WithdrawDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+
+
+message FilterWalletQuery {
+  string keyword = 1;
+  string symbol = 2;
+  string type = 3;
+
+  int32 page = 4;
+  int32 size = 5;
+  string sort = 6;
+  string sort_type = 7;
+  string search_address = 8;
+  string search_from_balance = 9;
+  string search_to_balance = 10;
+  string search_user_id = 11;
+}
+
+message WalletDto {
+  int32 id = 1;
+  string address = 2;
+  string balance = 3;
+  string chain_code = 4;
+  string pending_balance = 5;
+  string symbol = 6;
+  string type = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  int32 user_id = 10;
+}
+
+message GetWalletResponse {
+  repeated WalletDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message FilterIncidentCollectionQuery {
+  string chain_code = 1;
+  string domain = 2;
+  string min_balance = 3;
+  string max_balance = 4;
+  string symbol = 5;
+
+  int32 page = 6;
+  int32 size = 7;
+}
+
+message IncidentMetaData {
+  string incidenceAmount = 1;
+}
+
+message GetIncidentCollectionResponse {
+  repeated WalletDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  IncidentMetaData meta_data = 5;
+}
+
+message IncidentDto {
+  int32 total = 1;
+  message BalanceIncident {
+    string balance = 1;
+    int32 total = 2;
+  }
+  map<string, BalanceIncident> estimated_balances = 2;
+}
+
+message IncidentResponse {
+  int32 total = 1;
+  IncidentDto mother = 2;
+  IncidentDto user = 3;
+}
+
+message PostIncidentCollectionResponse {
+  IncidentResponse data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  IncidentMetaData meta_data = 5;
+}
+
+message FilterSettingQuery {
+  string category = 1;
+}
+
+message SettingResponse {
+  string chain_code = 1;
+
+  message SettingDto {
+    string key = 1;
+    bool show = 2;
+    string title = 3;
+    string value = 4;
+    string type = 5;
+  }
+  repeated SettingDto settings = 2;
+}
+
+message GetSettingResponse {
+  repeated SettingResponse data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message SettingBaseDto {
+  string key = 1;
+  string value = 2;
+}
+
+message UpdateSettingBody {
+  repeated SettingBaseDto wallet_settings = 1;
+}
+
+message UpdateSettingSuccess {
+  bool success = 1;
+}
+
+message UpdateSettingResponse {
+  UpdateSettingSuccess data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message Erc20TokenDto {
+  string contract_address = 1;
+  int32 decimal = 2;
+  string name = 3;
+  string network = 4;
+  string symbol = 5;
+}
+
+message GetErc20TokenResponse {
+  repeated Erc20TokenDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ChainNetworkDto {
+  string code = 1;
+}
+
+message GetChainNetworkResponse {
+  repeated ChainNetworkDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message BlacklistAddressDto {
+  int32 id = 1;
+  string address = 2;
+  string chain_code = 3;
+  string symbol = 4;
+  int32 user_id = 5;
+  int32 risk = 6;
+  string note = 7;
+  string reason = 8;
+  string source = 9;
+  bool is_ignore = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}
+
+message GetBlacklistAddressResponse {
+  repeated BlacklistAddressDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message AddListBlacklistQuery {
+  repeated BlacklistAddressDto data = 1;
+}
+
+message UpdateIgnoreBlacklistQuery {
+  int32 id = 1;
+  bool is_ignore = 2;
+}
+
+message UpdateBlacklistResponse {
+  BlacklistAddressDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message BlacklistUserDto {
+  int32 id = 1;
+  int32 user_id = 2;
+  int32 risk = 3;
+  string note = 4;
+  string reason = 5;
+  string source = 6;
+  bool is_ignore = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+
+message GetBlacklistUserResponse {
+  repeated BlacklistUserDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message AddListBlacklistUserQuery {
+  repeated BlacklistUserDto data = 1;
+}
+
+message UpdateIgnoreBlacklistUserQuery {
+  int32 id = 1;
+  bool is_ignore = 2;
+}
+
+message UpdateBlacklistUserResponse {
+  BlacklistUserDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message RemoveBlacklistQuery {
+  int32 id = 1;
+}
+
+message RemoveBlacklistResponse {
+  bool data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message SmartContractQuery {
+  string address = 1;
+  string chain_code = 2;
+}
+
+message SmartContractResponse {
+  message SmartContractInfo {
+    string coin = 1;
+    string coin_name = 2;
+    string network = 3;
+    int32 decimal = 4;
+    int32 require_confirmation = 5;
+    string transaction_explorer = 6;
+    string transaction_path = 7;
+    string total_supply = 8;
+    string chain_code = 9;
+  }
+
+  SmartContractInfo data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ExportResponse {
+  message ExportData {
+    string path = 1;
+  }
+
+  ExportData data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message RetryFailedWithdrawQuery {
+  int32 id = 1;
+  int32 fee_limit = 2;
+  int32 gas_limit = 3;
+  int32 admin_id = 4;
+}
+
+message RetryFailedWithdrawResponse {
+  bool data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message CreateManualDepositBody {
+  string chain_code = 1;
+  string symbol = 2;
+  string transaction_hash = 3;
+  int32 admin_id = 4;
+}
+
+message RetryDepositBody {
+  string transaction_id = 1;
+  int32 admin_id = 2;
+}
+
+message ManualDepositResponse {
+  message ManualDepositResult {
+    bool result = 1;
+  }
+
+  ManualDepositResult data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ForceStopQueueBody {
+  string transaction_id = 1;
+  int32 admin_id = 2;
+}
+
+message ForceStopQueueResponse {
+  message ForceStopQueueResult {
+    bool result = 1;
+  }
+
+  ForceStopQueueResult data = 1;
+  string message = 2;
+  int64 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ManualTransactionLogDto {
+  int32 id = 1;
+  string action = 2;
+  string transaction_hash = 3;
+  string before_status = 4;
+  string after_status = 5;
+  string message = 6;
+  string symbol = 7;
+  string chain_code = 8;
+  int32 created_by = 9;
+  string process_status = 10;
+  string overwrite_action = 11;
+  int32 overwrite_action_by = 12;
+  string overwrite_message = 13;
+  string overwrite_created_at = 14;
+  string created_at = 15;
+  string updated_at = 16;
+}
+
+message DetailDepositResponse {
+  message DetailDepositDto {
+    DepositDto transaction = 1;
+    repeated ManualTransactionLogDto logs = 2;
+  }
+
+  DetailDepositDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message DetailWithdrawResponse {
+  message DetailWithdrawDto {
+    WithdrawDto transaction = 1;
+    repeated ManualTransactionLogDto logs = 2;
+  }
+
+  DetailWithdrawDto data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message IdQuery {
+  int32 id = 1;
+}
+
+message FilterTrezorWalletQuery {
+  int32 size = 1;
+  int32 page = 2;
+  string symbol = 3;
+  string sort = 4;
+  string sort_type = 5;
+  string status = 6;
+}
+
+message TrezorWallet {
+  int32 id = 1;
+  string symbol = 2;
+  string chain_code = 3;
+  string address = 4;
+  string tag = 5;
+  string path = 6;
+  string balance = 7;
+  string status = 8;
+  string updated_at = 9;
+}
+
+message GetTrezorWalletReponse {
+  repeated TrezorWallet data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetTrezorCollectorAddressResponse {
+  message AddressDetail {
+    string chain_code = 1;
+    string address = 2;
+    string fee_limit = 3;
+    string fee_price = 4;
+  }
+
+  repeated AddressDetail data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message TrezorTransactionParam {
+  repeated int32 trezor_ids = 1;
+  string symbol = 2;
+  string chain_code = 3;
+  string hash = 4;
+}
+
+message CreateTrezorTransactionResponse {
+  message CreateTrezorResult {
+    bool success = 1;
+  }
+
+  CreateTrezorResult data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}

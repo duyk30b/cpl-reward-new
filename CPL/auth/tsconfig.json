@@ -1,0 +1,294 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@lib/util": [
+        "libs/util/src"
+      ],
+      "@lib/util/*": [
+        "libs/util/src/*"
+      ],
+      "@lib/user": [
+        "libs/user/src"
+      ],
+      "@lib/user/*": [
+        "libs/user/src/*"
+      ],
+      "@lib/redis": [
+        "libs/redis/src"
+      ],
+      "@lib/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@lib/device": [
+        "libs/device/src"
+      ],
+      "@lib/device/*": [
+        "libs/device/src/*"
+      ],
+      "@lib/amazon-cognito": [
+        "libs/amazon-cognito/src"
+      ],
+      "@lib/amazon-cognito/*": [
+        "libs/amazon-cognito/src/*"
+      ],
+      "@lib/ares": [
+        "libs/ares/src"
+      ],
+      "@lib/ares/*": [
+        "libs/ares/src/*"
+      ],
+      "@lib/artemis": [
+        "libs/artemis/src"
+      ],
+      "@lib/artemis/*": [
+        "libs/artemis/src/*"
+      ],
+      "@lib/authorization": [
+        "libs/authorization/src"
+      ],
+      "@lib/authorization/*": [
+        "libs/authorization/src/*"
+      ],
+      "@lib/blacklist": [
+        "libs/blacklist/src"
+      ],
+      "@lib/blacklist/*": [
+        "libs/blacklist/src/*"
+      ],
+      "@lib/country": [
+        "libs/country/src"
+      ],
+      "@lib/country/*": [
+        "libs/country/src/*"
+      ],
+      "@lib/flows": [
+        "libs/flows/src"
+      ],
+      "@lib/flows/*": [
+        "libs/flows/src/*"
+      ],
+      "@lib/notification": [
+        "libs/notification/src"
+      ],
+      "@lib/notification/*": [
+        "libs/notification/src/*"
+      ],
+      "@lib/redis-queue": [
+        "libs/redis-queue/src"
+      ],
+      "@lib/redis-queue/*": [
+        "libs/redis-queue/src/*"
+      ],
+      "@lib/upload-file": [
+        "libs/upload-file/src"
+      ],
+      "@lib/upload-file/*": [
+        "libs/upload-file/src/*"
+      ],
+      "@lib/user-kyc-admin": [
+        "libs/user-kyc-admin/src"
+      ],
+      "@lib/user-kyc-admin/*": [
+        "libs/user-kyc-admin/src/*"
+      ],
+      "@lib/user-kyc-cynopsis": [
+        "libs/user-kyc-cynopsis/src"
+      ],
+      "@lib/user-kyc-cynopsis/*": [
+        "libs/user-kyc-cynopsis/src/*"
+      ],
+      "@lib/user-tag": [
+        "libs/user-tag/src"
+      ],
+      "@lib/user-tag/*": [
+        "libs/user-tag/src/*"
+      ],
+      "@lib/user-tag-map": [
+        "libs/user-tag-map/src"
+      ],
+      "@lib/user-tag-map/*": [
+        "libs/user-tag-map/src/*"
+      ],
+      "@lib/grpc-client": [
+        "libs/grpc-client/src"
+      ],
+      "@lib/grpc-client/*": [
+        "libs/grpc-client/src/*"
+      ],
+      "@lib/otp": [
+        "libs/otp/src"
+      ],
+      "@lib/otp/*": [
+        "libs/otp/src/*"
+      ],
+      "@lib/login-history": [
+        "libs/login-history/src"
+      ],
+      "@lib/login-history/*": [
+        "libs/login-history/src/*"
+      ],
+      "@lib/admin-aggregate": [
+        "libs/admin-aggregate/src"
+      ],
+      "@lib/admin-aggregate/*": [
+        "libs/admin-aggregate/src/*"
+      ],
+      "@lib/tag": [
+        "libs/tag/src"
+      ],
+      "@lib/tag/*": [
+        "libs/tag/src/*"
+      ],
+      "@lib/channel": [
+        "libs/channel/src"
+      ],
+      "@lib/channel/*": [
+        "libs/channel/src/*"
+      ],
+      "@lib/unlimited-user": [
+        "libs/unlimited-user/src"
+      ],
+      "@lib/unlimited-user/*": [
+        "libs/unlimited-user/src/*"
+      ],
+      "@lib/black-user": [
+        "libs/black-user/src"
+      ],
+      "@lib/black-user/*": [
+        "libs/black-user/src/*"
+      ],
+      "@lib/websocket": [
+        "libs/websocket/src"
+      ],
+      "@lib/websocket/*": [
+        "libs/websocket/src/*"
+      ],
+      "@lib/user-setting": [
+        "libs/user-setting/src"
+      ],
+      "@lib/user-setting/*": [
+        "libs/user-setting/src/*"
+      ],
+      "@lib/error-sync-user": [
+        "libs/error-sync-user/src"
+      ],
+      "@lib/error-sync-user/*": [
+        "libs/error-sync-user/src/*"
+      ],
+      "@lib/safe-user": [
+        "libs/safe-user/src"
+      ],
+      "@lib/safe-user/*": [
+        "libs/safe-user/src/*"
+      ],
+      "@lib/re-captcha": [
+        "libs/re-captcha/src"
+      ],
+      "@lib/re-captcha/*": [
+        "libs/re-captcha/src/*"
+      ],
+      "@lib/email-change-history": [
+        "libs/email-change-history/src"
+      ],
+      "@lib/email-change-history/*": [
+        "libs/email-change-history/src/*"
+      ],
+      "@lib/kafka": [
+        "libs/kafka/src"
+      ],
+      "@lib/kafka/*": [
+        "libs/kafka/src/*"
+      ],
+      "@lib/user-kyc": [
+        "libs/user-kyc/src"
+      ],
+      "@lib/user-kyc/*": [
+        "libs/user-kyc/src/*"
+      ],
+      "@lib/kyc-captcha": [
+        "libs/kyc-captcha/src"
+      ],
+      "@lib/kyc-captcha/*": [
+        "libs/kyc-captcha/src/*"
+      ],
+      "@lib/amazon-rekognition": [
+        "libs/amazon-rekognition/src"
+      ],
+      "@lib/amazon-rekognition/*": [
+        "libs/amazon-rekognition/src/*"
+      ],
+      "@lib/user-kyc-rekognition": [
+        "libs/user-kyc-rekognition/src"
+      ],
+      "@lib/user-kyc-rekognition/*": [
+        "libs/user-kyc-rekognition/src/*"
+      ],
+      "@lib/dynamic-link": [
+        "libs/dynamic-link/src"
+      ],
+      "@lib/dynamic-link/*": [
+        "libs/dynamic-link/src/*"
+      ],
+      "@lib/user-email": [
+        "libs/user-email/src"
+      ],
+      "@lib/user-email/*": [
+        "libs/user-email/src/*"
+      ],
+      "@lib/auth-setting": [
+        "libs/auth-setting/src"
+      ],
+      "@lib/auth-setting/*": [
+        "libs/auth-setting/src/*"
+      ],
+      "@lib/sumsub": [
+        "libs/sumsub/src"
+      ],
+      "@lib/sumsub/*": [
+        "libs/sumsub/src/*"
+      ],
+      "@lib/kyc-provider": [
+        "libs/kyc-provider/src"
+      ],
+      "@lib/kyc-provider/*": [
+        "libs/kyc-provider/src/*"
+      ],
+      "@lib/user-kyc-sumsub": [
+        "libs/user-kyc-sumsub/src"
+      ],
+      "@lib/user-kyc-sumsub/*": [
+        "libs/user-kyc-sumsub/src/*"
+      ],
+      "@lib/user-provider": [
+        "libs/user-provider/src"
+      ],
+      "@lib/user-provider/*": [
+        "libs/user-provider/src/*"
+      ],
+      "@lib/firebase": [
+        "libs/firebase/src"
+      ],
+      "@lib/firebase/*": [
+        "libs/firebase/src/*"
+      ],
+      "lib/reason": [
+        "libs/reason/src"
+      ],
+      "lib/reason/*": [
+        "libs/reason/src/*"
+      ]
+    }
+  }
+}

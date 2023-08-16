@@ -1,0 +1,137 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: none;
+
+}
+body{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: Century, serif;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+}
+header {
+    text-align: center;
+    background-color: #fa8d62;
+    margin: 2px 5px;
+    color: white;
+}
+header p {
+    font-size: 1.2rem;
+    padding: 5px 0 3px 0;
+}
+.setGame{
+    display: flex;
+    justify-content: space-between;
+    background-color: #2b616d;
+    padding: 10px;
+}
+.setGame input{
+    width: 20px;
+    height: 20px;
+}
+.setGame button{
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    padding: .375rem .75rem;
+    font-size: 1.2rem;
+    border-radius: .25rem;
+}
+main{
+    background-color: #b2dbd5;
+    flex-grow: 2;
+    margin: 2px 5px;
+    text-align: center;
+}
+
+#myCanvas{
+    display: inline-block;
+    background-color: #ffffff;
+    padding: 0 2px;
+    position: relative;
+}
+.gameBoard {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    font-family: "Droid Sans Mono Slashed", sans-serif;
+    font-size: 14px;
+    text-align: center;
+}
+
+.flowGame {
+    display: flex;
+    justify-content: space-around;
+    font-size: 12px;
+    flex-wrap: wrap;
+    padding: 5px 2px;
+    background-color: #b2dbd5;
+    margin-bottom: 20px;
+}
+.flowGame div {
+    width: 40%;
+    margin: 10px 0;
+}
+.flowGame div p {
+    padding: 6px 0;
+    background-color: white;
+}
+.flowGame div p:nth-child(1) {
+    margin-bottom: 1px;
+}
+.score{
+    background-color: #b2dbd5;
+}
+.score p {
+    padding: 6px 3px;
+    margin: 10px 10px;
+    background-color: white;
+}
+#score {
+    font-family: Dialog, serif;
+    font-size: 40px;
+    color: #dc3545;
+    background-color: white;
+    padding: 6px 3px;
+    margin: 10px 10px;
+}
+
+
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #2b616d;
+    margin: 2px 5px;
+}
+footer div {
+    width: 20%;
+    height: 50px;
+    align-items: center;
+    padding: 5px;
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+#moveLeft{
+    background-image: url("img/arrow.png");
+    transform: rotate(90deg);
+}
+#moveDown{
+    background-image: url("img/arrow.png");
+}
+#Rotate{
+    background-image: url("img/rotate.png");
+}
+#moveRight{
+    background-image: url("img/arrow.png");
+    transform: rotate(270deg);
+}

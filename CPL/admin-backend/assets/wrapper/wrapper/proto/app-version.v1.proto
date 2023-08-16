@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package appversion;
+
+message GetAppVersionRequest {
+  string platform = 1;
+}
+
+message AppVersionItem {
+  string version = 1;
+  string platform = 2;
+  string change_log = 3;
+  string release_date = 4;
+  bool force_update = 5;
+}
+
+message AppVersionsResponse {
+  repeated AppVersionItem data = 1;
+}
+
+service AppVersionService {
+  rpc GetAppVersions(GetAppVersionRequest) returns (AppVersionsResponse) {}
+  rpc SaveAppVersion(AppVersionItem) returns (AppVersionItem) {}
+  rpc DeleteAppVersion(AppVersionItem) returns (AppVersionItem) {}
+}

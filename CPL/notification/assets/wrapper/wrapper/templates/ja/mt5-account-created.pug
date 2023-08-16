@@ -1,0 +1,39 @@
+extends ../layouts/mt5/ja/layout.pug
+
+block content 
+  div(class="title mb-32") 新規MT5口座の作成が完了しました。
+
+  div(class="paragraph mb-32") 〇〇様
+
+  div(class="paragraph mb-32") この度、bitcastleにて、新規MT5口座をご登録頂きありがとうございます。ご登録時に作成したパスワードを用いて、bitcastleにてお取引を開始していただけるようになりました。
+
+  div(class="card paragraph mb-32")
+    div(class="d-flex mb-16")
+      div(class="mr-auto") ログイン: 
+      div #{id}
+    div(class="d-flex mb-16")
+      div(class="mr-auto") パスワード:
+      div #{password}
+    div(class="d-flex mb-16")
+      div(class="mr-auto") サーバ:
+      div #{server}
+    div(class="d-flex mb-16")
+      div(class="mr-auto") 口座の種類:
+      div #{accountType}
+    div(class="d-flex")
+      div(class="mr-auto") バランス:
+      div #{balance}
+
+  div(class="paragraph mb-32") MT5アプリをインストールしていない際は下記の「MT5ターミナルダウンロード」ボタンをクリックしてダウンロードできます。
+
+  a(href=`${mt5TerminalUrl}` class="btn btn-primary d-block text-light paragraph mb-32") MT5ターミナルダウンロード
+
+  div(class="paragraph mb-32") または下記の「WebTraderへアクセス」ボタンをクリックしてご使用いただきます。
+
+  a(href=`${webTraderUrl}` class="btn btn-primary d-block text-light paragraph mb-32") WebTraderへアクセス
+
+  div(class="divider mb-32")
+
+  div(class="title mb-32") 入金し取引を始めてください
+
+  a(href=`${depositUrl}` class="btn btn-light d-block text-dark paragraph") 入金

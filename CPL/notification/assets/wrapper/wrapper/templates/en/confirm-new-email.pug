@@ -1,0 +1,26 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") Thank you very much for your continued patronage of bitcastle.
+
+	div(class="mb-10") 【Note】 ※ The e-mail address has not been changed yet.
+
+	div(class="mb-10") We have received your email address change request.
+
+	div(class="mb-10") The new email address will be enabled by enter the following code.
+
+	div(class="mb-10") Verification code
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") 
+		div For security reasons, please complete change your email within #{ttl / 60} minutes of receiving this e-mail.
+		div *This e-mail has been sent from our send-only e-mail address and cannot be replied to.
+		div If this activity is not your own operation, please disable your account and contact us immediately.
+
+	div(class="mb-10") Thank you for continued support of bitcastle
+
+	div(class="mb-10") This e-mail has been sent from our send-only email address.
+
+	div(class="mb-10") Therefore, we cannot identify the content even if you reply.

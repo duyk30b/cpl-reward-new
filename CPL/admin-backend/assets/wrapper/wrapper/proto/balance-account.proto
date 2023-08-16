@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package grpc.balance.account.v1;
+
+service BalanceAccountService {
+    rpc ListForUser(ListForUserRequest) returns (ListResponse);
+}
+
+message ListForUserRequest {
+    string user_id = 1;
+}
+
+message ListResponse {
+    repeated BalanceAccountEntity items = 1;
+}
+
+message BalanceAccountEntity {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+    }
+    string id = 1;
+    string user_id = 2;
+    string currency = 3;
+    BalanceType type = 4;
+    string actual_balance = 5;
+    string available_balance = 6;
+    string created_at = 7;
+    string updated_at = 8;
+}

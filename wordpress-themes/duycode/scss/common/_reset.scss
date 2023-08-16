@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+}
+
+ol,
+ul {
+    list-style-type: none;
+    list-style-position: inside;
+}
+
+table {
+    max-width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td, th {
+    border: 1px solid #cdcdcd;
+    padding: 0 5px;
+}
+pre,
+code {
+    font-family: monospace, monospace;
+}
+
+summary {
+    cursor: pointer;
+    user-select: none;
+}

@@ -1,0 +1,58 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package sub_pair_category;
+
+message PairItem {
+  string coin = 1;
+  string currency = 2;
+  int32 status = 3;
+}
+
+message SubPairCategoryItem {
+  string parent_id = 1;
+  int32 status = 2;
+  string language_key = 3;
+  repeated PairItem pairs = 4;
+  int32 index = 5;
+}
+
+message SubPairCategory {
+  string id = 1;
+  string parent_id = 2;
+  int32 status = 3;
+  string language_key = 4;
+  repeated PairItem pairs = 5;
+  int32 index = 6;
+}
+
+message DeleteSubPairCategoryRequest { string id = 1; }
+
+message DeleteSubPairCategoryResponse { bool status = 1; }
+
+message GetSubPairCategoryByParentIdRequest { string parent_id = 1; }
+
+message GetSubPairCategoryByParentIdResponse {
+  repeated SubPairCategory data = 1;
+}
+
+message UpdateOrderSubCategoryRequest {
+  message Data {
+    string id = 1;
+    int32 index = 2;
+  }
+  repeated Data data = 1;
+}
+
+message UpdateOrderSubCategoryResponse { bool status = 1; }
+
+service PairSubCategorySettingService {
+  rpc GetSubPairCategorySetting(GetSubPairCategoryByParentIdRequest)
+      returns (GetSubPairCategoryByParentIdResponse) {}
+  rpc InsertSubPairCategorySetting(SubPairCategoryItem)
+      returns (SubPairCategory) {}
+  rpc UpdateSubPairCategorySetting(SubPairCategory) returns (SubPairCategory) {}
+  rpc DeleteSubPairCategorySetting(DeleteSubPairCategoryRequest)
+      returns (DeleteSubPairCategoryResponse) {}
+  rpc UpdateOrderSubCategory(UpdateOrderSubCategoryRequest)
+      returns (UpdateOrderSubCategoryResponse);
+}

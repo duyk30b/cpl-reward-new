@@ -1,0 +1,344 @@
+<div class="modal fade" id="infoTuThuocModal" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin Thuốc Trong Tủ</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+
+			<div class="row field-thuoc mb-2" style="display: none">
+				<div class="col-3 input-group" style="padding-right: 5px">
+					<input name="SoLuong[99].DonVi" type="number" class="form-control" placeholder="Số lượng" />
+					<div class="input-group-append">
+						<span class="input-group-text append-dang-thuoc">Viên</span>
+					</div>
+				</div>
+				<div class="col" style="padding: 0 5px">
+					<input
+						name="SoLuong[99].GiaMua"
+						data-money="vnd"
+						type="number"
+						class="form-control"
+						onfocusout="MyForm.autoCompleteMoney(this)"
+						placeholder="Giá mua"
+					/>
+				</div>
+				<div class="col" style="padding: 0 5px">
+					<input
+						name="SoLuong[99].GiaBan"
+						data-money="vnd"
+						type="number"
+						class="form-control"
+						onfocusout="MyForm.autoCompleteMoney(this)"
+						placeholder="Giá bán"
+					/>
+				</div>
+				<div class="col" style="padding: 0 5px">
+					<input
+						name="SoLuong[99].HanSuDung"
+						type="date"
+						min="2021-01-01"
+						class="form-control"
+						placeholder="Hạn sử dụng"
+					/>
+				</div>
+				<div class="col-1" style="padding: 0 5px">
+					<button type="button" class="btn btn-danger btn-sm" onclick="removeField(this)">x</button>
+				</div>
+			</div>
+
+			<form id="infoTuThuocForm">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-7">
+							<div class="form-group row">
+								<label for="TenThuoc" class="col-sm-3 col-form-label" style="padding-right: 0">Tên thuốc:</label>
+								<div class="col-sm-9" style="padding-left: 0">
+									<input name="TenThuoc" type="text" class="form-control" id="TenThuoc" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="ThanhPhan" class="col-sm-3 col-form-label" style="padding-right: 0">Thành Phần:</label>
+								<div class="col-sm-9" style="padding-left: 0">
+									<input name="ThanhPhan" type="text" class="form-control" id="ThanhPhan" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="NhomThuoc" class="col-sm-3 col-form-label" style="padding-right: 0">Nhóm thuốc:</label>
+								<div class="col-sm-9" style="padding-left: 0">
+									<select name="NhomThuoc" class="form-control" id="NhomThuoc">
+										<option value="" selected disabled>--- Nhóm ---</option>
+										<option value="Kháng sinh - Kháng Virus">Kháng sinh - Kháng Virus</option>
+										<option value="Giảm Đau - Hạ Sốt - NSAID">Giảm Đau - Hạ Sốt - NSAID</option>
+										<option value="Corticoid">Corticoid</option>
+										<option value="Dị ứng">Dị ứng</option>
+										<option value="Hô hấp">Hô hấp</option>
+										<option value="Tiêu Hóa">Tiêu Hóa</option>
+										<option value="Tim Mạch">Tim Mạch</option>
+										<option value="Thần Kinh">Thần Kinh</option>
+										<option value="Cơ Xương Khớp">Cơ Xương Khớp</option>
+										<option value="Da Liễu">Da Liễu</option>
+										<option value="Dinh Dưỡng">Dinh Dưỡng</option>
+										<option value="Thực Phẩm Chức Năng">Thực Phẩm Chức Năng</option>
+										<option value="Khác">Khác</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-group row">
+								<label for="DangThuoc" class="col-sm-5 col-form-label" style="padding-right: 0">Dạng thuốc:</label>
+								<div class="col-sm-7" style="padding-left: 0">
+									<select name="PhanLoai.DangThuoc" id="DangThuoc" class="form-control">
+										<option value="" disabled selected>- Dạng thuốc -</option>
+										<option value="Viên">Viên</option>
+										<option value="Ống">Ống</option>
+										<option value="Gói">Gói</option>
+										<option value="Lọ">Lọ</option>
+										<option value="Chai">Chai</option>
+										<option value="Túi">Túi</option>
+										<option value="Tuýp">Tuýp</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="DuongDung" class="col-sm-5 col-form-label" style="padding-right: 0">Đường dùng:</label>
+								<div class="col-sm-7" style="padding-left: 0">
+									<select name="PhanLoai.DuongDung" id="DuongDung" class="form-control">
+										<option value="" disabled selected>- Đường dùng -</option>
+										<option value="Uống">Uống</option>
+										<option value="Tiêm">Tiêm</option>
+										<option value="Bôi">Bôi</option>
+										<option value="Ngậm">Ngậm</option>
+										<option value="Nhỏ Giọt">Nhỏ Giọt</option>
+										<option value="Thụt Hậu Môn">Thụt Hậu Môn</option>
+										<option value="Khác">Khác</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="DongHop" class="col-sm-5 col-form-label" style="padding-right: 0">Đóng hộp:</label>
+								<div class="col-sm-7 input-group" style="padding-left: 0">
+									<input name="PhanLoai.DongHop" type="number" class="form-control" id="DongHop" />
+									<div class="input-group-append">
+										<span class="input-group-text append-dang-thuoc">Viên</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<label for="NuocSanXuat" class="col-sm-5 col-form-label" style="padding-right: 0">Nước Sản Xuất:</label>
+								<div class="col-sm-7" style="padding-left: 0">
+									<input name="NuocSanXuat" type="text" class="form-control" id="NuocSanXuat" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<hr class="dropdown-divider" />
+							<h6>Số lượng</h6>
+							<div id="field-so-luong"></div>
+							<div>
+								<button type="button" id="btn-add-field" class="btn btn-primary" onclick="addField(1)">+</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+					<button type="submit" class="btn btn-primary" data-dismiss="modal">Lưu Lại</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="jsonTuThuocModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin data thuốc</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body row">
+				<div class="col-4"><pre id="show-item-json"></pre></div>
+				<div class="col-4">
+					<textarea
+						id="edit-data-json"
+						style="
+							width: 100%;
+							height: 100%;
+							font-size: 87.5%;
+							font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+						"
+					></textarea>
+				</div>
+				<div class="col-4"><pre id="show-result-json"></pre></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Thay thế dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="removeTuThuocModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa tài khoản nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn xóa tài khoản này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="restoreTuThuocModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Khôi phục tài khoản nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn khôi phục tài khoản này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Khôi phục dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="destroyTuThuocModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa vĩnh viễn tài khoản nhân viên</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">Hành động này không thể khôi phục dữ liệu. Bạn chắc chắn vẫn muốn xóa tài khoản này</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa vĩnh viễn</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	let addField = (index) => {
+		let fieldSoLuong = document.getElementById('field-so-luong'),
+			fieldThuoc = document.getElementsByClassName('field-thuoc')[0],
+			clone = fieldThuoc.cloneNode(true);
+		fieldSoLuong.appendChild(clone);
+		clone.style.display = '';
+		clone.innerHTML = clone.innerHTML.replaceAll(`SoLuong[99]`, `SoLuong[${index}]`);
+
+		let btnAddField = document.getElementById('btn-add-field');
+		btnAddField.outerHTML = btnAddField.outerHTML.replaceAll(`addField(${index})`, `addField(${index + 1})`);
+	};
+	let removeField = (elm) => {
+		elm.closest('div.field-thuoc').remove();
+	};
+	let settingDangThuoc = () => {
+		let dangthuocElm = document
+			.getElementById('infoTuThuocForm')
+			.querySelectorAll("select[name='PhanLoai.DangThuoc']")[0];
+		let dangthuocAppend = document.querySelectorAll('.append-dang-thuoc');
+		dangthuocAppend.forEach((item, index) => {
+			item.innerHTML = dangthuocElm.value;
+		});
+		dangthuocElm.onchange = function () {
+			dangthuocAppend.forEach((item, index) => {
+				item.innerHTML = this.value;
+			});
+		};
+	};
+
+	$('#infoTuThuocModal').on('show.bs.modal', function (event) {
+		let elm = event.relatedTarget,
+			id = null,
+			action = elm.getAttribute('data-action'),
+			form = document.getElementById('infoTuThuocForm'),
+			btnSubmit = this.querySelectorAll('button[type=submit]')[0],
+			fieldSoLuong = document.getElementById('field-so-luong');
+
+		form.reset();
+		fieldSoLuong.innerHTML = '';
+		addField(0);
+		if (action == 'EDIT') {
+			id = elm.closest('tr').getAttribute('data-id');
+			let arr = bangTuThuoc.getItemData(bangTuThuoc.data, id).SoLuong;
+			for (let i = 1; i < arr.length; i++) {
+				addField(i);
+			}
+			bangTuThuoc.eventFetchData(action, id);
+			action = 'UPDATE';
+		}
+		settingDangThuoc();
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			let formData = MyForm.getData(form);
+			bangTuThuoc.eventFetchData(action, id, formData);
+		};
+	});
+
+	[$('#removeTuThuocModal'), $('#restoreTuThuocModal'), $('#destroyTuThuocModal')].forEach((item, index) => {
+		item.on('show.bs.modal', function (event) {
+			let elm = event.relatedTarget,
+				id = elm.closest('tr').getAttribute('data-id'),
+				action = elm.getAttribute('data-action'),
+				btnSubmit = this.querySelectorAll('button[type=submit]')[0];
+
+			btnSubmit.onclick = function (e) {
+				e.preventDefault();
+				bangTuThuoc.eventFetchData(action, id);
+			};
+		});
+	});
+
+	$('#jsonTuThuocModal').on('show.bs.modal', function (event) {
+		let infoElem = document.getElementById('show-item-json'),
+			editElm = document.getElementById('edit-data-json'),
+			resultElem = document.getElementById('show-result-json'),
+			btnSubmit = document.getElementById('jsonTuThuocModal').querySelectorAll('button[type=submit]')[0],
+			elm = event.relatedTarget,
+			id = elm.closest('tr').getAttribute('data-id'),
+			action = elm.getAttribute('data-action'),
+			item = bangTuThuoc.getItemData(bangTuThuoc.data, id),
+			result;
+
+		infoElem.innerHTML = 'item = ' + JSON.stringify(item, undefined, 4);
+		editElm.value = JSON.stringify(item, undefined, 4);
+		eval('result=' + editElm.value);
+		resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+
+		editElm.onkeyup = function (event) {
+			eval('result=' + this.value);
+			resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+		};
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			console.log(action);
+			bangTuThuoc.eventFetchData(action, id, result);
+		};
+	});
+</script>

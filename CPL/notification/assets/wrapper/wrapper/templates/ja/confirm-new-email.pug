@@ -1,0 +1,21 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content 
+	div(class="mb-10") 平素よりbitcastleをご愛顧いただき、誠にありがとうございます。
+
+	div(class="mb-10") 【ご注意】※まだメールアドレスは変更されていません。
+
+	div(class="mb-10") メールアドレス変更を受け付けました。
+
+	div(class="mb-10") 以下確認コードを使ってメールアドレス変更手続きを完了させてください。
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") セキュリティ上、本メールの受信後、#{ttl / 60}分以内にパスワードの再設定を完了してください。
+
+	div(class="mb-10") 今後ともbitcastleをよろしくお願いいたします。
+
+	div(class="mb-10") このメールは送信専用アドレスより送信しております。
+
+	div(class="mb-10") そのため返信頂いても内容の確認ができません。

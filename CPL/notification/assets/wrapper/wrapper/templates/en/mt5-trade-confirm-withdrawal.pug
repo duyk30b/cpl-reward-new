@@ -1,0 +1,14 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") Bitcastle MT5 user has request to withdraw their money with the information below: 
+
+	div(class="mb-10") 
+		div - MT5 user ID: #{login}
+		div - Beneficiary bank: #{beneficiaryBank}
+		div - Account number: #{accountNumber}
+		div - Account holder name: #{accountHolderName}
+		div - User phone number: #{userPhoneNumber}
+		div - Withdrawal amount: #{withdrawalAmount}
+		div - Fee: #{fee}
+		div - Amount receivable: #{amountReceivable}

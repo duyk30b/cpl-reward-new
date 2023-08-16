@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package grid.trading.v1;
+
+enum STRATEGY_STATUS {
+  PENDING = 1;
+  RUNNING = 2;
+  ENDING = 3;
+  END = 4;
+  ERROR = 5;
+}
+
+enum GRID_TYPE {
+  ARITHMETIC = 1;
+  GEOMETRIC = 2;
+}
+
+enum SEARCH_BY_FIELD {
+  BOT_ID = 1;
+  EMAIL = 2;
+}
+
+enum SORT_TYPE {
+  DESC = 1;
+  ASC = 2;
+}
+
+enum ACTIVE_COPY {
+  ACTIVE = 1;
+  INACTIVE = 2;
+}
+
+enum ORDER_CLASS {
+  MARKET = 1;
+  LIMIT = 2;
+}
+
+enum ORDER_SIDE {
+  BUY = 1;
+  SELL = 2;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message Strategy {
+  string id = 1;
+  string create_time = 2;
+  string coin = 3;
+  string currency = 4;
+  string email = 5;
+  string total_investment = 6;
+  string lower_price = 7;
+  string higher_price = 8;
+  int32 grid_number = 9;
+  STRATEGY_STATUS status = 10;
+  string owner_id = 11;
+}
+
+message Orderbook {
+  string amount = 1;
+  string price = 2;
+}
+
+message Balance {
+  string currency = 1;
+  string amount = 2;
+}
+
+message StrategyDetail {
+  string id = 1;
+  STRATEGY_STATUS status = 2;
+  GRID_TYPE mode = 3;
+  string lower_price = 4;
+  string higher_price = 5;
+  int32 grid_number = 6;
+  string lower_profit_per_grid = 7;
+  string higher_profit_per_grid = 8;
+  string start_price = 9;
+  optional string stop_price = 10;
+  optional string trigger_price = 11;
+  optional string take_profit_point = 12;
+  optional string stop_loss_point = 13;
+  int32 copiers = 14;
+  ACTIVE_COPY active_copy = 15;
+  optional string start_time = 16;
+  string grid_profit = 17;
+  string total_profit = 18;
+  string coin = 19;
+  string currency = 20;
+  string annualized_yield = 21;
+  string create_time = 22;
+  optional string end_time = 23;
+  string roi_percent = 24;
+  string float_profit = 25;
+  repeated Balance balances = 26;
+  string total_investment = 27;
+}
+
+message TradeHistoryOrderInfo {
+  string avg_price = 1;
+  string total = 2;
+  ORDER_CLASS order_class = 3;
+  ORDER_SIDE side = 4;
+  string total_currency = 5;
+  string filled_amount = 6;
+  string fee = 7;
+  string fee_currency = 8;
+  string create_time = 9;
+}
+
+message TradeHistory {
+  string trade_id = 1;
+  string strategy_id = 2;
+  string create_time = 3;
+  string profit = 4;
+  string profit_currency = 5;
+  TradeHistoryOrderInfo buy = 6;
+  TradeHistoryOrderInfo sell = 7;
+}
+
+message LinkPaginationResponse {
+  string next = 1;
+  string prev = 2;
+}

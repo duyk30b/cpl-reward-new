@@ -1,0 +1,154 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package grpc.swap.v1;
+
+service SwapService {
+    rpc List(ListRequest) returns (ListResponse);
+    rpc Config(ConfigRequest) returns (ConfigResponse);
+    rpc Estimate(EstimateRequest) returns (EstimateResponse);
+    rpc Swap(SwapRequest) returns (SwapResponse);
+}
+
+
+message SwapEntity {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+        GRID_TRADING = 6;
+    }
+    enum Status {
+        CREATED = 0;
+        COMPLETED = 1;
+        PENDING = 2;
+        FAILED = 3;
+    }
+
+    string id = 1;
+    string user_id = 2;
+    BalanceType balance_type = 3;
+    string exchange_from = 4;
+    string exchange_to = 5;
+    string coin_from = 6;
+    string coin_to = 7;
+    string rate = 8;
+    string amount = 9;
+    string received = 10;
+    string fee = 11;
+    Status status = 12;
+    string data_raw = 13;
+    string created_at = 14;
+    string updated_at = 15;
+}
+
+
+////////// List /////////////
+
+message ListRequest {
+    repeated string user_ids = 1;
+    optional string coin_from = 2;
+    optional string coin_to = 3;
+    optional uint32 status = 4;
+    optional string start_date = 5;
+    optional string end_date = 6;
+    optional uint32 page = 7;
+    optional uint32 size = 8;
+    optional string sort = 9;
+    optional string sort_type = 10;
+}
+
+message ListResponse {
+    repeated SwapEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+////////// Config /////////////
+
+message ItemConfigSwap {
+    string pair = 1;
+    string coin_from = 2;
+    string coin_to = 3;
+    string price_coin_from = 4;
+    string price_coin_to = 5;
+    string rate = 6;
+    string minimum_amount = 7;
+    string maximum_amount = 8;
+    string maximum_amount_per_day = 9;
+    string total_amount_swap_per_day = 10;
+}
+
+message ConfigData {
+    repeated ItemConfigSwap exchange_common = 1;
+    repeated ItemConfigSwap exchange_castle = 2;
+    repeated ItemConfigSwap reward = 3;
+}
+
+
+message ConfigRequest {
+    string user_id = 1;
+}
+
+message ConfigResponse {
+    ConfigData data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+
+////////// Estimate /////////////
+
+message EstimateRequest {
+    string user_id = 1;
+    BalanceType balance_type = 2;
+    string coin_from = 3;
+    string coin_to = 4;
+    string amount = 5;
+}
+
+message EstimateData {
+    string user_id = 1;
+    BalanceType balance_type = 2;
+    string coin_from = 3;
+    string coin_to = 4;
+    string amount = 5;
+    string received = 6;
+    string rate = 7;
+    string fee = 8;
+    string available_balance = 9;
+    string maximum_amount = 10;
+    string minimum_amount = 11;
+    string maximum_amount_per_day = 12;
+    string total_amount_swap_per_day = 13;
+}
+
+message EstimateResponse {
+    EstimateData data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+
+////////// Swap /////////////
+
+message SwapRequest {
+    string user_id = 1;
+    BalanceType balance_type = 2;
+    string coin_from = 3;
+    string coin_to = 4;
+    string amount = 5;
+}
+
+
+message SwapResponse {
+    SwapEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

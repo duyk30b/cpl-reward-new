@@ -1,0 +1,46 @@
+:root {
+	--sidebar-width: 260px;
+	--sidebar-collapse-width: 65px;
+	--header-height: 50px;
+	--footer-height: 50px;
+	--color-primary: #0598dd;
+	--color-active: #007bff;
+	--color-black: #111;
+	--color-error: #dc3545;
+	--border-color-basic: #e0e0e0;
+}
+
+@import './reset';
+@import './components/header';
+@import './components/sidebar';
+@import './components/tabs';
+
+#app {
+	display: flex;
+}
+.main {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	.sidebar {
+		height: 100vh;
+	}
+	.header {
+		height: var(--header-height);
+	}
+	.content {
+		flex: 1;
+		background-color: #F0F2F5;
+	}
+	.footer {
+		height: var(--footer-height);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+.material-icons {
+	user-select: none;
+	font-size: 24px;
+}

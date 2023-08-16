@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package reason_category;
+
+import "common.proto";
+import "reason.proto";
+import "google/protobuf/empty.proto";
+
+message ReasonCategoryId {
+  string id = 1;
+}
+
+message ReasonCategory {
+  string id = 1;
+  map<string, string> name = 2;
+  int32 type = 3;
+  repeated reason.Reason reasons = 4;
+}
+
+message CreateReasonCategory {
+  map<string, string> name = 1;
+  int32 type = 2;
+}
+
+message BaseReasonCategoryResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ReasonCategory data = 3;
+}
+
+message ReasonCategoryFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  string search_field = 3;
+  string search_text = 4;
+  string sort = 5;
+  string sort_type = 6;
+  string type = 7;
+}
+
+message FindAllResponse {
+  repeated ReasonCategory data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message FindAllLanguage {
+  repeated string data = 1;
+}
+
+service ReasonCategoryService {
+  rpc Create(CreateReasonCategory) returns (BaseReasonCategoryResponse) {}
+  rpc FindAll(ReasonCategoryFilter) returns (FindAllResponse) {}
+  rpc FindById(ReasonCategoryId) returns (ReasonCategory) {}
+  rpc Update(ReasonCategory) returns (BaseReasonCategoryResponse) {}
+  rpc Delete(ReasonCategoryId) returns (BaseReasonCategoryResponse) {}
+  rpc GetLanguage(google.protobuf.Empty) returns (FindAllLanguage) {}
+}

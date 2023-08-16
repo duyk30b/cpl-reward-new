@@ -1,0 +1,10 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") The system has received missing reward events of the following:
+
+	div(class="mb-10") Time period: From #{fromTime} to #{toTime}
+
+	div(class="mb-10") Mising events count: #{countMissReward}
+
+	div(class="mb-10") Please enter the Marketing Functions/Missing Rewards screen for more details. URL: #[a(href=`${urlMissingReward}`) #{urlMissingReward}]

@@ -1,0 +1,20 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content
+	div(class="mb-10") お客様
+
+	div(class="mb-10")
+		div いつもbitcastleをご愛顧いただき、誠にありがとうございます。
+		div 次の情報でお客様のアカウントにログインがありました。
+
+	div(class="mb-10")
+		div •  IP アドレス:  #{ip}
+		div •  ブラウザ: #{browser}
+		div •  OS: #{os}
+		div •  ログイン日: #{time} (UTC)
+
+	div(class="mb-10")
+		div *ログインがお客様によって行われた場合は、こちらのメールを無視してください。
+		div *上記の情報でログインをした覚えがない場合は、パスワードをご変更いただき、すぐにご連絡ください。
+
+	div(class="mb-10") ※このメールは送信専用アドレスより送信しております。そのため返信頂いても内容の確認ができません。何卒ご了承くださいませ。

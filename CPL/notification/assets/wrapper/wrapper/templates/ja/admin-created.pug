@@ -1,0 +1,19 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content 
+	div(class="mb-10") bitcastleをご利用いただき、誠にありがとうございます。
+
+	div(class="mb-10") 
+		div bitcastleサービスを管理できるように、管理ページへのアクセスを許可したことをお知らせします。
+		div 下のアカウント情報を利用でログインしてください。
+
+  div(class="mb-10") URL: #[a(href=adminFrontendUrl) #{adminFrontendUrl}]
+
+	div(class="mb-10") パスワード: #{password}
+
+	div(class="mb-10") 二段階認証リカバリコード: #{authenticatorSecret}
+
+  div(class="mb-10") 
+    div このメールは送信専用アドレスより送信しております。
+    div そのため返信頂いても内容の確認ができません。
+    div こちらのメールに心当たりがない場合はすぐにお知らせください。

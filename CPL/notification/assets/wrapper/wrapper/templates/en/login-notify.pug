@@ -1,0 +1,20 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10")
+		div Dear trader,
+		div Your account has logged into bitcastle according to this information:
+
+	div(class="mb-10") 
+		div •  IP Address:  #{ip}
+		div •  Browser: #{browser}
+		div •  OS: #{os}
+		div •  Login date: #{time} (UTC)
+
+	div(class="mb-10")
+		div *If this was done by you, please ignore this email
+		div *If you did not initiate this request, please change your password or contact us immediately
+
+	div(class="mb-10") Thank you for your continued support of bitcastle.
+
+	div(class="mb-10") *This e-mail has been sent from our send-only email address, please do not reply to this message.

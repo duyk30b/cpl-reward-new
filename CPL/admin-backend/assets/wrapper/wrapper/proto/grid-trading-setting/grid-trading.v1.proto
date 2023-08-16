@@ -1,0 +1,103 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package grid_trading.v1;
+
+service GridTradingService {
+  rpc SetGridTrading(GridTradingItem) returns (GridTradingItem) {}
+  rpc GetGridTrading(google.protobuf.Empty) returns (GridTradingItemResponse) {}
+  rpc GetSingleGridSetting(PairSettingParams)
+      returns (SingleGridSettingResponse) {}
+  rpc GetGridTradingByPagination(PaginationRequest)
+      returns (GridTradingPaginationResponse) {}
+  rpc DeleteGridTrading(DeleteGridTradingRequest)
+      returns (DeleteGridTradingResponse) {}
+  rpc UpdateOrderOfPair(UpdateOrderOfPairRequest)
+      returns (UpdateOrderOfPairResponse);
+  rpc GetAllPairName(google.protobuf.Empty) returns (GetAllPairNameResponse);
+}
+
+message PairSettingParams {
+  string coin = 1;
+  string currency = 2;
+}
+
+message GridTradingItem {
+  string id = 1;
+  string coin = 2;
+  string currency = 3;
+  int32 status = 4;
+  string profit_sharing = 5;
+  int32 min_grid = 6;
+  int32 max_grid = 7;
+  string threshold_higher_price = 8;
+  string threshold_lower_price = 9;
+  string created_at = 10;
+  string updated_at = 11;
+  int32 index = 12;
+  string adjust_coefficient = 13;
+}
+
+message SingleGridSettingResponse {
+  string name = 1;
+  GridTradingItem data = 2;
+}
+
+message SetGridTradingItem {
+  string coin = 1;
+  string currency = 2;
+  int32 status = 3;
+  string profit_sharing = 4;
+  int32 max_grid = 5;
+  string threshold_higher_price = 6;
+  int32 index = 7;
+  int32 min_grid = 8;
+  string threshold_lower_price = 9;
+  string adjust_coefficient = 10;
+}
+
+message GridTradingItemResponse {
+  string name = 1;
+  repeated GridTradingItem data = 2;
+}
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+  optional string coin = 4;
+  optional string currency = 5;
+  optional int32 status = 6;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message GridTradingPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated GridTradingItem data = 2;
+}
+
+message DeleteGridTradingRequest { string id = 1; }
+
+message DeleteGridTradingResponse { int32 status = 1; }
+
+message UpdateOrderOfPairRequest {
+  message Data {
+    string id = 1;
+    int32 index = 2;
+  }
+  repeated Data data = 1;
+}
+
+message UpdateOrderOfPairResponse { bool status = 1; }
+
+message GetAllPairNameResponse {
+  message Data {
+    string coin = 1;
+    string currency = 2;
+  }
+  repeated Data data = 1;
+}

@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package grpc.transfer.v1;
+
+service TransferService {
+    rpc Self(SelfTransferRequest) returns (TransferResponse);
+    rpc Transfer(TransferRequest) returns (TransferResponse);
+    rpc List(ListRequest) returns (ListResponse);
+}
+
+
+message BalanceAccountEntity {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+        GRID_TRADING = 6;
+    }
+    string id = 1;
+    string user_id = 2;
+    string currency = 3;
+    BalanceType type = 4;
+    string actual_balance = 5;
+    string available_balance = 6;
+    string created_at = 7;
+    string updated_at = 8;
+}
+
+message BalanceTransactionEntity {
+    enum TransactionType {
+        UNKNOWN = 0;
+        TRADING_FEE = 1;
+        WITHDRAW = 2;
+        WITHDRAW_FEE = 3;
+        DEPOSIT = 4;
+        DEPOSIT_FEE = 5; 
+        TRANSFER = 6;
+        TRANSFER_FEE = 7;
+        AFFILIATE = 8;
+        MANUALLY = 9;
+        BO_TRADING = 10;
+        BO_TRADING_WIN = 11;
+        REWARD = 12;
+        BO_TRANSFER = 13;
+        BO_TRANSFER_FEE = 14;
+        DIVIDEND = 15;
+        COMMISSION = 16;
+        CAMPAIGN = 17;
+        TRADING = 18;
+        SWAP = 19;
+        CORRECT = 20;
+        DIVIDEND_ROLLBACK = 21;
+        BO_TRADING_ODD = 22;
+        BO_TRADING_ODD_WIN = 23;
+        TRADING_FEE_ROLLBACK = 24;
+        IMPORT_EXCEL = 25;
+        IMPORT_EXCEL_ROLLBACK = 26;
+        EXCHANGE_ROLLBACK = 27;
+        CONVERT = 28;
+        REWARD_EXPIRE = 29;
+        GRID_TRADING = 30;
+        FUTURES_TRADING = 31;
+        FUTURES_TRADING_FEE = 32;
+    }
+    string id = 1;
+    string transaction_reference_id = 2;
+    string balance_account_id = 3;
+    string on_hold_transaction_id = 4;
+    string amount = 5;
+    TransactionType type = 6;
+    string created_at = 7;
+}
+
+message BalanceTransferEntity {
+    enum BalanceTransferStatus {
+        PENDING = 0;
+        SUCCESS = 1;
+        FAILED = 2;
+    }
+
+    string id = 1;
+    string transfer_reference_id = 2;
+    string user_id_from = 3;
+    string user_id_to = 4;
+    string currency = 5;
+    BalanceAccountEntity.BalanceType balance_type_from = 6;
+    BalanceAccountEntity.BalanceType balance_type_to = 7;
+    string amount = 8;
+    BalanceTransferStatus status = 9;
+    string created_at = 10;
+    string updated_at = 11;
+}
+
+
+
+//////// Self
+
+message SelfTransferRequest {
+    string user_id = 1;
+    string currency = 2;
+    BalanceAccountEntity.BalanceType  balance_type_from = 3;
+    BalanceAccountEntity.BalanceType  balance_type_to = 4;
+    string amount = 5;
+}
+
+///////// Transfer
+message TransferRequest {
+    string transfer_reference_id = 1;
+    string user_id_from = 2;
+    string user_id_to = 3;
+    string currency = 4;
+    BalanceAccountEntity.BalanceType  balance_type_from = 5;
+    BalanceAccountEntity.BalanceType  balance_type_to = 6;
+    string amount = 7;
+}
+
+message TransferResponse {
+    repeated BalanceAccountEntity balance_accounts = 1;
+    repeated BalanceTransactionEntity balance_transactions = 2;
+    optional BalanceTransferEntity balance_transfer = 4;
+}
+
+
+////////// List /////////////
+
+message ListRequest {
+    repeated string currencies = 1;
+    repeated string user_ids = 2;
+    repeated BalanceAccountEntity.BalanceType  balance_types_from = 3;
+    repeated BalanceAccountEntity.BalanceType  balance_types_to = 4;
+    optional string start_date = 5;
+    optional string end_date = 6;
+    optional uint32 page = 7;
+    optional uint32 size = 8;
+    optional string sort = 9;
+    optional string sort_type = 10;
+}
+
+message ListResponse {
+    repeated BalanceTransferEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

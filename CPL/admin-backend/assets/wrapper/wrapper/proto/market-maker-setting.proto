@@ -1,0 +1,39 @@
+syntax = "proto3";
+package market_maker_setting;
+
+
+service MarketMakerService {
+  rpc GetMarketMakerSetting(MarketMakerParams) returns (MarketMakerRespone) {}
+  rpc SetMarketMakerSetting(MarketMakerSettingItem) returns (MarketMakerSettingItem) {}
+}
+
+message MarketMakerParams {
+  string coin = 1;
+  string currency = 2;
+}
+
+message MarketMakerConfigure {
+  string price_precision = 1;
+  string volume_precision = 2;
+  string min_total = 3;
+  string min_amount = 4;
+  string max_amount = 5;
+  string spread_price = 6;
+  string volume_scale = 7;
+  string order_count_package = 8;
+}
+
+message MarketMakerSettingItem {
+  string coin = 1;
+  string currency = 2;
+  MarketMakerConfigure configure = 3;
+  string updated_at = 4;
+}
+
+message MarketMakerRespone {
+  string name = 1;
+  string bot_id = 2;
+  MarketMakerSettingItem data = 3;
+}
+
+

@@ -1,0 +1,24 @@
+extends ../layouts/layout.pug
+
+block content 
+	div(class="mb-10") 平素よりbitcastleをご愛顧いただき、誠にありがとうございます。
+
+	div(class="mb-10") 登録されていないデバイスからのログインを認識いたしました。
+
+	div(class="mb-10") 
+		div IPアドレス: #{ip}
+		div ブラウザ: #{browser}
+		div OS: #{device}
+		div ログイン日時: #{time} (協定世界時)
+
+	div(class="mb-10") 登録されていないデバイスからのログインを認識いたしました。
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") 上記認証コードは#{ttl / 60 / 60}時間有効です。
+
+	div(class="mb-10") 
+		div こちらのメールに心当たりがない場合はアカウントを停止してすぐにお知らせください。
+		div このメールは送信専用アドレスより送信しております。
+		div そのため返信頂いても内容の確認ができません。

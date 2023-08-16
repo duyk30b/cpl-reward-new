@@ -1,0 +1,159 @@
+syntax = "proto3";
+
+package admin_mission;
+
+service GrpcAdminMissionService {
+  rpc Create(CreateMissionRequest) returns (MissionResponse);
+  rpc Update(UpdateMissionRequest) returns (MissionResponse);
+  rpc FindOne(FindOneMissionRequest) returns (Mission);
+  rpc GetMissionsByCampaign(FindManyMissionRequest) returns (ListMissionsResponse);
+}
+
+message Empty {}
+
+message CreateMissionRequest {
+  int32 campaign_id = 1;
+  string title = 2;
+  string title_ja = 3;
+  string detail_explain = 4;
+  string detail_explain_ja = 5;
+  optional string guide_link = 6;
+  optional string guide_link_ja = 7;
+  int32 opening_date = 8; // example: 1642668896
+  int32 closing_date = 9;
+  int32 priority = 10;
+  int32 limit_received_reward = 11;
+  int32 is_active = 12; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 13; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  repeated CreateRewardRule reward_rules = 14;
+  repeated JudgmentConditions judgment_conditions = 15;
+  repeated UserConditions user_conditions = 16;
+  repeated GrantTarget grant_target = 17;
+  repeated UserConditions display_conditions = 18;
+}
+
+message CreateRewardRule {
+  string key = 1; // enum('cashback', 'balance', 'dividend', 'reward')
+  string currency = 2; // 'USDT' ....
+  string limit_value = 3; // example: 12.443
+}
+
+/*
+ * user = [user, referer_user]
+ * wallet = [
+     REWARD_BALANCE, REWARD_CASHBACK,
+     REWARD_DIVIDEND, DIRECT_BALANCE,
+     DIRECT_CASHBACK, DIRECT_DIVIDEND,
+   ]
+ */
+message GrantTarget {
+  string user = 1;
+  string amount = 2;
+  string currency = 3;
+  string wallet = 4;
+  repeated int32 tagIds = 5;
+  string grantMethod = 6;
+  string propertyToCalculateAmount = 7;
+}
+
+message UpdateRewardRule {
+  int32 id = 1;
+  string key = 2;
+  string currency = 3;
+  string limit_value = 4; // example: 12.443
+  string release_value = 5;
+}
+message FindOneMissionRequest {
+  int32 id = 1;
+}
+
+/*
+ * eventName = [
+      auth_user_login, auth_user_change_email,
+      auth_user_created, auth_user_logout,
+      auth_user_change_password, auth_user_authenticator_status_updated
+   ]
+ */
+message JudgmentConditions {
+  string eventName = 1;
+  string property = 2;
+  string operator = 3;
+  string value = 4;
+  string type = 5;
+}
+message UserConditions {
+  string property = 1;
+  string operator = 2;
+  string value = 3;
+  string type = 4;
+}
+
+message FindManyMissionRequest {
+  string campaign_id = 1;
+}
+
+message ListMissionsResponse {
+  repeated Mission missions = 1;
+}
+
+message UpdateMissionRequest {
+  int32 id = 1;
+  int32 campaign_id = 2;
+  string title = 3;
+  string title_ja = 4;
+  string detail_explain = 5;
+  string detail_explain_ja = 6;
+  optional string guide_link = 7;
+  optional string guide_link_ja = 8;
+  int32 opening_date = 9; // example: 1642668896
+  int32 closing_date = 10;
+  int32 priority = 11;
+  int32 limit_received_reward = 12;
+  int32 is_active = 13; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 14; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  repeated UpdateRewardRule reward_rules = 15;
+  repeated JudgmentConditions judgment_conditions = 16;
+  repeated UserConditions user_conditions = 17;
+  repeated GrantTarget grant_target = 18;
+  repeated UserConditions display_conditions = 19;
+}
+
+message Mission {
+  int32 id = 1;
+  int32 campaign_id = 2;
+  string title = 3;
+  string title_ja = 4;
+  string detail_explain = 5;
+  string detail_explain_ja = 6;
+  string guide_link = 7;
+  string guide_link_ja = 8;
+  int32 opening_date = 9; // example: 1642668896
+  int32 closing_date = 10;
+  int32 priority = 11;
+  int32 limit_received_reward = 12;
+  int32 is_active = 13; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 14; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  repeated RewardRuleResult reward_rules = 15;
+  repeated JudgmentConditions judgment_conditions = 16;
+  repeated UserConditions user_conditions = 17;
+  repeated GrantTarget grant_target = 18;
+  int32 created_at = 19;
+  int32 updated_at = 20;
+  repeated UserConditions display_conditions = 21;
+}
+
+message MissionResponse {
+  bool success = 1;
+  string message = 2;
+  Mission mission = 3;
+}
+
+message RewardRuleResult {
+  int32 created_at = 1;
+  int32 updated_at = 2;
+  int32 id = 3;
+  string key = 4;
+  string currency = 5;
+  string limit_value = 6; // example: 12.443
+  string release_value = 7; // example: 12.443
+}

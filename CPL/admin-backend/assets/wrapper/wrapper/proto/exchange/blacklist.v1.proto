@@ -1,0 +1,55 @@
+syntax = "proto3";
+package exchange.blacklist.admin;
+
+service ExchangeBlacklistService {
+  rpc GetBlackList(GetBlacklistRequest) returns (BlacklistPaginationResponse) {}
+  rpc RemoveBlackList(RemoveBlacklistRequest)
+      returns (RemoveBlacklistResponse) {}
+  rpc AddBlackList(AddBlacklistRequest) returns (BlacklistItem) {}
+  rpc UpdateBlackList(UpdateBlacklistRequest) returns (BlacklistItem) {}
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message BlacklistItem {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+  optional string create_time = 4;
+  string email = 5;
+}
+
+message BlacklistPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated BlacklistItem data = 2;
+}
+
+message GetBlacklistRequest {
+  optional int32 page = 1;
+  optional int32 per_page = 2;
+  optional int32 sort_type = 3;
+  optional string sort_by = 4;
+  optional string keyword = 6;
+  optional string search_by_field = 7;
+}
+
+message RemoveBlacklistRequest { string user_id = 1; }
+
+message RemoveBlacklistResponse { int32 status = 1; }
+
+message AddBlacklistRequest {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+  string email = 4;
+}
+
+message UpdateBlacklistRequest {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+}

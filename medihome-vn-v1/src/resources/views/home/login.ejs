@@ -1,0 +1,66 @@
+<%- include('../layouts/main-before') %>
+<div class="card">
+	<article class="card-body mx-auto col-lg-6">
+		<h4 class="card-title mt-3 text-center">ĐĂNG NHẬP</h4>
+		<p class="text-center">Get started with your free account</p>
+		<form>
+			<div class="input-group mb-2">
+				<div class="input-group-text"><i class="fa fa-envelope"></i></div>
+				<input name="Gmail" class="form-control" placeholder="Gmail" type="text" required />
+				<span class="input-group-text">@gmail.com</span>
+			</div>
+			<div class="input-group mb-2">
+				<div class="input-group-text"><i class="fa fa-lock"></i></div>
+				<input name="Password" class="form-control" placeholder="Password" type="password" required />
+			</div>
+			<div class="input-group mb-2">
+				<div class="checkbox">
+					<label> <input id="login-remember" type="checkbox" name="remember" value="1" /> Remember me </label>
+				</div>
+			</div>
+
+			<div class="form-group mb-2">
+				<button id="btn-login-accout" type="submit" class="btn btn-success">Login</button>
+			</div>
+
+			<div class="form-group mb-2">
+				<div style="border-top: 1px solid#888; padding-top: 15px; font-size: 85%">
+					Don't have an account!
+					<a href="/register">Sign Up Here</a>
+				</div>
+			</div>
+		</form>
+	</article>
+</div>
+<!-- card.// -->
+
+<script>
+	let btnLogin = document.getElementById('btn-login-accout'),
+		formLogin = btnLogin.closest('form');
+
+	btnLogin.onclick = (e) => {
+		e.preventDefault();
+		let url = '/login',
+			config = {
+				method: 'POST',
+				body: JSON.stringify(MyForm.getData(formLogin)),
+				headers: { 'Content-Type': 'application/json' },
+			};
+		fetch(url, config)
+			.then((response) => response.json())
+			.then((resp) => {
+				console.log(resp);
+				if (resp == true) {
+					location.pathname = '/';
+				} else {
+					alert('Đăng nhập thất bại');
+				}
+			})
+			.catch((error) => {
+				console.warn(error);
+				alert('Đăng nhập thất bại');
+			});
+	};
+</script>
+
+<%- include('../layouts/main-after') %>

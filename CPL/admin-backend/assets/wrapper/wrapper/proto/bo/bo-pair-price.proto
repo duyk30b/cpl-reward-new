@@ -1,0 +1,122 @@
+syntax = "proto3";
+
+package bo_pair_price;
+
+import "google/protobuf/empty.proto";
+
+service BOPairPriceService {
+  rpc Add(AddRequest) returns (BOPairPriceResponse);
+  rpc FindOne(FindOneRequest) returns (BOPairPriceResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOPairPriceResponse);
+  rpc Delete(DeleteRequest) returns (BOPairPriceResponse);
+};
+
+message BOPairPrice {
+  string id = 1;
+  string symbol = 2;
+  string price = 3;
+  string price_time = 4;
+  string source = 5;
+  string data_raw = 6;
+  string force_flag = 7;
+  string timestamp = 8;
+  string adjustment_rate = 9;
+  string buffer_rate = 10;
+  string selected_exchange = 11;
+  string global_trend = 12;
+  string created_at = 13;
+  string updated_at = 14;
+  repeated Prices prices = 15;
+}
+
+message Prices {
+  string exchange = 1;
+  string price = 2;
+}
+
+// LIST REQUEST
+message AddRequest {
+  string symbol = 1;
+  double price = 2;
+  string price_time = 3;
+  string source = 4;
+  string data_raw = 5;
+  string force_flag = 6;
+  uint32 timestamp = 7;
+  double adjustment_rate = 8;
+  double buffer_rate = 9;
+  string selected_exchange = 10;
+  string global_trend = 11;
+};
+
+message UpdateRequest {
+  string id = 1;
+  string symbol = 2;
+  double price = 3;
+  string price_time = 4;
+  string source = 5;
+  string data_raw = 6;
+  string force_flag = 7;
+  uint32 timestamp = 8;
+  double adjustment_rate = 9;
+  double buffer_rate = 10;
+  string selected_exchange = 11;
+  string global_trend = 12;
+}
+
+message FindOneRequest {
+  optional string id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 3;
+  optional string search_text = 4;
+  optional string sort = 5;
+  optional string sort_type = 6;
+  optional string target_date = 7;
+  optional string source = 8;
+  optional string global_trend = 9;
+  optional string forced_flag = 10;
+  optional string pair = 11;
+}
+
+message DeleteRequest {
+  string id = 1;
+}
+
+
+// RESPONSE
+message BOPairPriceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOPairPrice data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOPairPrice items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+
+message SearchBOPairPriceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

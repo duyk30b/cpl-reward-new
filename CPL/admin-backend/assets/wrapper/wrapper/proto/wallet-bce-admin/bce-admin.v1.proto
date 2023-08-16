@@ -1,0 +1,480 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+package bce_admin;
+
+service BceAdminService {
+  rpc DepositHistories(DepositHistoryRequest) returns (DepositHistoryResponse) {}
+  rpc DepositHistoryExport(DepositHistoryRequest) returns (ExportFileResponse) {}
+  rpc ListExportFile(ExportFileRequest) returns (ListExportFileResponse) {}
+  rpc WithdrawHistories(WithdrawHistoryRequest) returns (WithdrawHistoryResponse) {}
+  rpc WithdrawHistoryExport(WithdrawHistoryRequest) returns (ExportFileResponse) {}
+  rpc GetExternalWithdraw(GetExternalWithdrawRequest) returns (GetExternalWithdrawResponse) {}
+  rpc GetTransactionDetail(GetTransactionDetailRequest) returns (GetTransactionDetailResponse) {}
+  rpc ApproveTransaction(ApproveTransactionRequest) returns (ApproveTransactionResponse) {}
+  rpc RegistrationRemittance(RegistrationRemittanceRequest) returns (RegistrationRemittanceResponse) {}
+  rpc ExportWithdrawControl(GetExternalWithdrawRequest) returns (ExportFileResponse) {}
+
+  rpc GetBOTotalRecord(GetWithdrawalSecurityRequest) returns (GetBOTotalRecordResponse) {}
+  rpc GetBOProfit(GetWithdrawalSecurityRequest) returns (GetBOProfitResponse) {}
+  
+  rpc GetOrderMinutelyRating(GetWithdrawalSecurityRequest) returns (GetBOWithdrawalSecurityResponse) {}
+  rpc GetOrderDailyRating(GetWithdrawalSecurityRequest) returns (GetBOWithdrawalSecurityResponse) {}
+  rpc GetOrderOverLimit(GetWithdrawalSecurityRequest) returns (GetBOWithdrawalSecurityResponse) {}
+  rpc GetUserBalance(GetUserBalanceRequest) returns (GetUserBalanceResponse) {}
+  rpc GetManuallyUpdateMajorBalance(GetWithdrawalSecurityRequest) returns (GetBOWithdrawalSecurityResponse) {}
+  rpc GetDividendCodeDuplicated(GetWithdrawalSecurityRequest) returns (GetBOWithdrawalSecurityResponse) {}
+
+  rpc GetWithdrawalSettings(SettingPaginationRequest) returns (ListWithdrawalSettingResponse) {}
+  rpc UpdateWithdrawalSetting(WithdrawalSettingParams) returns (UpdateWithdrawalSettingResponse) {}
+  rpc UpdateGlobalUsdtFeeSetting(GlobalUsdtFeeSettingParams) returns (ListWithdrawalSettingResponse) {}
+  rpc GetGlobalSetting(google.protobuf.Empty) returns (GlobalSettingResponse) {}
+
+  rpc GetConfigTransactionApproval(google.protobuf.Empty) returns (GetConfigTransactionApprovalResponse) {}
+}
+
+message BaseFilterQuery {
+  int32 size = 1;
+  int32 page = 2;
+  string sort = 3;
+  string sort_type = 4;
+}
+
+message BaseFunctionResponse {
+  bool data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message DepositHistoryResponse {
+  repeated TransactionDetailData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message DepositHistoryRequest {
+  string sort = 1;
+  string sort_type = 2;
+  string start_date = 3;
+  string end_date = 4;
+  string search_key = 5;
+  string selected_search = 6;
+  int32 page = 7;
+  int32 limit = 8;
+  string coin = 9;
+  string email = 10;
+  string transaction_id = 11;
+  string tx_hash = 12;
+  string status = 13;
+}
+
+message WithdrawHistoryResponse {
+  repeated TransactionDetailData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message WithdrawHistoryRequest {
+  string sort = 1;
+  string sort_type = 2;
+  string start_date = 3;
+  string end_date = 4;
+  string search_key = 5;
+  string selected_search = 6;
+  int32 page = 7;
+  int32 limit = 8;
+  string status = 9;
+  int32 timezone_offset = 10;
+  string coin = 11;
+  string email = 12;
+  string transaction_id = 13;
+  string tx_hash = 14;
+}
+
+message GetExternalWithdrawRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string sort = 3;
+  string sort_type = 4;
+  int32 timezone_offset = 5;
+  string selected_search = 6;
+  string type = 7;
+  string coin = 8;
+  string email = 9;
+  string transaction_id = 10;
+  string from_date = 11;
+  string to_date = 12;
+  
+}
+
+message UserData {
+  message UserInfo {
+    string created_at = 1;
+    string updated_at = 2;
+    int32 id = 3;
+    int32 user_id = 4;
+    int32 user_info_history_id = 5;
+    string first_name = 6;
+    string last_name = 7;
+    string full_name = 8;
+    string furigana_1 = 9;
+    string furigana_2 = 10;
+    string birthday = 11;
+    string phone = 12;
+    string phone_country = 13;
+    string building_room = 14;
+    string address = 15;
+    string city = 16;
+    string state_region = 17;
+    int32 zip_code = 18;
+    int32 country_id = 19;
+    int32 nationality_id = 20;
+    int32 gender = 21;
+    string tel = 22;
+    string region_code = 23;
+  }
+
+  string created_at = 1;
+  string updated_at = 2;
+  int32 id = 3;
+  string uuid = 4;
+  string email = 5;
+  int32 status = 6;
+  string referrer_code = 7;
+  string dynamic_link = 8;
+  string last_login = 9;
+  int32 type = 10;
+  string email_verify_at = 11;
+  int32 email_verify_status = 12;
+  string authenticator_verify_at = 13;
+  int32 authenticator_verify_status = 14;
+  int32 kyc_verify_status = 15;
+  int32 user_info_status = 16;
+  string last_password_change = 17;
+  int32 accept_law_status = 18;
+  int32 account_lv = 19;
+  bool is_banned = 20;
+  UserInfo user_info = 21;
+}
+
+message TransactionDetailData {
+  message WithdrawalLogData {
+    string status = 1;
+    string message = 2;
+    string created_at = 3;
+  }
+
+  int32 id = 1;
+  string transaction_id = 2;
+  int32 user_id = 3;
+  string tx_hash = 4;
+  string type = 5;
+  string currency = 6;
+  string amount = 7;
+  string currency_fee = 8;
+  string fee = 9;
+  string status = 10;
+  string from_address = 11;
+  string to_address = 12;
+  string network = 13;
+  string blockchain_address = 14;
+  string destination_tag = 15;
+  string verify_code = 16;
+  int32 is_external = 17;
+  string approved_by = 18;
+  string approve_at = 19;
+  string deny_by = 20;
+  string deny_at = 21;
+  int32 send_confirmer1 = 22;
+  int32 send_confirmer2 = 23;
+  string sent_by = 24;
+  string sent_at = 25;
+  string reject_by = 26;
+  string reject_at = 27;
+  string cancel_at = 28;
+  string remarks = 29;
+  string error_detail = 30;
+  string transaction_date = 31;
+  string withdrawal_type = 32;
+  string created_at = 33;
+  string updated_at = 34;
+  string hold_amount_transaction_id = 35;
+  string hold_fee_transaction_id = 36;
+  string sender = 37;
+  UserData user = 38;
+  string withdraw_approval = 39;
+  string email = 40;
+  int32 process_type = 41;
+  int32 process_status = 42;
+  repeated WithdrawalLogData withdrawal_logs = 43;
+}
+
+message GetExternalWithdrawResponse {
+  repeated TransactionDetailData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetTransactionDetailRequest {
+  string transaction_id = 1;
+}
+
+message GetTransactionDetailResponse {
+  TransactionDetailData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ApproveTransactionRequest {
+  string transaction_id = 1;
+  string action = 2;
+  string remarks = 3;
+}
+
+message ApproveTransactionResponse {
+  string data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetWithdrawalSecurityRequest {
+  string user_id = 1;
+}
+
+message GetBOTotalRecordResponse {
+  message BOTotalRecordData {
+    int32 total = 1;
+    int32 win = 2;
+    int32 lost = 3;
+  }
+
+  BOTotalRecordData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetBOProfitResponse {
+  message BOProfitData {
+    int32 profit = 1;
+  }
+
+  BOProfitData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetBOWithdrawalSecurityResponse {
+  message WithdrawalSecurityData {
+    int32 result = 1;
+  }
+
+  WithdrawalSecurityData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GetUserBalanceRequest {
+  string user_id = 1;
+  string currency = 2;
+}
+
+message GetUserBalanceResponse {
+  message UserBalanceData {
+    int32 result = 1;
+    string dbValue = 2;
+    string logicValue = 3;
+    string diff = 4;
+  }
+
+  UserBalanceData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message RegistrationRemittanceRequest {
+  string transaction_id = 1;
+  string tx_hash = 2;
+  string remarks = 3;
+  string send_confirmer1 = 4;
+  string send_confirmer2 = 5;
+  string process_type = 6;
+}
+
+message RegistrationRemittanceResponse {
+  TransactionDetailData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ListExportFileResponse {
+  repeated ExportFileData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message ExportFileRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message ExportFileData {
+  string admin_id = 1;
+  string created_at = 2;
+  string file_name = 3;
+  string id = 4;
+  string path = 5;
+  string status = 6;
+  string updated_at = 7;
+}
+
+message ExportFileResponse {
+  ExportFileData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message WithdrawalFee {
+  string fee_amount = 1;
+  string fee_type = 2;
+  bool is_active = 3;
+  string fee_amount_base_usdt = 4;
+}
+
+message WithdrawalFeeSetting {
+  string network = 1;
+  string symbol = 2;
+  repeated WithdrawalFee fees = 3;
+}
+
+message WithdrawalSettingParams {
+  string coin = 1;
+  bool withdrawal_enable = 2;
+  string minimum_withdrawal = 3;
+  string limit_amount = 4;
+  int32 limit_time = 5;
+  string fee_mode = 6;
+  string fee_usdt_amount = 7;
+  repeated WithdrawalFeeSetting fee_settings = 8;
+  string auto_withdrawal_threshold = 9;
+  string fee_usdt_castle_amount = 10;
+  string decimal_of_fee = 11;
+}
+
+message WithdrawalSettingEntity {
+  optional string id = 1;
+  string coin = 2;
+  bool withdrawal_enable = 3;
+  string minimum_withdrawal = 4;
+  string limit_amount = 5;
+  string limit_time = 6;
+  string auto_withdrawal_threshold = 7;
+  string fee_mode = 8;
+  string fee_usdt_amount = 9;
+  repeated WithdrawalFeeSetting fee_settings = 10;
+  string fee_usdt_castle_amount = 11;
+  string decimal_of_fee = 12;
+}
+
+message UpdateWithdrawalSettingResponse {
+  message UpdateWithdrawalSettingResult {
+    bool result = 1;
+    WithdrawalSettingEntity item = 2;
+  }
+
+  UpdateWithdrawalSettingResult data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message ListWithdrawalSettingResponse {
+  message ListWithdrawalSettingResult {
+    PaginationResponse pagination = 1;
+    repeated WithdrawalSettingEntity items = 2;
+  }
+
+  ListWithdrawalSettingResult data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message SettingPaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+  optional string sort = 4;
+  optional string search = 5;
+}
+
+message GetConfigTransactionApprovalData {
+  double highlow_total_checking = 1;
+  double highlow_winrate_limit = 2;
+  double highlow_winrate_limit_percent = 3;
+  double highlow_profit_limit = 4;
+  double order_minutely_limit = 5;
+  double order_daily_limit = 6;
+  double order_usd_value_limit = 7;
+  double manually_transaction_usd_value_limit = 8;
+}
+
+message GetConfigTransactionApprovalResponse {
+  GetConfigTransactionApprovalData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}
+
+message GlobalUsdtFeeSettingParams {
+  string usdt_fee_amount = 1;
+  repeated string coins = 2;
+  string usdt_fee_castle_amount = 3;
+}
+
+message GlobalSettingResponse {
+  message GlobalSettingData {
+    string usdt_fee = 1;
+    string usdt_fee_castle = 2;
+  }
+
+  GlobalSettingData data = 1;
+  string message = 2;
+  int32 time_stamp = 3;
+  int32 total_count = 4;
+  google.protobuf.Any meta_data = 5;
+}

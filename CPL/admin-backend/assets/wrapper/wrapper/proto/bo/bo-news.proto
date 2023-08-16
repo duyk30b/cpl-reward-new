@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package bo_news;
+
+import "google/protobuf/empty.proto";
+
+service BONewsService {
+  rpc Add(AddRequest) returns (BONewsResponse);
+  rpc FindOne(ID) returns (BONewsResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BONewsResponse);
+  rpc Delete(DeleteRequest) returns (BONewsResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+};
+
+message BONews {
+  string id = 1;
+  string text_en = 2;
+  string text_jp = 3;
+  string link_text = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  string text_en = 1;
+  string text_jp = 2;
+  string link_text = 3;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string text_en = 2;
+  string text_jp = 3;
+  string link_text = 4;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string lang = 8;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message BONewsResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BONews data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BONews items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBONewsResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

@@ -1,0 +1,119 @@
+#header {
+    width: 100%;
+    .header-banner {
+        img {
+            display: block;
+            width: 100%;
+            max-height: 300px;
+        }
+    }
+    .header-menu {
+        background: url(images/menu-bg.gif) repeat-x;
+        .container {
+            & > ul {
+                display: flex;
+                flex-wrap: wrap;
+                li {
+                    position: relative;
+                    background: url(images/menu-bg.gif) repeat-x;
+                    &.current-cat {
+                        & > a {
+                            background: rgba(255, 68, 0, 0.74);
+                            color: #fff;
+                        }
+                    }
+                    a {
+                        color: #fff;
+                        display: block;
+                        font-weight: bold;
+                        padding: 6px 12px 6px 12px;
+                        text-decoration: none;
+                        &:hover {
+                            background: #222 url(images/menu-hover.gif) repeat-x;
+                        }
+                        &:active {
+                            background: #222 url(images/menu-hover.gif) repeat-x;
+                        }
+                    }
+                    &:hover {
+                        & > ul {
+                            display: block;
+                        }
+                    }
+                    & > ul {
+                        z-index: 99;
+                        display: none;
+                        position: absolute;
+                        border: 1px solid #ccc;
+                        & > li {
+                            ul {
+                                margin: -28px 0 0 131px;
+                                border: 1px solid #ccc;
+                                border-left: 0;
+                            }
+                            & + li {
+                                border-top: 1px solid #ccc;
+                            }
+                            a {
+                                width: 130px;
+                                color: #111;
+                                background: #f6f6f6;
+                                &:hover {
+                                    background: #cc0000;
+                                    color: #fff;
+                                }
+                                &:active {
+                                    background: #cc0000;
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+                #searchform {
+                    background: url(images/menu-bg.gif) repeat-x;
+                    flex: 1;
+                    padding: 4px 0;
+                    display: flex;
+                    align-items: stretch;
+                    justify-content: flex-end;
+                    .search-input {
+                        padding: 2px 2px 2px 6px;
+                        color: #999;
+                        border: 1px solid #f0f0f0;
+                        width: 140px;
+                    }
+                    .search-submit {
+                        border: none;
+                        margin-left: 2px;
+                        padding: 0 4px;
+                        background-color: orange;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+                }
+            }
+        }
+    }
+    .breakcrumb {
+        background-color: #f8f8f8;
+        border: 1px solid #e6e6e6;
+        .container {
+            .breakcrumb-content {
+                text-transform: uppercase;
+                padding: 5px 10px;
+                font-size: 12px;
+                * {
+                    text-transform: uppercase;
+                    text-decoration: none;
+                    &:not(:first-child)::before {
+                        content: " » ";
+                        font-size: 16px;
+                        padding: 0 8px;
+                    }
+                }
+            }
+        }
+    }
+}

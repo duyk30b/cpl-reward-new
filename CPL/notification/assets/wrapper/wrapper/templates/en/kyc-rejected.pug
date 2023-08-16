@@ -1,0 +1,19 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+  div(class="mb-10") Dear trader,
+
+  div(class="mb-10")
+    div We regret to notify you that your Identity Document Verification has been rejected, reasons for rejection can be viewed in a pop-up window prior to re-submission.
+    div Please resubmit your identification documents again from the following page:
+
+  div(class="mb-10")
+    a(href=`${accountLvLink}`) #{accountLvLink}
+
+  div(class="mb-10") For security reasons, please note that we do not disclose the accurate reasons for rejection and the information displayed is only one of the possible reasons.
+
+  div(class="mb-10") Thank you for your continued support of bitcastle.
+
+  div(class="mb-10") 
+    div *This e-mail has been sent from our send-only email address.
+    div Please do not reply to this message.

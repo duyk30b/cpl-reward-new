@@ -1,0 +1,70 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package api_management;
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional string key = 3;
+  optional string user_id = 4;
+  optional int32 sort_type = 5;
+  optional string sort = 6;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message ApiKeysEntityResponse {
+  string id = 1;
+  string user_id = 2;
+  string api_name = 3;
+  string api_key = 4;
+  int32 status = 5;
+  string email = 6;
+  repeated string scopes = 7;
+  string created_at = 8;
+  string updated_at = 9;
+}
+
+message ListApiKeysResponse {
+  PaginationResponse pagination = 1;
+  repeated ApiKeysEntityResponse data = 2;
+}
+
+message InputApproveKeyRequest {
+  string id = 1;
+  string comment = 2;
+  string admin_id = 3;
+}
+
+message InputDetailApiKey {
+  string id = 1;
+}
+
+message InputStatusHistories {
+  string api_key_id = 1;
+}
+
+message ListStatusHistoryResponse {
+  repeated StatusHistoryEntityResponse data = 1;
+}
+
+message StatusHistoryEntityResponse {
+  string api_key_id = 1;
+  string admin_id = 2;
+  string comment = 3;
+  int32 before_status = 4;
+  int32 after_status = 5;
+  string created_at = 6;
+}
+
+service ApiManagementService {
+  rpc GetApiKeys(PaginationRequest) returns (ListApiKeysResponse) {}
+  rpc ApproveKeyRequest(InputApproveKeyRequest) returns (ApiKeysEntityResponse) {}
+  rpc DetailApiKey(InputDetailApiKey) returns (ApiKeysEntityResponse) {}
+  rpc GetStatusHistories(InputStatusHistories) returns (ListStatusHistoryResponse) {}
+}

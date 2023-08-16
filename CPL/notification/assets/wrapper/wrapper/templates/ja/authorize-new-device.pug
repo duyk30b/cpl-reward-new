@@ -1,0 +1,24 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content
+	div(class="mb-10") お客様
+
+	div(class="mb-10") いつもbitcastleをご愛顧いただき、誠にありがとうございます。
+
+	div(class="mb-10")
+		div 新しいデバイスを認識しました。
+		div IPアドレス: #{ip}
+		div ブラウザ: #{browser}
+		div OS: #{os}
+		div ログイン検出日: #{time} (UTC)
+
+	div(class="mb-10") システムのログイン認証を完了するには、次のコードを入力してください。
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") 上記の確認コードは、こちらのメールが送信されてから #{ttl / 60} 分間有効です。
+
+	div(class="mb-10")
+		div *こちらのメールに心当たりがない場合はパスワードをご変更いただき、すぐにお知らせください。
+		div *お客様自身でご登録の場合は、こちらのメールを無視してください。

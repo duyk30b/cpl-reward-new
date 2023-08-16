@@ -1,0 +1,17 @@
+extends ../layouts/layout.pug
+
+block content 
+	div(class="mb-10") お客様のアカウントが bitcastle にログインされましたのでお知らせいたします。
+
+	div(class="mb-10") ログイン情報
+
+	div(class="mb-10") 
+		div IPアドレス: #{ip}
+		div ブラウザ: #{browser}
+		div デバイス: #{device}
+		div ログイン日時: #{time} (協定世界時)
+
+	div(class="mb-10") 
+		div このメールは送信専用アドレスより送信しております。
+		div そのため返信頂いても内容の確認ができません。
+		div こちらのメールに心当たりがない場合はすぐにお知らせください。

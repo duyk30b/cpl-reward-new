@@ -1,0 +1,115 @@
+@import "./common/reset";
+@import "./common/base";
+
+@import "./layouts/header";
+@import "./layouts/main";
+@import "./layouts/footer";
+
+@import "./components/category-box";
+@import "./components/pagination";
+
+.home-page {
+	padding: 0 10px;
+}
+.category-grid {
+	display: grid;
+	gap: 20px;
+	@media only screen and (min-width: 900px) {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	}
+	@media only screen and (max-width: 900px) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+.post-grid {
+	display: flex;
+	flex-flow: row-reverse;
+
+	@media only screen and (min-width: 900px) {
+		.post-inner {
+			width: calc(100% - 260px);
+		}
+		.post-relate {
+			width: 250px;
+			margin-right: 10px;
+		}
+	}
+	@media only screen and (max-width: 900px) {
+		.post-inner {
+			width: 100%;
+		}
+		.post-relate {
+			display: none;
+		}
+	}
+	.post-inner {
+		padding: 20px;
+		box-shadow: 2px 2px 8px #cdcdcd;
+		h1 {
+			margin-top: 10px;
+			font-size: 28px;
+			color: #047;
+			font-weight: bold;
+			text-transform: uppercase;
+			text-align: center;
+		}
+		.post-meta {
+			font-style: italic;
+			padding: 20px 0 10px 0;
+			text-align: right;
+		}
+		.post-content {
+			font-size: 14px;
+			line-height: 2;
+			h2 {
+				margin-top: 10px;
+				padding-top: 5px;
+				border-top: 1px solid #cdcdcd;
+				font-size: 22px;
+				color: green;
+			}
+			h3 {
+				font-size: 18px;
+				color: rgba(0, 0, 122, 0.74);
+				margin-top: 10px;
+			}
+			h4 {
+				font-size: 14px;
+				color: #333;
+				margin-top: 5px;
+			}
+			note {
+				display: inline-block;
+				background-color: #e7e7e7;
+				border: 1px solid #dfdfdf;
+				padding: 0 4px;
+				font-family: monospace;
+			}
+			blockquote {
+				margin: 10px 0 10px 10px;
+				padding: 10px;
+				border: 1px solid #e6e6e6;
+				border-left: 6px solid #e6e6e6;
+				background: #f8f8f8;
+			}
+		}
+	}
+}
+
+.search-inner {
+	box-shadow: 2px 2px 8px #cdcdcd;
+	padding: 20px;
+	line-height: 2;
+	ul {
+		li {
+			padding: 6px 0;
+			& + li {
+				border-top: 1px dotted #cdcdcd;
+			}
+			img {
+				margin-right: 5px;
+			}
+		}
+	}
+}

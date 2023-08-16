@@ -1,0 +1,223 @@
+<div class="modal fade" id="infoBenhNhanModal" role="dialog" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin Bệnh Nhân</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+				<form id="infoBenhNhanForm">
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user-tie fa-fw"></i></span>
+						</div>
+						<input name="Name" type="text" class="form-control" placeholder="Họ Tên" />
+					</div>
+
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-phone fa-fw"></i></span>
+						</div>
+						<input name="Phone" type="text" class="form-control" placeholder="Điện Thoại" />
+					</div>
+
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user-tie fa-fw"></i></span>
+						</div>
+						<input name="Birthday" type="date" class="form-control" placeholder="Ngày Sinh" />
+					</div>
+
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-building fa-fw"></i></span>
+						</div>
+						<input name="Address" type="text" class="form-control" placeholder="Địa chỉ" />
+					</div>
+
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-transgender fa-fw"></i></span>
+						</div>
+						<select name="Gender" class="custom-select">
+							<option value="" selected disabled>Giới Tính</option>
+							<option value="Male">Nam</option>
+							<option value="Female">Nữ</option>
+						</select>
+					</div>
+
+					<div class="input-group mb-2">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-money-bill-wave fa-fw"></i></span>
+						</div>
+						<input name="TienNo" type="number" class="form-control" placeholder="Tiền nợ" />
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Lưu Lại</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="jsonBenhNhanModal" tabindex="-1">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Thông tin data bệnh nhân</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body row">
+				<div class="col-4"><pre id="show-item-json"></pre></div>
+				<div class="col-4">
+					<textarea
+						id="edit-data-json"
+						style="
+							width: 100%;
+							height: 100%;
+							font-size: 87.5%;
+							font-family: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+						"
+					></textarea>
+				</div>
+				<div class="col-4"><pre id="show-result-json"></pre></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Thay thế dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="removeBenhNhanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa dữ liệu bệnh nhân</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn xóa dữ liệu này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="restoreBenhNhanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Khôi phục tài khoản nhân viên</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Bạn có chắc chắn muốn khôi phục tài khoản này ?</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Khôi phục dữ liệu</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="destroyBenhNhanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Xóa vĩnh viễn tài khoản nhân viên</h5>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">Hành động này không thể khôi phục dữ liệu. Bạn chắc chắn vẫn muốn xóa tài khoản này</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+				<button type="submit" class="btn btn-primary" data-dismiss="modal">Xóa vĩnh viễn</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('#infoBenhNhanModal').on('show.bs.modal', function (event) {
+		let elm = event.relatedTarget,
+			id = null,
+			action = elm.getAttribute('data-action'),
+			form = document.getElementById('infoBenhNhanForm');
+
+		if (action == 'EDIT') {
+			form.reset();
+			id = elm.closest('tr').getAttribute('data-id');
+			bangBenhNhan.eventFetchData(action, id);
+			action = 'UPDATE';
+		}
+
+		let btnSubmit = this.querySelectorAll('button[type=submit]')[0],
+			btnClose = this.querySelectorAll('button.close')[0],
+			btnCancel = this.querySelectorAll('button.cancel')[0];
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			let formData = MyForm.getData(form);
+			bangBenhNhan.eventFetchData(action, id, formData);
+		};
+		btnClose.onclick = function (e) {
+			form.reset();
+		};
+		btnCancel.onclick = function (e) {
+			form.reset();
+		};
+	});
+
+	[$('#removeBenhNhanModal'), $('#restoreBenhNhanModal'), $('#destroyBenhNhanModal')].forEach((item, index) => {
+		item.on('show.bs.modal', function (event) {
+			let elm = event.relatedTarget,
+				id = elm.closest('tr').getAttribute('data-id'),
+				action = elm.getAttribute('data-action'),
+				btnSubmit = this.querySelectorAll('button[type=submit]')[0];
+
+			btnSubmit.onclick = function (e) {
+				e.preventDefault();
+				bangBenhNhan.eventFetchData(action, id);
+			};
+		});
+	});
+
+	$('#jsonBenhNhanModal').on('show.bs.modal', function (event) {
+		let infoElem = document.getElementById('show-item-json'),
+			editElm = document.getElementById('edit-data-json'),
+			resultElem = document.getElementById('show-result-json'),
+			btnSubmit = document.getElementById('jsonBenhNhanModal').querySelectorAll('button[type=submit]')[0],
+			elm = event.relatedTarget,
+			id = elm.closest('tr').getAttribute('data-id'),
+			action = elm.getAttribute('data-action'),
+			item = bangBenhNhan.getItemData(id),
+			result;
+
+		infoElem.innerHTML = 'item = ' + JSON.stringify(item, undefined, 4);
+		editElm.value = JSON.stringify(item, undefined, 4);
+		eval('result=' + editElm.value);
+		resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+
+		editElm.onkeyup = function (event) {
+			eval('result=' + this.value);
+			resultElem.innerHTML = JSON.stringify(result, undefined, 4);
+		};
+
+		btnSubmit.onclick = function (e) {
+			e.preventDefault();
+			bangBenhNhan.eventFetchData(action, id, result);
+		};
+	});
+</script>

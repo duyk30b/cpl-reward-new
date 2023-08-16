@@ -1,0 +1,16 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") Thank you for your continued support for bitcastle.
+
+	div(class="mb-10") 
+		div We would like to inform you that we have given you access to our admin page so that you can manage bitcastle services.
+		div Please log in to our website with your account.
+
+	div(class="mb-10") URL: #[a(href=`${adminFrontendUrl}`) #{adminFrontendUrl}]
+
+	div(class="mb-10") Password: #{password}
+
+	div(class="mb-10") 2FA Recovery Code: #{authenticatorSecret}
+
+	div(class="mb-10") *This e-mail has been sent from our send-only e-mail address and cannot be replied to.

@@ -1,0 +1,500 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api-public/src",
+  "monorepo": true,
+  "root": "apps/api-public",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/api-public/tsconfig.app.json",
+    "assets": [
+      "../../../assets"
+    ],
+    "watchAssets": true
+  },
+  "projects": {
+    "api-public": {
+      "type": "application",
+      "root": "apps/api-public",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-public/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-public/tsconfig.app.json",
+        "assets": [
+          "../../../assets"
+        ],
+        "watchAssets": true
+      }
+    },
+    "grpc-internal": {
+      "type": "application",
+      "root": "apps/grpc-internal",
+      "entryFile": "main",
+      "sourceRoot": "apps/grpc-internal/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/grpc-internal/tsconfig.app.json",
+        "assets": [
+          "../../../assets"
+        ],
+        "watchAssets": true
+      }
+    },
+    "api-internal": {
+      "type": "application",
+      "root": "apps/api-internal",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-internal/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-internal/tsconfig.app.json",
+        "assets": [
+          "../../../assets"
+        ],
+        "watchAssets": true
+      }
+    },
+    "worker": {
+      "type": "application",
+      "root": "apps/worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/worker/tsconfig.app.json",
+        "assets": [
+          "../../../assets"
+        ],
+        "watchAssets": true
+      }
+    },
+    "util": {
+      "type": "library",
+      "root": "libs/util",
+      "entryFile": "index",
+      "sourceRoot": "libs/util/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/util/tsconfig.lib.json"
+      }
+    },
+    "user": {
+      "type": "library",
+      "root": "libs/user",
+      "entryFile": "index",
+      "sourceRoot": "libs/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "device": {
+      "type": "library",
+      "root": "libs/device",
+      "entryFile": "index",
+      "sourceRoot": "libs/device/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/device/tsconfig.lib.json"
+      }
+    },
+    "amazon-cognito": {
+      "type": "library",
+      "root": "libs/amazon-cognito",
+      "entryFile": "index",
+      "sourceRoot": "libs/amazon-cognito/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/amazon-cognito/tsconfig.lib.json"
+      }
+    },
+    "ares": {
+      "type": "library",
+      "root": "libs/ares",
+      "entryFile": "index",
+      "sourceRoot": "libs/ares/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ares/tsconfig.lib.json"
+      }
+    },
+    "artemis": {
+      "type": "library",
+      "root": "libs/artemis",
+      "entryFile": "index",
+      "sourceRoot": "libs/artemis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/artemis/tsconfig.lib.json"
+      }
+    },
+    "authorization": {
+      "type": "library",
+      "root": "libs/authorization",
+      "entryFile": "index",
+      "sourceRoot": "libs/authorization/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/authorization/tsconfig.lib.json"
+      }
+    },
+    "blacklist": {
+      "type": "library",
+      "root": "libs/blacklist",
+      "entryFile": "index",
+      "sourceRoot": "libs/blacklist/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/blacklist/tsconfig.lib.json"
+      }
+    },
+    "country": {
+      "type": "library",
+      "root": "libs/country",
+      "entryFile": "index",
+      "sourceRoot": "libs/country/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/country/tsconfig.lib.json"
+      }
+    },
+    "flows": {
+      "type": "library",
+      "root": "libs/flows",
+      "entryFile": "index",
+      "sourceRoot": "libs/flows/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/flows/tsconfig.lib.json"
+      }
+    },
+    "notification": {
+      "type": "library",
+      "root": "libs/notification",
+      "entryFile": "index",
+      "sourceRoot": "libs/notification/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/notification/tsconfig.lib.json"
+      }
+    },
+    "redis-queue": {
+      "type": "library",
+      "root": "libs/redis-queue",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis-queue/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis-queue/tsconfig.lib.json"
+      }
+    },
+    "upload-file": {
+      "type": "library",
+      "root": "libs/upload-file",
+      "entryFile": "index",
+      "sourceRoot": "libs/upload-file/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/upload-file/tsconfig.lib.json"
+      }
+    },
+    "user-kyc-admin": {
+      "type": "library",
+      "root": "libs/user-kyc-admin",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-kyc-admin/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-kyc-admin/tsconfig.lib.json"
+      }
+    },
+    "user-kyc-cynopsis": {
+      "type": "library",
+      "root": "libs/user-kyc-cynopsis",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-kyc-cynopsis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-kyc-cynopsis/tsconfig.lib.json"
+      }
+    },
+    "user-tag": {
+      "type": "library",
+      "root": "libs/user-tag",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-tag/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-tag/tsconfig.lib.json"
+      }
+    },
+    "user-tag-map": {
+      "type": "library",
+      "root": "libs/user-tag-map",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-tag-map/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-tag-map/tsconfig.lib.json"
+      }
+    },
+    "grpc-client": {
+      "type": "library",
+      "root": "libs/grpc-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/grpc-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/grpc-client/tsconfig.lib.json"
+      }
+    },
+    "otp": {
+      "type": "library",
+      "root": "libs/otp",
+      "entryFile": "index",
+      "sourceRoot": "libs/otp/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/otp/tsconfig.lib.json"
+      }
+    },
+    "login-history": {
+      "type": "library",
+      "root": "libs/login-history",
+      "entryFile": "index",
+      "sourceRoot": "libs/login-history/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/login-history/tsconfig.lib.json"
+      }
+    },
+    "admin-aggregate": {
+      "type": "library",
+      "root": "libs/admin-aggregate",
+      "entryFile": "index",
+      "sourceRoot": "libs/admin-aggregate/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/admin-aggregate/tsconfig.lib.json"
+      }
+    },
+    "tag": {
+      "type": "library",
+      "root": "libs/tag",
+      "entryFile": "index",
+      "sourceRoot": "libs/tag/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tag/tsconfig.lib.json"
+      }
+    },
+    "channel": {
+      "type": "library",
+      "root": "libs/channel",
+      "entryFile": "index",
+      "sourceRoot": "libs/channel/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/channel/tsconfig.lib.json"
+      }
+    },
+    "unlimited-user": {
+      "type": "library",
+      "root": "libs/unlimited-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/unlimited-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/unlimited-user/tsconfig.lib.json"
+      }
+    },
+    "black-user": {
+      "type": "library",
+      "root": "libs/black-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/black-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/black-user/tsconfig.lib.json"
+      }
+    },
+    "websocket": {
+      "type": "library",
+      "root": "libs/websocket",
+      "entryFile": "index",
+      "sourceRoot": "libs/websocket/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/websocket/tsconfig.lib.json"
+      }
+    },
+    "user-setting": {
+      "type": "library",
+      "root": "libs/user-setting",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-setting/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-setting/tsconfig.lib.json"
+      }
+    },
+    "error-sync-user": {
+      "type": "library",
+      "root": "libs/error-sync-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/error-sync-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/error-sync-user/tsconfig.lib.json"
+      }
+    },
+    "scheduler": {
+      "type": "application",
+      "root": "apps/scheduler",
+      "entryFile": "main",
+      "sourceRoot": "apps/scheduler/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/scheduler/tsconfig.app.json"
+      }
+    },
+    "commandline": {
+      "type": "application",
+      "root": "apps/commandline",
+      "entryFile": "main",
+      "sourceRoot": "apps/commandline/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/commandline/tsconfig.app.json"
+      }
+    },
+    "safe-user": {
+      "type": "library",
+      "root": "libs/safe-user",
+      "entryFile": "index",
+      "sourceRoot": "libs/safe-user/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/safe-user/tsconfig.lib.json"
+      }
+    },
+    "re-captcha": {
+      "type": "library",
+      "root": "libs/re-captcha",
+      "entryFile": "index",
+      "sourceRoot": "libs/re-captcha/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/re-captcha/tsconfig.lib.json"
+      }
+    },
+    "email-change-history": {
+      "type": "library",
+      "root": "libs/email-change-history",
+      "entryFile": "index",
+      "sourceRoot": "libs/email-change-history/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/email-change-history/tsconfig.lib.json"
+      }
+    },
+    "kafka": {
+      "type": "library",
+      "root": "libs/kafka",
+      "entryFile": "index",
+      "sourceRoot": "libs/kafka/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kafka/tsconfig.lib.json"
+      }
+    },
+    "user-kyc": {
+      "type": "library",
+      "root": "libs/user-kyc",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-kyc/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-kyc/tsconfig.lib.json"
+      }
+    },
+    "kyc-captcha": {
+      "type": "library",
+      "root": "libs/kyc-captcha",
+      "entryFile": "index",
+      "sourceRoot": "libs/kyc-captcha/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kyc-captcha/tsconfig.lib.json"
+      }
+    },
+    "amazon-rekognition": {
+      "type": "library",
+      "root": "libs/amazon-rekognition",
+      "entryFile": "index",
+      "sourceRoot": "libs/amazon-rekognition/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/amazon-rekognition/tsconfig.lib.json"
+      }
+    },
+    "user-kyc-rekognition": {
+      "type": "library",
+      "root": "libs/user-kyc-rekognition",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-kyc-rekognition/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-kyc-rekognition/tsconfig.lib.json"
+      }
+    },
+    "dynamic-link": {
+      "type": "library",
+      "root": "libs/dynamic-link",
+      "entryFile": "index",
+      "sourceRoot": "libs/dynamic-link/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/dynamic-link/tsconfig.lib.json"
+      }
+    },
+    "user-email": {
+      "type": "library",
+      "root": "libs/user-email",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-email/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-email/tsconfig.lib.json"
+      }
+    },
+    "auth-setting": {
+      "type": "library",
+      "root": "libs/auth-setting",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth-setting/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth-setting/tsconfig.lib.json"
+      }
+    },
+    "sumsub": {
+      "type": "library",
+      "root": "libs/sumsub",
+      "entryFile": "index",
+      "sourceRoot": "libs/sumsub/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/sumsub/tsconfig.lib.json"
+      }
+    },
+    "kyc-provider": {
+      "type": "library",
+      "root": "libs/kyc-provider",
+      "entryFile": "index",
+      "sourceRoot": "libs/kyc-provider/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kyc-provider/tsconfig.lib.json"
+      }
+    },
+    "user-kyc-sumsub": {
+      "type": "library",
+      "root": "libs/user-kyc-sumsub",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-kyc-sumsub/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-kyc-sumsub/tsconfig.lib.json"
+      }
+    },
+    "user-provider": {
+      "type": "library",
+      "root": "libs/user-provider",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-provider/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-provider/tsconfig.lib.json"
+      }
+    },
+    "firebase": {
+      "type": "library",
+      "root": "libs/firebase",
+      "entryFile": "index",
+      "sourceRoot": "libs/firebase/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/firebase/tsconfig.lib.json"
+      }
+    },
+    "reason": {
+      "type": "library",
+      "root": "libs/reason",
+      "entryFile": "index",
+      "sourceRoot": "libs/reason/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/reason/tsconfig.lib.json"
+      }
+    }
+  }
+}

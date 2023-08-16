@@ -1,0 +1,300 @@
+syntax = "proto3";
+
+package exchange.v1.order;
+
+service ExchangeOrderService {
+  rpc GetOrderHistory(OrderHistoryRequest)
+      returns (OrderHistoryPaginationResponse);
+
+  rpc GetOpenOrder(OpenOrderRequest) returns (OpenOrderPaginationResponse);
+
+  rpc ExportOpenOrder(ExportOpenOrderRequest) returns (ExportResponse);
+
+  rpc CancelOrderByIds(CancelOrderRequest) returns (CancelOrderResponse);
+
+  rpc GetTradeHistory(TradeHistoryRequest)
+      returns (TradeHistoryPaginationResponse);
+
+  rpc ExportTradeHistory(ExportTradeHistoryRequest) returns (ExportResponse);
+
+  rpc CancelOrderByUserId(CancelOrderByUserIdRequest)
+      returns (CancelOrderResponse);
+
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+
+  rpc GetListOrderByUserId(GetListOrderByUserIdRequest)
+      returns (GetListOrderByUserIdResponse);
+}
+
+message ExportResponse { bool status = 1; }
+
+message GetListOrderByUserIdRequest {
+  string user_id = 1;
+  string coin = 2;
+  string currency = 3;
+  optional int32 take = 4;
+  optional string from = 5;
+  optional string to = 6;
+  optional int32 sort_type = 7;
+  optional int32 status = 8;
+}
+
+message GetListOrderByUserIdResponse {
+  repeated OrderBasicItem data = 1;
+  PaginatedLink links = 2;
+  PaginationResponse pagination = 3;
+}
+
+message PaginatedResponse {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional int32 total = 3;
+}
+
+message PaginatedLink {
+  string next = 1;
+  string prev = 2;
+  optional int32 total = 3;
+}
+
+message CancelOrderByUserIdRequest {
+  string user_id = 1;
+  string canceller_id = 2;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message OpenOrderRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional int32 order_type = 3;
+  optional int32 order_class = 4;
+  optional string coin = 5;
+  optional string currency = 6;
+  optional int32 per_page = 7;
+  optional int32 page = 8;
+  optional int32 sort_type = 9;
+  optional int32 user_type = 10;
+  optional string sort_by = 11;
+  optional string orderbook_type = 12;
+  optional string orderbook_price = 13;
+  optional string keyword = 14;
+  optional string search_by_field = 15;
+}
+
+message ExportOpenOrderRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional int32 order_type = 3;
+  optional int32 order_class = 4;
+  optional string coin = 5;
+  optional string currency = 6;
+  optional int32 per_page = 7;
+  optional int32 page = 8;
+  optional int32 sort_type = 9;
+  optional int32 user_type = 10;
+  optional string sort_by = 11;
+  optional string orderbook_type = 12;
+  optional string orderbook_price = 13;
+  optional string keyword = 14;
+  optional string search_by_field = 15;
+  string email = 16; // email of requester
+}
+
+message OpenOrderItem {
+  string create_time = 1;
+  string user_id = 2;
+  string order_id = 3;
+  string coin = 4;
+  string currency = 5;
+  int32 order_type = 6;
+  int32 order_class = 7;
+  string price = 8;
+  string volume = 9;
+  int32 user_type = 10;
+  int32 status = 11;
+  string email = 12;
+  int32 error_count = 13;
+}
+
+message OpenOrderPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated OpenOrderItem data = 2;
+}
+
+message OrderHistoryRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional int32 order_type = 3;
+  optional int32 order_class = 4;
+  repeated int32 status = 5;
+  optional string coin = 6;
+  optional string currency = 7;
+  optional int32 per_page = 8;
+  optional int32 page = 9;
+  optional int32 sort_type = 10;
+  optional string sort_by = 11;
+  optional string keyword = 12;
+  optional string search_by_field = 13;
+  repeated int32 resources = 14;
+}
+
+message ExportTradeHistoryRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional int32 order_type = 3;
+  optional int32 order_class = 4;
+  optional string coin = 5;
+  optional string currency = 6;
+  optional int32 per_page = 7;
+  optional int32 page = 8;
+  optional int32 sort_type = 9;
+  optional string sort_by = 10;
+  optional string keyword = 11;
+  optional string search_by_field = 12;
+  string email = 13; // email of requester
+}
+
+message FeeOrderHistory {
+  string value = 1;
+  string currency = 2;
+}
+
+message Cancelled {
+  int32 resource = 1;
+  string id = 2;
+}
+
+message OrderHistoryItem {
+  string create_time = 1;
+  string user_id = 2;
+  string order_id = 3;
+  string coin = 4;
+  string currency = 5;
+  int32 order_type = 6;
+  int32 order_class = 7;
+  string filled_price = 8;
+  string price = 9;
+  string stop_price = 10;
+  string volume = 11;
+  string filled_volume = 12;
+  repeated FeeOrderHistory fee = 13;
+  int32 status = 14;
+  int32 stop_direction = 15;
+  string email = 16;
+  int32 error_count = 17;
+  Cancelled cancelled = 18;
+}
+
+message OrderHistoryPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated OrderHistoryItem data = 2;
+}
+
+message CancelOrderRequest {
+  repeated string order_ids = 1;
+  string canceller_id = 2;
+}
+
+message CancelOrderResponse {
+  int32 status_code = 1;
+  string message = 2;
+}
+
+message TradeHistoryRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional int32 order_type = 3;
+  optional int32 order_class = 4;
+  optional string coin = 5;
+  optional string currency = 6;
+  optional int32 per_page = 7;
+  optional int32 page = 8;
+  optional int32 sort_type = 9;
+  optional string sort_by = 10;
+  optional string keyword = 11;
+  optional string search_by_field = 12;
+}
+
+message TradeHistoryItem {
+  string trade_id = 1;
+  string create_time = 2;
+  string buyer_id = 3;
+  string seller_id = 4;
+  string buy_order_id = 5;
+  string sell_order_id = 6;
+  string sell_fee = 7;
+  string buy_fee = 8;
+  string buy_currency = 9;
+  string sell_currency = 10;
+  string coin = 11;
+  string currency = 12;
+  string price = 13;
+  string filled = 14;
+  string sell_email = 15;
+  string buy_email = 16;
+  int32 buy_fee_wallet_type = 17;
+  int32 sell_fee_wallet_type = 18;
+}
+
+message TradeHistoryPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated TradeHistoryItem data = 2;
+}
+
+message CreateOrderRequest {
+  int32 order_type = 1;
+  int32 order_class = 2;
+  string coin = 3;
+  string currency = 4;
+  optional string price = 5;
+  optional string stop_price = 6;
+  string volume = 7;
+  string user_id = 8;
+}
+
+message CreateOrderResponse {
+  Order data = 1;
+  uint32 status_code = 2;
+  string timestamp = 3;
+  string msg = 4;
+}
+
+message OrderBasicItem {
+  string order_id = 1;
+  string user_id = 2;
+  string coin = 3;
+  string currency = 4;
+  int32 order_type = 5;
+  string price = 6;
+  string volume = 7;
+  string create_time = 8;
+}
+
+message Order {
+  string order_id = 1;
+  int64 user_id = 2;
+  string coin = 3;
+  string currency = 4;
+  uint32 order_type = 5;
+  uint32 order_class = 6;
+  uint32 order_resource = 7;
+  string price = 8;
+  string volume = 9;
+  string filled_volume = 10;
+  optional string hold_available_balance = 11;
+  uint32 user_type = 12;
+  uint32 status = 13;
+  string create_time = 14;
+  string update_time = 15;
+  optional string stop_price = 16;
+  optional uint32 stop_direction = 17;
+  string time_frame_setting = 18;
+  string total_transaction = 19;
+  uint32 error_count = 20;
+  string error_volume = 21;
+}

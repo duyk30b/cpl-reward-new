@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package bo_crawl_setting;
+
+import "google/protobuf/empty.proto";
+
+service BOCrawlSettingService {
+  rpc AddBOCrawlSetting(AddRequest) returns (BOCrawlSettingResponse);
+  rpc FindOneBOCrawlSetting(ID) returns (BOCrawlSettingResponse);
+  rpc ListBOCrawlSetting(ListRequest) returns (ListDataResponse);
+  rpc UpdateBOCrawlSetting(UpdateRequest) returns (BOCrawlSettingResponse);
+  rpc DeleteBOCrawlSetting(DeleteRequest) returns (BOCrawlSettingResponse);
+};
+
+message BOCrawlSetting {
+  string id = 1;
+  string setting_key = 2;
+  string setting_value = 3;
+  string active = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message BOAllSetting {
+  string id = 1;
+  string setting_key = 2;
+  string setting_value = 3;
+}
+
+// LIST REQUEST
+message AddRequest {
+  string setting_key = 1;
+  string setting_value = 2;
+  string active = 3;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string setting_key = 2;
+  string setting_value = 3;
+  string active = 4;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message BOCrawlSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOCrawlSetting data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOCrawlSetting items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOCrawlSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

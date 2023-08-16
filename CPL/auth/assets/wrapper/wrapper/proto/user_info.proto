@@ -1,0 +1,106 @@
+syntax = "proto3";
+
+package user_info;
+
+import "common.proto";
+
+service UserInfoService {
+  rpc FindByUserId (DataByUserId) returns (UserInfoResponse);
+  rpc GetListUserInfoHistory (DataByUserId) returns (ListUserInfoHistoryResponse);
+  rpc UpdateUserInfo(UpdateInfoRequest) returns (common.PostResponse);
+};
+
+message DataByUserId {
+  string user_id = 1;
+};
+
+message UserInfo {
+  string id = 1;
+  string user_id = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string furigana1 = 5;
+  string furigana2 = 6;
+  string birthday = 7;
+  string phone = 8;
+  string building_room = 9;
+  string address = 10;
+  string city = 11;
+  string state_region = 12;
+  string zip_code = 13;
+  int32 country_id = 14;
+  int32 nationality_id = 15;
+  int32 gender = 16;
+  string created_at = 17;
+  string updated_at = 18;
+  string user_info_history_id = 19;
+  string phone_country = 20;
+  string full_name = 21;
+}
+
+message UserInfoResponse {
+  UserInfo data = 1;
+}
+
+message UserInfoHistory {
+  string id = 1;
+  string user_id = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string furigana1 = 5;
+  string furigana2 = 6;
+  string birthday = 7;
+  string phone = 8;
+  string building_room = 9;
+  string address = 10;
+  string city = 11;
+  string state_region = 12;
+  string zip_code = 13;
+  int32 country_id = 14;
+  int32 nationality_id = 15;
+  int32 gender = 16;
+  string created_at = 17;
+  string updated_at = 18;
+  string user_info_history_id = 19;
+  string phone_country = 20;
+  string full_name = 21;
+  int32 is_modified_by_user = 22;
+  UserKycHistory user_kyc_history = 23;
+}
+
+message KycFile {
+  string id = 1;
+  string name = 2;
+  string path = 3;
+  string metadata = 4;
+  bool is_image = 5;
+}
+
+message UserKycHistory {
+  string id = 1;
+  string user_id = 2;
+  string user_info_history_id = 3;
+  int32 status = 4;
+  int32 type = 5;
+  string provider = 6;
+  repeated KycFile files = 7;
+  string created_at = 8;
+  int32 id_document_type = 10;
+  string id_document_no = 11;
+  string remark = 18;
+  int32 country_id = 19;
+  int32 is_modified_by_user = 20;
+  int32 image_provider = 21;
+  int32 risk_scan_provider = 22;
+}
+
+message ListUserInfoHistoryResponse {
+  repeated UserInfoHistory data = 1;
+}
+
+message UpdateInfoRequest {
+  string user_id = 1;
+  UserInfo user_info = 2;
+  string id_document_no = 3;
+  string remark = 4;
+}

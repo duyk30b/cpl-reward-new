@@ -1,0 +1,42 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package list_bot_setting;
+
+service ListBotSetting {
+  rpc GetSettings(google.protobuf.Empty) returns (ListBotSettingResponse) {}
+  rpc GetSettingByUserType(GetBotByUserTypeRequest) returns (GetBotByUserTypeResponse) {}
+  rpc CheckBotById(CheckBotByIdRequest) returns (CheckBotByIdResponse) {}
+}
+
+message GetBotByUserTypeRequest {
+  int32 user_type = 1;
+}
+
+message GetBotByUserTypeResponse {
+  map<string,string> data = 1;
+}
+
+message ListBotSettingItemResponse {
+  string bot_id = 1;
+}
+
+message ListGatekeeperSettingResponse {
+  string bot_id = 1;
+  int32 extend_orders = 2;
+  string expire_time = 3;
+}
+
+message ListBotSettingResponse {
+  optional ListBotSettingItemResponse bot_a = 1;
+  optional ListBotSettingItemResponse bot_p = 2;
+  optional ListGatekeeperSettingResponse gatekeeper = 3;
+}
+
+message CheckBotByIdRequest {
+  string user_id = 1;
+}
+
+message CheckBotByIdResponse {
+  int32 is_bot = 1;
+}

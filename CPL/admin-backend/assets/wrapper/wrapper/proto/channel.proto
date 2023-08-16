@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+package channel;
+
+service GChannelService {
+  rpc Add(AddRequest) returns (ChannelResponse);
+  rpc FindOne(FindOneRequest) returns (ChannelResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (ChannelResponse);
+  rpc Delete(DeleteRequest) returns (ChannelResponse);
+};
+
+// COMMON
+message Tag {
+  uint32 id = 1;
+  string name = 2;
+}
+
+message Channel {
+  uint32 id = 1;
+  string name = 2;
+  string link = 3;
+  string tag_ids = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  repeated Tag tags = 7;
+  string dynamic_link = 8;
+}
+
+// LIST REQUEST
+message AddRequest {
+  string name = 1;
+  string link = 2;
+  string tag_ids = 3;
+};
+
+message UpdateRequest {
+  uint32 id = 1;
+  string name = 2;
+  string link = 3;
+  string tag_ids = 4;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+  optional string link = 2;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+
+message ChannelResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional Channel data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated Channel items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+
+message SearchChannelResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

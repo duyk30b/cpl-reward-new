@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tetris Game 1.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<header>
+    <p>TETRIS GAME<p>
+    <div class="setGame">
+        <input type="checkbox" id="addBehindRow" name="addBehindRow">
+        <label for="addBehindRow">Auto add behind row</label><br>
+        <input type="checkbox" id="moreWeapon" name="moreWeapon" checked>
+        <label for="moreWeapon">Boom, Gun and Shadow !!!</label><br>
+        <input type="checkbox" id="moreBrick" name="moreBrick">
+        <label for="moreBrick">Six Dots Brick !!!</label><br>
+        <button onclick="newGame()">NEW GAME</button>
+    </div>
+</header>
+<main id="main">
+    <canvas id="myCanvas"></canvas>
+    <div class="gameBoard">
+        <div class="flowGame">
+            <div>
+                <p>Level</p>
+                <p id="level">1</p>
+            </div>
+            <div>
+                <p>Speed</p>
+                <p id="speed">0.00</p>
+            </div>
+            <div>
+                <p>Time</p>
+                <p id="timeCount">0.00</p>
+            </div>
+            <div>
+                <p>Bricks</p>
+                <p id="numberBrick">0.00</p>
+            </div>
+        </div>
+        <div class="score">
+            <p>Score</p>
+            <div id="score">0000</div>
+        </div>
+    </div>
+</main>
+<footer id="footer">
+    <div id="moveLeft"></div>
+    <div id="Rotate"></div>
+    <div id="moveDown"></div>
+    <div id="moveRight"></div>
+</footer>
+</body>
+<script type="text/javascript" src="variable.js"></script>
+<script type="text/javascript" src="canvas.js"></script>
+<script type="text/javascript" src="controller.js"></script>
+<script type="text/javascript" src="score.js"></script>
+<script type="text/javascript" src="board.js"></script>
+<script type="text/javascript" src="dot.js"></script>
+<script type="text/javascript" src="shape.js"></script>
+<script type="text/javascript" src="bomb.js"></script>
+<script type="text/javascript" src="brick.js"></script>
+<script type="text/javascript" src="game.js"></script>
+
+</html>

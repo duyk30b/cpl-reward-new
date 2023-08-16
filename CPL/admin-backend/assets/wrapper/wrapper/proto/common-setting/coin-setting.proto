@@ -1,0 +1,79 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package coin;
+
+message GetCoinSettingRequest { string coin = 1; }
+
+message CoinSettingItem {
+  string coin = 1;
+  string name = 2;
+  string icon = 3;
+  int32 status = 4;
+
+  message CoinNetWork {
+    string network = 1;
+    string env = 2;
+    string symbol = 3;
+    int32 confirmations = 4;
+    string decimal = 5;
+    int32 status = 6;
+    string transaction_explorer = 7;
+    string transaction_tx_path = 8;
+    string type = 9;
+    string contract_address = 10;
+  }
+
+  repeated CoinNetWork networks = 5;
+}
+
+message CoinSetting {
+  string name = 1;
+  repeated CoinSettingItem data = 2;
+}
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message CoinSettingPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated CoinSettingItem data = 2;
+}
+
+message GetListCoinMajorResponse {
+  string name = 1;
+  repeated string data = 2;
+}
+
+message GetListCoinNameResponse {
+  PaginationResponse pagination = 1;
+  repeated string data = 2;
+}
+
+message GetListCoinNameRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+  string coin = 4;
+}
+
+service CoinSettingService {
+  rpc GetListCoinName(GetListCoinNameRequest)
+      returns (GetListCoinNameResponse) {}
+  rpc GetAllCoinSettings(google.protobuf.Empty) returns (CoinSetting) {}
+  rpc GetCoinSetting(GetCoinSettingRequest) returns (CoinSettingItem) {}
+  rpc GetCoinSettingByPagination(PaginationRequest)
+      returns (CoinSettingPaginationResponse) {}
+  rpc SetCoinSetting(CoinSettingItem) returns (CoinSettingItem) {}
+  rpc DeleteCoinSetting(GetCoinSettingRequest) returns (CoinSettingItem) {}
+  rpc GetListCoinMajor(google.protobuf.Empty)
+      returns (GetListCoinMajorResponse) {}
+}

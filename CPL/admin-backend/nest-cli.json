@@ -1,0 +1,209 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/api/src",
+  "monorepo": true,
+  "root": "apps/api",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/api/tsconfig.app.json",
+    "assets": [
+      "../../../assets"
+    ],
+    "watchAssets": true
+  },
+  "projects": {
+    "api": {
+      "type": "application",
+      "root": "apps/api",
+      "entryFile": "main",
+      "sourceRoot": "apps/api/src",
+      "compilerOptions": {
+        "assets": [
+          "../../../assets"
+        ],
+        "watchAssets": true,
+        "tsConfigPath": "apps/api/tsconfig.app.json"
+      }
+    },
+    "mysql": {
+      "type": "library",
+      "root": "libs/mysql",
+      "entryFile": "index",
+      "sourceRoot": "libs/mysql/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/mysql/tsconfig.lib.json"
+      }
+    },
+    "admin": {
+      "type": "library",
+      "root": "libs/admin",
+      "entryFile": "index",
+      "sourceRoot": "libs/admin/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/admin/tsconfig.lib.json"
+      }
+    },
+    "util": {
+      "type": "library",
+      "root": "libs/util",
+      "entryFile": "index",
+      "sourceRoot": "libs/util/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/util/tsconfig.lib.json"
+      }
+    },
+    "authorization": {
+      "type": "library",
+      "root": "libs/authorization",
+      "entryFile": "index",
+      "sourceRoot": "libs/authorization/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/authorization/tsconfig.lib.json"
+      }
+    },
+    "grpc-client": {
+      "type": "library",
+      "root": "libs/grpc-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/grpc-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/grpc-client/tsconfig.lib.json"
+      }
+    },
+    "otp": {
+      "type": "library",
+      "root": "libs/otp",
+      "entryFile": "index",
+      "sourceRoot": "libs/otp/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/otp/tsconfig.lib.json"
+      }
+    },
+    "redis": {
+      "type": "library",
+      "root": "libs/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/redis/tsconfig.lib.json"
+      }
+    },
+    "role-permission": {
+      "type": "library",
+      "root": "libs/role-permission",
+      "entryFile": "index",
+      "sourceRoot": "libs/role-permission/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/role-permission/tsconfig.lib.json"
+      }
+    },
+    "coins": {
+      "type": "library",
+      "root": "libs/coins",
+      "entryFile": "index",
+      "sourceRoot": "libs/coins/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/coins/tsconfig.lib.json"
+      }
+    },
+    "log": {
+      "type": "library",
+      "root": "libs/log",
+      "entryFile": "index",
+      "sourceRoot": "libs/log/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/log/tsconfig.lib.json"
+      }
+    },
+    "external-bce": {
+      "type": "library",
+      "root": "libs/external-bce",
+      "entryFile": "index",
+      "sourceRoot": "libs/external-bce/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/external-bce/tsconfig.lib.json"
+      }
+    },
+    "ban-user-history": {
+      "type": "library",
+      "root": "libs/ban-user-history",
+      "entryFile": "index",
+      "sourceRoot": "libs/ban-user-history/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ban-user-history/tsconfig.lib.json"
+      }
+    },
+    "upload-file": {
+      "type": "library",
+      "root": "libs/upload-file",
+      "entryFile": "index",
+      "sourceRoot": "libs/upload-file/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/upload-file/tsconfig.lib.json"
+      }
+    },
+    "queue": {
+      "type": "library",
+      "root": "libs/queue",
+      "entryFile": "index",
+      "sourceRoot": "libs/queue/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/queue/tsconfig.lib.json"
+      }
+    },
+    "commander": {
+      "type": "application",
+      "root": "apps/commander",
+      "entryFile": "main",
+      "sourceRoot": "apps/commander/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/commander/tsconfig.app.json"
+      }
+    },
+    "market-maker": {
+      "type": "library",
+      "root": "libs/market-maker",
+      "entryFile": "index",
+      "sourceRoot": "libs/market-maker/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/market-maker/tsconfig.lib.json"
+      }
+    },
+    "import-file": {
+      "type": "library",
+      "root": "libs/import-file",
+      "entryFile": "index",
+      "sourceRoot": "libs/import-file/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/import-file/tsconfig.lib.json"
+      }
+    },
+    "worker": {
+      "type": "application",
+      "root": "apps/worker",
+      "entryFile": "main",
+      "sourceRoot": "apps/worker/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/worker/tsconfig.app.json"
+      }
+    },
+    "kafka": {
+      "type": "library",
+      "root": "libs/kafka",
+      "entryFile": "index",
+      "sourceRoot": "libs/kafka/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kafka/tsconfig.lib.json"
+      }
+    },
+    "user-note": {
+      "type": "library",
+      "root": "libs/user-note",
+      "entryFile": "index",
+      "sourceRoot": "libs/user-note/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/user-note/tsconfig.lib.json"
+      }
+    }
+  }
+}

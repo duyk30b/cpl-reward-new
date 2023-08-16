@@ -1,0 +1,96 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package auto_add;
+
+message InputSetCurrencySetting {
+  string coin = 1; // coin - symbol
+  string name = 2; // BE: coinName
+  string contractAddress = 3;
+  string icon = 4;
+
+  string env = 5; // env - network
+  string decimal = 6; // BE: decimals
+  int32 confirmations = 7; // BE: requiredConfirmations
+  string transactionExplorer = 8;
+  string transactionTxPath = 9;
+  string type = 10;
+
+  string withdrawalThreshold = 11;
+
+  bool onDeposit = 12;
+  bool onWithdrawal = 13;
+
+  string fee = 14;
+  string minimumWithdrawal = 15;
+  string withdrawalLimit = 16;
+  int32 timeReset = 17;
+}
+
+message CurrencySettingResponse {
+  string coin = 1;
+  string name = 2;
+  string icon = 3;
+  int32 status = 4;
+
+  message CurrencyNetWork {
+    string network = 1;
+    string env = 2;
+    string symbol = 3;
+    int32 confirmations = 4;
+    string decimal = 5;
+    int32 status = 6;
+    string transaction_explorer = 7;
+    string transaction_tx_path = 8;
+    string type = 9;
+    string contract_address = 10;
+    string wallet_decimal = 11;
+  }
+
+  repeated CurrencyNetWork networks = 5;
+
+  bool on_deposit = 6;
+  bool on_withdrawal = 7;
+}
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+  optional string coin = 4;
+  optional string network = 5;
+  optional string sort = 6;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message CurrencySettingPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated CurrencySettingResponse data = 2;
+}
+
+message InputUpdateCurrencySetting {
+  string coin = 1; // coin - symbol
+  string name = 2; // BE: coinName
+}
+
+message InputUpdateDepositWithdraw {
+  string coin = 1;
+  string type = 2;
+  int32 status = 3;
+}
+
+message UpdateDepositWithdrawResponse {
+  bool result = 1;
+}
+
+
+service CurrencySettingService {
+  rpc GetCurrencySetting(PaginationRequest) returns (CurrencySettingPaginationResponse) {}
+  rpc SetCurrencySetting(InputSetCurrencySetting) returns (CurrencySettingResponse) {}
+  rpc UpdateCurrencySetting(InputUpdateCurrencySetting) returns (CurrencySettingResponse) {}
+  rpc UpdateDepositWithdraw(InputUpdateDepositWithdraw) returns (UpdateDepositWithdrawResponse) {}
+}

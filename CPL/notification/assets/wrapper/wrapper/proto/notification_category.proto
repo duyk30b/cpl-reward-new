@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package notification_category;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+message NotificationCategory {
+  int32 id = 1;
+  string name = 2;
+}
+
+message ListNotificationCategory {
+  repeated NotificationCategory data = 1;
+}
+
+service NotificationCategoryService {
+  rpc GetList(google.protobuf.Empty) returns (ListNotificationCategory);
+}

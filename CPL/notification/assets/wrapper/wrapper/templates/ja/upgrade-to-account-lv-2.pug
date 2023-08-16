@@ -1,0 +1,18 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content
+  div(class="mb-10") お客様
+
+  div(class="mb-10") いつもbitcastleをご愛顧いただき、誠にありがとうございます。
+
+  div(class="mb-10")
+    div お客様のアカウントレベルがレベル 2 にアップグレードされました。
+    div アカウントをレベル 3 にアップグレードするには、本人確認書類の確認工程を完了してください。
+
+  div(class="mb-10") アカウントレベルの詳細については、以下のリンクを確認してください。
+
+  div(class="mb-10")
+    div #[a(href=`${accountLvLink}`) #{accountLvLink}]
+
+  div(class="mb-10")
+    div ※このメールは送信専用アドレスより送信しております。そのため返信頂いても内容の確認ができません。

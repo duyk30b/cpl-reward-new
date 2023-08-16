@@ -1,0 +1,205 @@
+syntax = "proto3";
+
+option csharp_namespace = "MT5.gRPC";
+
+package payment.echelonpay;
+
+import "google/protobuf/empty.proto";
+
+service PaymentEchelonpay {
+	rpc GetPayoutRequests (ListPayoutsRequest) returns (ListPayoutsResponse);
+	rpc GetPayoutDetail (PayoutDetailRequest) returns (PayoutDetailResponse);
+	rpc ApprovePayout (ApprovePayoutRequest) returns (PayoutStatusResponse);
+	rpc RejectPayout (RejectPayoutRequest) returns (PayoutStatusResponse);
+	rpc ConfirmBankTransferPayout (ConfirmBankTransferPayoutRequest) returns (PayoutStatusResponse);
+	rpc RejectBankTransferPayout (RejectBankTransferPayoutRequest) returns (PayoutStatusResponse);
+
+	rpc GetPayinRequests (ListPayoutsRequest) returns (ListPayinsResponse);
+	rpc GetPayinDetail (PayoutDetailRequest) returns (PayinDetailResponse);
+	rpc ApprovePayin (ApprovePayoutRequest) returns (PayinStatusResponse);
+	rpc RejectPayin (RejectPayoutRequest) returns (PayinStatusResponse);
+};
+
+// Enum
+enum PAYMENT_STATUS {
+	PROCESSING = 0;
+	FAILED = 1;
+	REJECTED = 2;
+	BANK_TRANSFER = 3;
+	DONE = 4;  
+};
+
+// Request
+message ListPayoutsRequest {
+	optional int32 page = 1;
+	optional int32 size = 2;
+	optional string search_field = 4;
+	optional string search_text = 5;
+	optional string sort = 6;
+	optional string sort_type = 7;
+}
+
+message PayoutDetailRequest {
+	string payout_id = 1;
+};
+
+message ApprovePayoutRequest {
+	string payout_id = 1;
+	string cpl_id = 2;
+	string mt5_login = 3;
+	string remark = 4;
+	string executor = 5;
+};
+
+message RejectPayoutRequest {
+	string payout_id = 1;
+	string cpl_id = 2;
+	string mt5_login = 3;
+	string remark = 4;
+	string executor = 5;
+};
+
+message ConfirmBankTransferPayoutRequest {
+	string payout_id = 1;
+	string cpl_id = 2;
+	string mt5_login = 3;
+	string remark = 4;
+	string executor = 5;
+}
+
+message RejectBankTransferPayoutRequest {
+	string payout_id = 1;
+	string cpl_id = 2;
+	string mt5_login = 3;
+	string remark = 4;
+	string executor = 5;
+}
+
+// Response
+message ListMeta {
+	int32 total_items = 1;
+	int32 item_count = 2;
+	int32 items_per_page = 3;
+	int32 total_pages = 4;
+	int32 current_page = 5;
+};
+
+message Payout {
+	string email = 1;
+	string amount = 2;
+	string payment_code = 3;
+	string status = 4;
+	string created_date = 5;
+	string updated_date = 6;
+	string remark = 7;
+	string payout_id = 8;
+	string mt5_id = 9;
+	string total_amount = 10;
+};
+
+message PayoutStatus {
+	string payout_id = 1;
+	int32 status = 2;
+}
+
+message PayoutDetail {
+	string payout_id = 1;
+	string payment_code = 2;
+	string customer_name = 3;
+	string mt5_id = 4;
+	string phone_number = 5;
+	string email = 6;
+	string amount = 7;
+	string account_name = 8;
+	string account_number = 9;
+	string account_type = 10;
+	string bank_code = 11;
+	string bank_name = 12;
+	string bank_branch = 13;
+	string bank_city = 14;
+	string bank_province = 15;
+	string cpl_id = 16;
+	string payout_status = 17;
+	string total_amount = 18;
+	string reason_admin = 19;
+	string reason_confirm_bank_transfer = 20;
+};
+
+message ListPayoutData {
+	repeated Payout items = 1;
+	optional ListMeta meta = 2;
+};
+
+message ListPayoutsResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional ListPayoutData data = 3;
+};
+
+message PayoutDetailResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional PayoutDetail data = 3;
+};
+
+message PayoutStatusResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional PayoutStatus data = 3;
+};
+
+message Payin {
+	string amount = 1;
+	string payment_code = 2;
+	string status = 3;
+	string created_date = 4;
+	string updated_date = 5;
+	string remark = 6;
+	string payin_id = 7;
+	string mt5_id = 8;
+	string total_amount = 9;
+	string quote = 10;
+	string baseCurrency = 11;
+	string emailBitcastle = 12;
+}
+
+message PayinStatus {
+	string payin_id = 1;
+	int32 status = 2;
+}
+
+message PayinDetail {
+	string payin_id = 1;
+	string mt5_id = 2;
+	string amount = 3;
+	string cpl_id = 4;
+	string payin_status = 5;
+	string total_amount = 6;
+	string reason_admin = 7;
+	string quote = 8;
+	string baseCurrency = 9;
+	string emailBitcastle = 10;
+};
+
+message ListPayinData {
+	repeated Payin items = 1;
+	optional ListMeta meta = 2;
+};
+
+message ListPayinsResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional ListPayinData data = 3;
+};
+
+message PayinDetailResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional PayinDetail data = 3;
+};
+
+message PayinStatusResponse {
+	bool success = 1;
+	optional string message = 2;
+	optional PayinStatus data = 3;
+};

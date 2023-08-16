@@ -1,0 +1,150 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@libs/redis": [
+        "libs/redis/src"
+      ],
+      "@libs/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@libs/mail": [
+        "libs/mail/src"
+      ],
+      "@libs/mail/*": [
+        "libs/mail/src/*"
+      ],
+      "@libs/kafka": [
+        "libs/kafka/src"
+      ],
+      "@libs/kafka/*": [
+        "libs/kafka/src/*"
+      ],
+      "@libs/util": [
+        "libs/util/src"
+      ],
+      "@libs/util/*": [
+        "libs/util/src/*"
+      ],
+      "@libs/mysql": [
+        "libs/mysql/src"
+      ],
+      "@libs/mysql/*": [
+        "libs/mysql/src/*"
+      ],
+      "@libs/common": [
+        "libs/common/src"
+      ],
+      "@libs/common/*": [
+        "libs/common/src/*"
+      ],
+      "@libs/notification": [
+        "libs/notification/src"
+      ],
+      "@libs/notification/*": [
+        "libs/notification/src/*"
+      ],
+      "@libs/grpc-client": [
+        "libs/grpc-client/src"
+      ],
+      "@libs/grpc-client/*": [
+        "libs/grpc-client/src/*"
+      ],
+      "@libs/auth-kong": [
+        "libs/auth-kong/src"
+      ],
+      "@libs/auth-kong/*": [
+        "libs/auth-kong/src/*"
+      ],
+      "@libs/device-token": [
+        "libs/device-token/src"
+      ],
+      "@libs/device-token/*": [
+        "libs/device-token/src/*"
+      ],
+      "@libs/firebase-admin": [
+        "libs/firebase-admin/src"
+      ],
+      "@libs/firebase-admin/*": [
+        "libs/firebase-admin/src/*"
+      ],
+      "@libs/system-push-notification-setting": [
+        "libs/system-push-notification-setting/src"
+      ],
+      "@libs/system-push-notification-setting/*": [
+        "libs/system-push-notification-setting/src/*"
+      ],
+      "@libs/notification-aggregate": [
+        "libs/notification-aggregate/src"
+      ],
+      "@libs/notification-aggregate/*": [
+        "libs/notification-aggregate/src/*"
+      ],
+      "@libs/user-setting": [
+        "libs/user-setting/src"
+      ],
+      "@libs/user-setting/*": [
+        "libs/user-setting/src/*"
+      ],
+      "@libs/mongo": [
+        "libs/mongo/src"
+      ],
+      "@libs/mongo/*": [
+        "libs/mongo/src/*"
+      ],
+      "@libs/noti-log": [
+        "libs/noti-log/src"
+      ],
+      "@libs/noti-log/*": [
+        "libs/noti-log/src/*"
+      ],
+      "@libs/bce-mysql": [
+        "libs/bce-mysql/src"
+      ],
+      "@libs/bce-mysql/*": [
+        "libs/bce-mysql/src/*"
+      ],
+      "@libs/mail-schedule": [
+        "libs/mail-schedule/src"
+      ],
+      "@libs/mail-schedule/*": [
+        "libs/mail-schedule/src/*"
+      ],
+      "@libs/push-schedule": [
+        "libs/push-schedule/src"
+      ],
+      "@libs/push-schedule/*": [
+        "libs/push-schedule/src/*"
+      ],
+      "@libs/websocket": [
+        "libs/websocket/src"
+      ],
+      "@libs/websocket/*": [
+        "libs/websocket/src/*"
+      ],
+      "@libs/user-group": [
+        "libs/user-group/src"
+      ],
+      "@libs/user-group/*": [
+        "libs/user-group/src/*"
+      ],
+      "@libs/upload-file": [
+        "libs/upload-file/src"
+      ],
+      "@libs/upload-file/*": [
+        "libs/upload-file/src/*"
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package notification;
+
+import "common.proto";
+
+message MailCommand {
+
+  message Template {
+    string subject = 1;
+    string file = 2;
+  }
+
+  Template template = 1;
+  string lang = 2;
+}
+
+message SendMailRequest {
+  repeated string user_ids = 1;
+  repeated string emails = 2;
+  string data = 5;
+  MailCommand mail_command = 9; 
+}
+
+service NotificationService {
+  rpc SendMail(SendMailRequest) returns (common.PostResponse);
+}

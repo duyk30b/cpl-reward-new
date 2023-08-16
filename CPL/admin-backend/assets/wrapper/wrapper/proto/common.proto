@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package common;
+
+message PostResponse {
+	bool success = 1;
+	string message = 2;
+	string data = 3;
+	int32 error_code = 4;
+}
+
+message PaginationMeta {
+	int32 page = 1;
+	int32 size = 2;
+	int32 total = 3;
+}
+
+
+message MultiLanguageField {
+	string en = 1;
+	string ja = 2;
+}
+
+message DataById {
+	string id = 1;
+}

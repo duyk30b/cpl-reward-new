@@ -1,0 +1,170 @@
+syntax = "proto3";
+
+package autoWithdraw;
+
+message withdrawalGroupRequest {
+  int32 id = 1;
+}
+
+message WalletKeyValue {
+  message DataModule  {
+    string privateKey = 1;
+    string address = 2;
+  };
+  DataModule data = 1;
+  string message = 2;
+  int64 timestamp = 3;
+  optional int32 total_count = 4;
+}
+
+message WithdrawGroupValue  {
+  int32 admin_id = 1;
+  string chain_code = 2;
+  string currency = 4;
+  int32 id = 5;
+  string name = 6;
+  // string wallet_key = 3;
+  
+  string status = 7;
+  string total_balance = 8;
+  string total_fee = 9;
+  int32 total_transaction = 10;
+  optional string wallet_address = 11;
+  string create_date = 12;
+  string update_date = 13;
+  string current_balance = 14;
+  string suggested_fee = 15;
+  string native_current_balance = 16;
+};
+
+message ListWithdrawGroupResponse {
+  repeated WithdrawGroupValue data = 1;
+  string message = 2;
+  // any meta_data = 3;
+  int64 timestamp = 4;
+  int32 total_count = 5;
+}
+
+message ListWithdrawGroupRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional string keyword = 3;
+  optional string currency = 4;
+  optional string status = 5;
+}
+
+message CreateWithdrawGroupRequest {
+  string name = 1;
+  string currency = 2;
+}
+
+message WithdrawGroupResponse {
+  WithdrawGroupValue data = 1;
+  string message = 2;
+  // any meta_data = 3;
+  int64 timestamp = 4;
+}
+
+message UpdateGroupStatusRequest {
+  int32 group_id = 1;
+  string status = 2;
+}
+
+message UpdateGroupStatusResponse {
+  message WithdrawGroupTransaction {
+    string transaction_hash = 1;
+  }
+
+  WithdrawGroupValue data = 1;
+  optional WithdrawGroupTransaction meta_data = 2;
+  string message = 3;
+  int64 timestamp = 4;
+}
+
+message saveAutoWithdrawRequest {
+  message AutoWithdraw {
+    string toAddress = 2;
+    string amount = 3;
+    string withdraw_request_id = 4;
+    optional string email = 5;
+  } 
+  int32 groupId = 1;
+  repeated AutoWithdraw withdraws = 2;
+}
+
+message saveAutoWithdrawResponse {
+  bool data = 1;
+  string message = 2;
+  // any meta_data = 3;
+  int64 timestamp = 4;
+  int32 total_count = 5;
+}
+
+message getListAutoWithdrawRequest {
+  optional int32 page = 1;
+  optional int32 size = 2;
+  optional int32 group_id = 3;
+  optional string currency = 4;
+  optional string status = 5;
+  optional string email = 6;
+}
+
+message getListAutoWithdrawResponse {
+  message AutoWithdrawValue {
+    int32 id = 1;
+    int32 withdraw_group_id = 2;
+    string withdraw_request_id = 3;
+    string to_address = 5;
+    string currency = 6;
+    string amount = 7;
+    optional string fee = 8;
+    optional string tx_hash = 9;
+    optional string status = 10;
+    optional string error = 11;
+    string create_date = 12;
+    string update_date = 13;
+    string email = 14;
+  }
+  repeated AutoWithdrawValue data = 1;
+  string message = 2;
+  WithdrawGroupValue meta_data = 3;
+  int64 timestamp = 4;
+  int32 total_count = 5;
+}
+
+message validateWithdrawRequest {
+  repeated string withdraw_request_ids = 1;
+  int32 group_id = 2;
+}
+
+message validateWithdrawResponse {
+  repeated string data = 1;
+  string message = 2;
+  WithdrawGroupValue meta_data = 3;
+  int64 timestamp = 4;
+}
+
+message collectWithdrawalGroupResponse {
+  message CollectGroupResponse {
+    string transaction_hash = 1;
+  }
+
+  message GroupBalance {
+    string current_balance = 1;
+    string collect_balance = 2;
+  }
+  string message = 1;
+  CollectGroupResponse data = 2;
+  GroupBalance meta_data = 3;
+}
+
+service grpcAutoWithdrawService {
+  rpc generatePrivateKey (withdrawalGroupRequest) returns (WalletKeyValue);
+  rpc getListWithdrawalGroup (ListWithdrawGroupRequest) returns (ListWithdrawGroupResponse);
+  rpc createWithdrawalGroup (CreateWithdrawGroupRequest) returns (WithdrawGroupResponse);
+  rpc updateStatus (UpdateGroupStatusRequest) returns (UpdateGroupStatusResponse);
+  rpc saveAutoWithdrawals (saveAutoWithdrawRequest) returns (saveAutoWithdrawResponse);
+  rpc getListAutoWithdraw (getListAutoWithdrawRequest) returns (getListAutoWithdrawResponse);
+  rpc collectAutoWithdrawalGroup (withdrawalGroupRequest) returns (collectWithdrawalGroupResponse);
+  rpc validateDuplicateAutoWithdraw (validateWithdrawRequest) returns (validateWithdrawResponse);
+}

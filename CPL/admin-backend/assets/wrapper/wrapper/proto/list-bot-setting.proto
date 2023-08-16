@@ -1,0 +1,78 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package list_bot_setting;
+
+service ListBotSetting {
+  rpc GetSettings(google.protobuf.Empty) returns (ListBotSettingResponse) {}
+  rpc GetSettingByUserType(GetBotByUserTypeRequest) returns (GetBotByUserTypeResponse) {}
+  rpc CheckBotById(CheckBotByIdRequest) returns (CheckBotByIdResponse) {}
+  rpc UpdateBotId(BotIdRequest) returns (UpdateBotIdResponse) {}
+  rpc GetSettingsAdmin(BotParams) returns (GetBotIdResponse) {}
+}
+
+message GetBotByUserTypeRequest {
+  int32 user_type = 1;
+}
+
+message GetBotByUserTypeResponse {
+  map<string,string> data = 1;
+}
+
+message ListBotSettingItemResponse {
+  string bot_id = 1;
+}
+
+message ListGatekeeperSettingResponse {
+  string bot_id = 1;
+  int32 extend_orders = 2;
+  string expire_time = 3;
+}
+
+message ListBotSettingResponse {
+  optional ListBotSettingItemResponse bot_a = 1;
+  optional ListBotSettingItemResponse bot_p = 2;
+  optional ListGatekeeperSettingResponse gatekeeper = 3;
+}
+
+message CheckBotByIdRequest {
+  string user_id = 1;
+}
+
+message CheckBotByIdResponse {
+  int32 is_bot = 1;
+}
+
+message BotConfigure {
+  int32 extend_orders = 1;
+  string expire_time = 2;
+}
+
+message BotIdRequest {
+  string user_id = 1;
+  string email = 2;
+  int32 user_type = 3;
+  optional int32 status = 4;
+  optional string created_at = 5;
+  optional string updated_at = 6;
+  optional BotConfigure configure = 7;
+}
+
+message UpdateBotIdResponse {
+  string response = 1;
+}
+
+message BotParams {
+  optional string user_id = 1;
+  optional string email = 2;
+  optional int32 user_type = 3;
+  optional int32 page = 4;
+  optional int32 size = 5;
+}
+
+message GetBotIdResponse {
+  repeated BotIdRequest contents = 1;
+  int32 page = 2;
+  int32 size = 3;
+  int32 total = 4;
+}

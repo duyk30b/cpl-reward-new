@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package grid.trading.v1.service;
+
+import "grid-trading.v1.proto";
+
+service GridTradingV1Service {
+  rpc GetListGrids(GridTradingRequest) returns (GridTradingResponse);
+  rpc GetOpenOrder(GetOpenOrderRequest) returns (GetOpenOrderResponse);
+  rpc GetStrategyDetail(GetStrategyDetailRequest) returns (StrategyDetail);
+  rpc GetTradeHistory(GetTradeHistoryRequest) returns (GetTradeHistoryResponse);
+  rpc GetTradeHistorySummary(GetTradeHistorySummaryRequest)
+      returns (GetTradeHistorySummaryResponse);
+}
+
+message GetStrategyDetailRequest {
+  string strategy_id = 1;
+  string user_id = 2;
+}
+
+message GetOpenOrderRequest { string strategy_id = 1; }
+
+message GetOpenOrderResponse {
+  repeated Orderbook asks = 1;
+  repeated Orderbook bids = 2;
+  string quantity_per_order = 3;
+}
+
+message GridTradingRequest {
+  optional string from = 1;
+  optional string to = 2;
+  optional GRID_TYPE type = 3;
+  optional SEARCH_BY_FIELD search_by_field = 4;
+  optional STRATEGY_STATUS status = 5;
+  optional string coin = 6;
+  optional string currency = 7;
+  optional string keyword = 8;
+  optional int32 per_page = 9;
+  optional int32 page = 10;
+  optional string sort_by = 11;
+  optional SORT_TYPE sort_type = 12;
+}
+
+message GridTradingResponse {
+  PaginationResponse pagination = 1;
+  repeated Strategy data = 2;
+}
+
+message GetTradeHistoryRequest {
+  string strategy_id = 1;
+  optional string from = 2;
+  optional string to = 3;
+  int32 take = 4;
+}
+
+message GetTradeHistoryResponse {
+  repeated TradeHistory data = 1;
+  LinkPaginationResponse links = 2;
+  PaginationResponse pagination = 3;
+}
+
+message GetTradeHistorySummaryRequest {
+  string strategy_id = 1;
+  string user_id = 2;
+}
+
+message GetTradeHistorySummaryResponse {
+  string total_matched_trade = 1;
+  string start_price = 2;
+  string initial_buy_quantity = 3;
+  string sell_quantity_at_stop = 4;
+  string average_sell_price_at_stop = 5;
+  string stop_price = 6;
+  string grid_profit = 7;
+}

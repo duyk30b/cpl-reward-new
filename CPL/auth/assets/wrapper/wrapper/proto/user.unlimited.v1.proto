@@ -1,0 +1,63 @@
+syntax = "proto3";
+package exchange.user.unlimited.admin;
+
+service ExchangeUserUnlimitedService {
+  rpc GetUserUnlimited(GetUserUnlimitedRequest)
+      returns (UserUnlimitedPaginationResponse) {}
+  rpc RemoveUserUnlimited(RemoveUserUnlimitedRequest)
+      returns (RemoveUserUnlimitedResponse) {}
+  rpc AddUserUnlimited(AddUserUnlimitedRequest) returns (UserUnlimitedItem) {}
+  rpc UpdateUserUnlimited(UpdateUserUnlimitedRequest)
+      returns (UserUnlimitedItem) {}
+  rpc CheckUserIsUnlimited(CheckUserIsUnlimitedRequest)
+      returns (CheckUserIsUnlimitedResponse) {};
+}
+
+message CheckUserIsUnlimitedRequest { string user_id = 1; }
+
+message CheckUserIsUnlimitedResponse { bool is_unlimited = 1; }
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message UserUnlimitedItem {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+  optional string create_time = 4;
+  string email = 5;
+}
+
+message UserUnlimitedPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated UserUnlimitedItem data = 2;
+}
+
+message GetUserUnlimitedRequest {
+  optional int32 page = 1;
+  optional int32 per_page = 2;
+  optional int32 sort_type = 3;
+  optional string sort_by = 4;
+  optional string keyword = 6;
+  optional string search_by_field = 7;
+}
+
+message RemoveUserUnlimitedRequest { string user_id = 1; }
+
+message RemoveUserUnlimitedResponse { int32 status = 1; }
+
+message AddUserUnlimitedRequest {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+  string email = 4;
+}
+
+message UpdateUserUnlimitedRequest {
+  string user_id = 1;
+  optional string note = 2;
+  optional string reason = 3;
+}

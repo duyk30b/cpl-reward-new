@@ -1,0 +1,26 @@
+#auto-withdraw-group-detail {
+  .group-info {
+    .group-info-item {
+      .group-info-label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .btn-action-groups {
+    .ml-2 {
+      margin-left: 10px;
+    }
+  }
+
+  #btn-send-transaction {
+    float: right;
+    transition: height 2s;
+    &.sticky {
+      position: fixed;
+      bottom: 40px;
+      right: 60px;
+      height: 36px;
+    }
+  }
+}

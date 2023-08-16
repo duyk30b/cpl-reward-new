@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package system_push_notification_setting;
+
+import "common.proto";
+import "google/protobuf/empty.proto";
+
+message SystemPushNotificationSettingFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  string type = 3;
+  bool is_active = 4;
+  string search_field = 5;
+  string search_text = 6;
+  string lang = 7;
+  string sort = 8;
+  string sort_type = 9;
+};
+
+message SystemPushNotificationSetting {
+  string id = 1;
+  string type = 2;
+  common.MultiLanguageField title = 3;
+  common.MultiLanguageField content = 4;
+  bool is_active = 5;
+}
+
+message ListSystemPushNotificationSetting {
+  repeated SystemPushNotificationSetting data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message DataById {
+  string id = 1;
+};
+
+message SystemPushNotificationSettingResponse {
+  SystemPushNotificationSetting data = 1;
+}
+
+message UpdateSettingRequest {
+  string id = 1;
+  common.MultiLanguageField title = 3;
+  common.MultiLanguageField content = 4;
+  bool is_active = 5;
+}
+
+message ToggleActiveRequest {
+  string id = 1;
+  bool is_active = 2;
+}
+
+message Type {
+  string name = 1;
+  repeated string variables = 2;
+} 
+
+message ListTypes {
+  repeated Type data = 1;
+}
+
+message ListLangs {
+  repeated string data = 1;
+}
+
+service SystemPushNotificationSettingService {
+  rpc GetListSetting(SystemPushNotificationSettingFilter) returns (ListSystemPushNotificationSetting);
+  rpc FindSettingById(DataById) returns (SystemPushNotificationSettingResponse);
+  rpc UpdateSetting(UpdateSettingRequest) returns (common.PostResponse);
+  rpc ToggleActive(ToggleActiveRequest) returns (common.PostResponse);
+  rpc GetTypes(google.protobuf.Empty) returns (ListTypes);
+  rpc GetSupportedLangs(google.protobuf.Empty) returns (ListLangs);
+}

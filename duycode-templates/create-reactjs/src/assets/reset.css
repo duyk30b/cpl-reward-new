@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+pre,
+code {
+    font-family: monospace, monospace;
+}
+input {
+    outline: none;
+}
+button,
+select,
+input[type="checkbox"] {
+    cursor: pointer;
+}

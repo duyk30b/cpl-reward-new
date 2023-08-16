@@ -1,0 +1,20 @@
+.archive-inner {
+    margin: 20px 0;
+    padding: 20px 20px 80px 20px;
+    box-shadow: 2px 2px 8px #ddd;
+    .archive-title {
+        margin-top: 16px;
+        font-size: 20px;
+        color: #333;
+        .note {
+            margin-left: 8px;
+            color: var(--color-primary);
+        }
+    }
+    .archive-content {
+        margin-top: 24px;
+    }
+    .pagination {
+        margin-top: 20px;
+    }
+}

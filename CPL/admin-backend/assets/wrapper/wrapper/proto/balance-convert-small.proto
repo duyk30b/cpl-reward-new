@@ -1,0 +1,144 @@
+syntax = "proto3";
+
+package grpc.convert.small.v1;
+
+service ConvertSmallService {
+    rpc List(ListRequest) returns (ListResponse);
+    rpc ListDetail(ListDetailRequest) returns (ListDetailResponse);
+    rpc ListDetailByIds(ListDetailByIdsRequest) returns (ListDetailResponse);
+    rpc ListCoinsConvert(ListCoinsConvertRequest) returns (ListCoinsConvertResponse);
+    rpc Converts(ConvertsRequest) returns (ConvertsResponse);
+}
+
+
+message ConvertSmallEntity {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+        GRID_TRADING = 6;
+    }
+    string id = 1;
+    string user_id = 2;
+    BalanceType balance_type = 3;
+    string total_received = 4;
+    string fee_coin = 5;
+    string total_fee = 6;
+    string created_at = 7;
+}
+
+message ConvertSmallDetailEntity {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+        GRID_TRADING = 6;
+    }
+    string id = 1;
+    string user_id = 2;
+    string convert_small_id = 3;
+    string coin_from = 4;
+    string coin_to = 5;
+    BalanceType balance_type = 6;
+    string amount_from = 7;
+    string amount_to = 8;
+    string fee_coin = 9;
+    string fee_amount = 10;
+    string created_at = 11;
+}
+
+message Estimate {
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+        GRID_TRADING = 6;
+    }
+    string user_id = 1;
+    string coin_from = 2;
+    string coin_to = 3;
+    BalanceType balance_type = 4;
+    string amount_from = 5;
+    string amount_from_usdt = 6;
+    string amount_to = 7;
+    string fee_coin = 8;
+    BalanceType fee_balance_type = 9;
+    string fee_amount = 10;
+    string fee_amount_usdt = 11;
+}
+
+message MetaData {
+    string max_balance_amount = 1;
+    string total_amount_castle = 2;
+    string total_fee_castle = 3;
+}
+
+////////// List /////////////
+
+message ListRequest {
+    repeated string user_ids = 1;
+    optional string start_date = 2;
+    optional string end_date = 3;
+    optional uint32 page = 4;
+    optional uint32 size = 5;
+    optional string sort = 6;
+    optional string sort_type = 7;
+}
+
+message ListResponse {
+    repeated ConvertSmallEntity data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+////////// List Detail /////////////
+message ListDetailRequest {
+    string convert_small_id = 1;
+}
+
+message ListDetailResponse {
+    repeated ConvertSmallDetailEntity data = 1;
+}
+
+////////// List Detail By Ids /////////////
+message ListDetailByIdsRequest {
+    repeated string convert_small_ids = 1;
+}
+
+////////// List Coins Convert /////////////
+message ListCoinsConvertRequest {
+    string user_id = 1;
+    repeated string currencies = 2;
+    
+}
+
+message ListCoinsConvertResponse {
+    repeated Estimate data = 1;
+    MetaData meta_data = 2;
+
+}
+
+////////// Converts /////////////
+message ConvertsRequest {
+    string user_id = 1;
+    repeated string currencies = 2;
+    
+}
+
+message ConvertsResponse {
+    ConvertSmallEntity data = 1;
+}
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

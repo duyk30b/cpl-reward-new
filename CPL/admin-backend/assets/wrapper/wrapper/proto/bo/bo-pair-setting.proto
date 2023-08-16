@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package bo_pair_setting;
+
+import "google/protobuf/empty.proto";
+
+service BOPairSettingService {
+  rpc AddPairSetting(AddRequest) returns (BOPairSettingResponse);
+  rpc FindOnePairSetting(ID) returns (BOPairSettingResponse);
+  rpc ListPairSetting(ListRequest) returns (ListDataResponse);
+  rpc UpdatePairSetting(UpdateRequest) returns (BOPairSettingResponse);
+  rpc DeletePairSetting(DeleteRequest) returns (BOPairSettingResponse);
+  rpc GetPairSetting(ListRequest) returns (ListDataResponse);
+  rpc ExportPairSetting(ListRequest) returns (ListDataResponse);
+};
+
+message BOPairSetting {
+  string id = 1;
+  string pair_id = 2;
+  string decimal_part = 3;
+  string highlow_spread = 4;
+  string turbo_spread = 5;
+  string emergency_threshold = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  uint32 pair_id = 1;
+  uint32 decimal_part = 2;
+  double highlow_spread = 3;
+  double turbo_spread = 4;
+  uint32 emergency_threshold = 5;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  uint32 pair_id = 2;
+  uint32 decimal_part = 3;
+  double highlow_spread = 4;
+  double turbo_spread = 5;
+  uint32 emergency_threshold = 6;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string pair = 8;
+  optional string lang = 9;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOPairSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOPairSetting data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOPairSetting items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOPairSettingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package price.v1.orderbook;
+
+service PriceService {
+  rpc GetPrice(PriceRequest) returns (GetPricesResponse) {}
+  rpc GetPriceHistory(GetPriceHistoryRequest) returns (GetPriceHistoryResponse) {}
+}
+
+message PriceRequest {
+  repeated string pairs = 1;
+}
+
+message PriceItem {
+  string coin = 1;
+  string currency = 2;
+  string price = 3;
+}
+
+message GetPricesResponse {
+  repeated PriceItem data = 1;
+  string last_update = 2;
+}
+
+message GetPriceHistoryRequest {
+  string coin = 1;
+  string currency = 2;
+  string from = 3;
+  string to = 4;
+}
+
+message GetPriceHistoryResponse {
+  repeated GetPriceHistoryItem data = 1;
+  string last_update = 2;
+}
+
+message GetPriceHistoryItem {
+  string time = 1;
+  string close = 2;
+}

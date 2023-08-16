@@ -1,0 +1,1041 @@
+export const JudgmentConditionSettings = {
+  auth_user_created: [
+    {
+      key: 'last_login',
+      type: 'unix_timestamp',
+      description: 'Last login time',
+    },
+    {
+      key: 'email',
+      type: 'string',
+      description: 'Account Email',
+    },
+    {
+      key: 'email_verify_at',
+      type: 'unix_timestamp',
+      description: 'Email verify status',
+    },
+    {
+      key: 'created_at',
+      type: 'unix_timestamp',
+      description: 'Account created at',
+    },
+    // {
+    //   key: 'updated_at',
+    //   type: 'unix_timestamp',
+    //   description: 'Account updated at',
+    // },
+    {
+      key: 'id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'status',
+      type: 'number',
+      description: 'Account status',
+      display: 'enum',
+      options: { ACTIVE: 1, INACTIVE: 2 },
+    },
+    {
+      key: 'type',
+      type: 'number',
+      description: 'Account type',
+      display: 'enum',
+      options: { NORMAL: 1, BOT: 2 },
+    },
+    {
+      key: 'email_verify_status',
+      type: 'number',
+      description: 'Email verify status',
+      display: 'enum',
+      options: { VERIFIED: 1, UNVERIFIED: 2 },
+    },
+    {
+      key: 'referred_by_id',
+      type: 'number',
+      description: 'Referred by user id',
+    },
+    {
+      key: 'channel_id',
+      type: 'number',
+      description: 'Channel ID',
+    },
+  ],
+  // auth_user_change_email: [
+  //   {
+  //     key: 'user_id',
+  //     type: 'string',
+  //     description: 'User ID',
+  //     display: 'number',
+  //   },
+  //   {
+  //     key: 'old_email',
+  //     type: 'string',
+  //     description: 'Old Email',
+  //   },
+  //   {
+  //     key: 'new_email',
+  //     type: 'string',
+  //     description: 'New Email',
+  //   },
+  // ],
+  auth_user_login: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'ID of user who just logged in',
+      display: 'number',
+    },
+    {
+      key: 'ip',
+      type: 'string',
+      description: 'IP address',
+    },
+    {
+      key: 'is_register',
+      type: 'boolean',
+      description: 'Is brand new account?',
+    },
+    {
+      key: 'time',
+      type: 'unix_timestamp',
+      description: 'Register time (unix timestamp)',
+    },
+  ],
+  // auth_user_logout: [
+  //   {
+  //     key: 'user_id',
+  //     type: 'string',
+  //     description: 'User ID',
+  //     display: 'number',
+  //   },
+  //   {
+  //     key: 'device_id',
+  //     type: 'string',
+  //     description: 'Device ID',
+  //     display: 'number',
+  //   },
+  //   {
+  //     key: 'time',
+  //     type: 'unix_timestamp',
+  //     description: 'Logout time',
+  //   },
+  // ],
+  // auth_user_change_password: [
+  //   {
+  //     key: 'user_id',
+  //     type: 'string',
+  //     description: 'User ID',
+  //     display: 'number',
+  //   },
+  // ],
+  // auth_user_authenticator_status_updated: [
+  //   {
+  //     key: 'user_id',
+  //     type: 'string',
+  //     description: 'User ID',
+  //     display: 'number',
+  //   },
+  //   {
+  //     key: 'status',
+  //     type: 'number',
+  //     description: 'Status',
+  //     display: 'enum',
+  //     options: { VERIFIED: 1, UNVERIFIED: 2 },
+  //   },
+  // ],
+  auth_user_kyc_status_updated: [
+    {
+      key: 'status',
+      type: 'number',
+      description: 'Status',
+      display: 'enum',
+      options: {
+        ACCEPT: 1,
+        REJECT: 2,
+        PENDING: 3,
+        APPROVED_PAPER: 4,
+        NEW: 5,
+        AUTO_KYC_PROCESSED: 7,
+        PENDING_PAPER: 8,
+      },
+    },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+  ],
+  auth_user_kyc_registered: [
+    // {
+    //   key: 'id',
+    //   type: 'string',
+    //   description: 'ID',
+    //   display: 'number',
+    // },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'type',
+      type: 'number',
+      description: 'Type',
+      display: 'enum',
+      options: { PERSONAL: 1, ENTERPRISE: 2 },
+    },
+    // {
+    //   key: 'provider',
+    //   type: 'number',
+    //   description: 'KYC Provider ID',
+    // },
+    {
+      key: 'id_document_type',
+      type: 'number',
+      description: 'Document type ID',
+      display: 'enum',
+      options: {
+        PASSPORT: 1,
+        ID_CARD: 2,
+        DRIVING_LICENCE: 3,
+        OTHERS: 4,
+        RESIDENCE_CARD: 5,
+        NUMBER_CARD: 6,
+      },
+    },
+    {
+      key: 'country_id',
+      type: 'number',
+      description: 'Country ID (get list from setting v2 API)',
+    },
+  ],
+  auth_user_kyc_auto_kyc_finished: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'pass',
+      type: 'boolean',
+      description: 'Is passed Auto KYC',
+    },
+  ],
+  auth_user_change_lv: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'old_level',
+      type: 'number',
+      description: 'Account level before change',
+      display: 'enum',
+      options: { LV_1: 1, LV_2: 2, LV_3: 3, LV_4: 4, LV_5: 5 },
+    },
+    {
+      key: 'new_level',
+      type: 'number',
+      description: 'Account level after change',
+      display: 'enum',
+      options: { LV_1: 1, LV_2: 2, LV_3: 3, LV_4: 4, LV_5: 5 },
+    },
+  ],
+  auth_user_change_info: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+  ],
+  exchange_confirm_order_match: [
+    {
+      key: 'trade_type',
+      type: 'number',
+      description: 'Trade Type',
+      display: 'enum',
+      options: { BUY: 1, SELL: 2 },
+    },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'currency',
+      type: 'string',
+      description: 'Currency',
+    },
+    {
+      key: 'coin',
+      type: 'string',
+      description: 'Coin',
+    },
+    {
+      key: 'quantity',
+      type: 'number',
+      description: 'Quantity',
+      display: 'number',
+    },
+  ],
+  bce_deposit: [
+    {
+      key: 'id',
+      type: 'string',
+      description: 'ID',
+    },
+    {
+      key: 'transaction_id',
+      type: 'string',
+      description: 'Transaction ID',
+    },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'type',
+      type: 'string',
+      description: 'Type of transaction (values: deposit, ...?)',
+    },
+    {
+      key: 'currency',
+      type: 'string',
+      description: 'Currency (lowercase)',
+    },
+    {
+      key: 'amount',
+      type: 'number',
+      description: 'Amount',
+      display: 'number',
+    },
+    {
+      key: 'fee',
+      type: 'number',
+      description: 'Fee',
+      display: 'number',
+    },
+    {
+      key: 'is_missing_event',
+      type: 'boolean',
+      description: 'Is this is event is missed and re-pushed manually',
+    },
+    {
+      key: 'is_first_time',
+      type: 'boolean',
+      description: 'Is first time the use do this action',
+    },
+    {
+      key: 'created_at',
+      type: 'number',
+      description: 'Deposit time',
+      display: 'number',
+    },
+  ],
+  high_low_transfer_balance: [
+    {
+      key: 'id',
+      type: 'number',
+      description: 'Transfer ID',
+      display: 'number',
+    },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'currency',
+      type: 'string',
+      description: 'Currency (lowercase)',
+    },
+    {
+      key: 'type',
+      type: 'string',
+      description: 'Type (EXCHANGE or BO)',
+    },
+    {
+      key: 'transfer_amount',
+      type: 'number',
+      description: 'Transfer amount',
+      display: 'number',
+    },
+  ],
+  high_low_create: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'balance_id',
+      type: 'number',
+      description: 'Balance ID',
+    },
+    {
+      key: 'mode_id',
+      type: 'number',
+      description: 'Mode ID',
+    },
+    {
+      key: 'strike',
+      type: 'number',
+      description: 'Strike',
+    },
+    {
+      key: 'trade_type',
+      type: 'string',
+      description: 'Trade Type',
+    },
+    {
+      key: 'pair_id',
+      type: 'number',
+      description: 'Pair ID',
+    },
+    {
+      key: 'invest',
+      type: 'number',
+      description: 'Invest',
+    },
+    {
+      key: 'start_time',
+      type: 'string',
+      description: 'Start Time',
+    },
+    {
+      key: 'end_time',
+      type: 'string',
+      description: 'End Time',
+    },
+    // {
+    //   key: 'buy_time',
+    //   type: 'unix_timestamp',
+    //   description: 'Buy Time',
+    //   display: 'unix_timestamp',
+    // },
+    {
+      key: 'expire_time',
+      type: 'unix_timestamp',
+      description: 'Expire Time',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'payout',
+      type: 'number',
+      description: 'Payout',
+    },
+    {
+      key: 'expire_payout',
+      type: 'number',
+      description: 'Expire Payout',
+    },
+    {
+      key: 'profit',
+      type: 'number',
+      description: 'Profit',
+    },
+    {
+      key: 'bcast_use',
+      type: 'number',
+      description: 'Bcast Use',
+    },
+    {
+      key: 'buy_payout',
+      type: 'number',
+      description: 'Buy Payout',
+    },
+    {
+      key: 'rank_payout',
+      type: 'number',
+      description: 'Rank Payout',
+    },
+    {
+      key: 'decimal_part',
+      type: 'number',
+      description: 'Decimal Part',
+    },
+    {
+      key: 'status',
+      type: 'string',
+      description: 'Status',
+    },
+    {
+      key: 'allow_resell',
+      type: 'number',
+      description: 'Allow Resell',
+    },
+    {
+      key: 'resell_expire',
+      type: 'unix_timestamp',
+      description: 'Resell Expire',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'odds_mode',
+      type: 'number',
+      description: 'Odds Mode',
+    },
+    {
+      key: 'odds_fee',
+      type: 'number',
+      description: 'Odds Fee',
+    },
+    {
+      key: 'pair_index',
+      type: 'number',
+      description: 'Pair Index',
+    },
+    {
+      key: 'frame_active',
+      type: 'string',
+      description: 'Frame Active',
+    },
+    {
+      key: 'is_demo',
+      type: 'number',
+      description: 'Is Demo',
+    },
+    {
+      key: 'closing_rate',
+      type: 'number',
+      description: 'Closing Rate',
+    },
+    {
+      key: 'sell_payout',
+      type: 'number',
+      description: 'Sell Payout',
+    },
+    {
+      key: 'id',
+      type: 'number',
+      description: 'ID',
+    },
+    {
+      key: 'is_first_time',
+      type: 'boolean',
+      description: 'Is First Time',
+    },
+    {
+      key: 'wallet_type',
+      type: 'string',
+      description: 'Wallet type',
+      display: 'enum',
+      options: { BO: 'BO', REWARD: 'REWARD' },
+    },
+  ],
+  high_low_lose: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'balance_id',
+      type: 'number',
+      description: 'Balance ID',
+    },
+    {
+      key: 'mode_id',
+      type: 'number',
+      description: 'Mode ID',
+    },
+    {
+      key: 'strike',
+      type: 'number',
+      description: 'Strike',
+    },
+    {
+      key: 'trade_type',
+      type: 'string',
+      description: 'Trade Type',
+    },
+    {
+      key: 'pair_id',
+      type: 'number',
+      description: 'Pair ID',
+    },
+    {
+      key: 'invest',
+      type: 'number',
+      description: 'Invest',
+    },
+    {
+      key: 'start_time',
+      type: 'string',
+      description: 'Start Time',
+    },
+    {
+      key: 'end_time',
+      type: 'string',
+      description: 'End Time',
+    },
+    // {
+    //   key: 'buy_time',
+    //   type: 'unix_timestamp',
+    //   description: 'Buy Time',
+    //   display: 'unix_timestamp',
+    // },
+    {
+      key: 'expire_time',
+      type: 'unix_timestamp',
+      description: 'Expire Time',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'payout',
+      type: 'number',
+      description: 'Payout',
+    },
+    {
+      key: 'expire_payout',
+      type: 'number',
+      description: 'Expire Payout',
+    },
+    {
+      key: 'profit',
+      type: 'number',
+      description: 'Profit',
+    },
+    {
+      key: 'bcast_use',
+      type: 'number',
+      description: 'Bcast Use',
+    },
+    {
+      key: 'buy_payout',
+      type: 'number',
+      description: 'Buy Payout',
+    },
+    {
+      key: 'rank_payout',
+      type: 'number',
+      description: 'Rank Payout',
+    },
+    {
+      key: 'decimal_part',
+      type: 'number',
+      description: 'Decimal Part',
+    },
+    {
+      key: 'status',
+      type: 'string',
+      description: 'Status',
+    },
+    {
+      key: 'allow_resell',
+      type: 'number',
+      description: 'Allow Resell',
+    },
+    {
+      key: 'resell_expire',
+      type: 'unix_timestamp',
+      description: 'Resell Expire',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'odds_mode',
+      type: 'number',
+      description: 'Odds Mode',
+    },
+    {
+      key: 'odds_fee',
+      type: 'number',
+      description: 'Odds Fee',
+    },
+    {
+      key: 'pair_index',
+      type: 'number',
+      description: 'Pair Index',
+    },
+    {
+      key: 'frame_active',
+      type: 'string',
+      description: 'Frame Active',
+    },
+    {
+      key: 'is_demo',
+      type: 'number',
+      description: 'Is Demo',
+    },
+    {
+      key: 'closing_rate',
+      type: 'number',
+      description: 'Closing Rate',
+    },
+    {
+      key: 'sell_payout',
+      type: 'number',
+      description: 'Sell Payout',
+    },
+    {
+      key: 'id',
+      type: 'number',
+      description: 'ID',
+    },
+    {
+      key: 'is_first_time',
+      type: 'boolean',
+      description: 'Is First Time',
+    },
+    {
+      key: 'wallet_type',
+      type: 'string',
+      description: 'Wallet type',
+      display: 'enum',
+      options: { BO: 'BO', REWARD: 'REWARD' },
+    },
+  ],
+  // high_low_cancel: [
+  //   {
+  //     key: 'user_id',
+  //     type: 'number',
+  //     description: 'User ID',
+  //     display: 'number',
+  //   },
+  //   {
+  //     key: 'balance_id',
+  //     type: 'number',
+  //     description: 'Balance ID',
+  //   },
+  //   {
+  //     key: 'mode_id',
+  //     type: 'number',
+  //     description: 'Mode ID',
+  //   },
+  //   {
+  //     key: 'strike',
+  //     type: 'number',
+  //     description: 'Strike',
+  //   },
+  //   {
+  //     key: 'trade_type',
+  //     type: 'string',
+  //     description: 'Trade Type',
+  //   },
+  //   {
+  //     key: 'pair_id',
+  //     type: 'number',
+  //     description: 'Pair ID',
+  //   },
+  //   {
+  //     key: 'invest',
+  //     type: 'number',
+  //     description: 'Invest',
+  //   },
+  //   {
+  //     key: 'start_time',
+  //     type: 'string',
+  //     description: 'Start Time',
+  //   },
+  //   {
+  //     key: 'end_time',
+  //     type: 'string',
+  //     description: 'End Time',
+  //   },
+  //   {
+  //     key: 'buy_time',
+  //     type: 'unix_timestamp',
+  //     description: 'Buy Time',
+  //     display: 'unix_timestamp',
+  //   },
+  //   {
+  //     key: 'expire_time',
+  //     type: 'unix_timestamp',
+  //     description: 'Expire Time',
+  //     display: 'unix_timestamp',
+  //   },
+  //   {
+  //     key: 'payout',
+  //     type: 'number',
+  //     description: 'Payout',
+  //   },
+  //   {
+  //     key: 'expire_payout',
+  //     type: 'number',
+  //     description: 'Expire Payout',
+  //   },
+  //   {
+  //     key: 'profit',
+  //     type: 'number',
+  //     description: 'Profit',
+  //   },
+  //   {
+  //     key: 'bcast_use',
+  //     type: 'number',
+  //     description: 'Bcast Use',
+  //   },
+  //   {
+  //     key: 'buy_payout',
+  //     type: 'number',
+  //     description: 'Buy Payout',
+  //   },
+  //   {
+  //     key: 'rank_payout',
+  //     type: 'number',
+  //     description: 'Rank Payout',
+  //   },
+  //   {
+  //     key: 'decimal_part',
+  //     type: 'number',
+  //     description: 'Decimal Part',
+  //   },
+  //   {
+  //     key: 'status',
+  //     type: 'string',
+  //     description: 'Status',
+  //   },
+  //   {
+  //     key: 'allow_resell',
+  //     type: 'number',
+  //     description: 'Allow Resell',
+  //   },
+  //   {
+  //     key: 'resell_expire',
+  //     type: 'unix_timestamp',
+  //     description: 'Resell Expire',
+  //     display: 'unix_timestamp',
+  //   },
+  //   {
+  //     key: 'odds_mode',
+  //     type: 'number',
+  //     description: 'Odds Mode',
+  //   },
+  //   {
+  //     key: 'odds_fee',
+  //     type: 'number',
+  //     description: 'Odds Fee',
+  //   },
+  //   {
+  //     key: 'pair_index',
+  //     type: 'number',
+  //     description: 'Pair Index',
+  //   },
+  //   {
+  //     key: 'frame_active',
+  //     type: 'string',
+  //     description: 'Frame Active',
+  //   },
+  //   {
+  //     key: 'is_demo',
+  //     type: 'number',
+  //     description: 'Is Demo',
+  //   },
+  //   {
+  //     key: 'closing_rate',
+  //     type: 'number',
+  //     description: 'Closing Rate',
+  //   },
+  //   {
+  //     key: 'sell_payout',
+  //     type: 'number',
+  //     description: 'Sell Payout',
+  //   },
+  //   {
+  //     key: 'id',
+  //     type: 'number',
+  //     description: 'ID',
+  //   },
+  //   {
+  //     key: 'is_first_time',
+  //     type: 'boolean',
+  //     description: 'Is First Time',
+  //   },
+  //   {
+  //     key: 'wallet_type',
+  //     type: 'string',
+  //     description: 'Wallet type',
+  //     display: 'enum',
+  //     options: { BO: 'BO', REWARD: 'REWARD' },
+  //   },
+  // ],
+  high_low_win: [
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User ID',
+      display: 'number',
+    },
+    {
+      key: 'balance_id',
+      type: 'number',
+      description: 'Balance ID',
+    },
+    {
+      key: 'mode_id',
+      type: 'number',
+      description: 'Mode ID',
+    },
+    {
+      key: 'strike',
+      type: 'number',
+      description: 'Strike',
+    },
+    {
+      key: 'trade_type',
+      type: 'string',
+      description: 'Trade Type',
+    },
+    {
+      key: 'pair_id',
+      type: 'number',
+      description: 'Pair ID',
+    },
+    {
+      key: 'invest',
+      type: 'number',
+      description: 'Invest',
+    },
+    {
+      key: 'start_time',
+      type: 'string',
+      description: 'Start Time',
+    },
+    {
+      key: 'end_time',
+      type: 'string',
+      description: 'End Time',
+    },
+    // {
+    //   key: 'buy_time',
+    //   type: 'unix_timestamp',
+    //   description: 'Buy Time',
+    //   display: 'unix_timestamp',
+    // },
+    {
+      key: 'expire_time',
+      type: 'unix_timestamp',
+      description: 'Expire Time',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'payout',
+      type: 'number',
+      description: 'Payout',
+    },
+    {
+      key: 'expire_payout',
+      type: 'number',
+      description: 'Expire Payout',
+    },
+    {
+      key: 'profit',
+      type: 'number',
+      description: 'Profit',
+    },
+    {
+      key: 'bcast_use',
+      type: 'number',
+      description: 'Bcast Use',
+    },
+    {
+      key: 'buy_payout',
+      type: 'number',
+      description: 'Buy Payout',
+    },
+    {
+      key: 'rank_payout',
+      type: 'number',
+      description: 'Rank Payout',
+    },
+    {
+      key: 'decimal_part',
+      type: 'number',
+      description: 'Decimal Part',
+    },
+    {
+      key: 'status',
+      type: 'string',
+      description: 'Status',
+    },
+    {
+      key: 'allow_resell',
+      type: 'number',
+      description: 'Allow Resell',
+    },
+    {
+      key: 'resell_expire',
+      type: 'unix_timestamp',
+      description: 'Resell Expire',
+      display: 'unix_timestamp',
+    },
+    {
+      key: 'odds_mode',
+      type: 'number',
+      description: 'Odds Mode',
+    },
+    {
+      key: 'odds_fee',
+      type: 'number',
+      description: 'Odds Fee',
+    },
+    {
+      key: 'pair_index',
+      type: 'number',
+      description: 'Pair Index',
+    },
+    {
+      key: 'frame_active',
+      type: 'string',
+      description: 'Frame Active',
+    },
+    {
+      key: 'is_demo',
+      type: 'number',
+      description: 'Is Demo',
+    },
+    {
+      key: 'closing_rate',
+      type: 'number',
+      description: 'Closing Rate',
+    },
+    {
+      key: 'sell_payout',
+      type: 'number',
+      description: 'Sell Payout',
+    },
+    {
+      key: 'id',
+      type: 'number',
+      description: 'ID',
+    },
+    {
+      key: 'is_first_time',
+      type: 'boolean',
+      description: 'Is First Time',
+    },
+    {
+      key: 'wallet_type',
+      type: 'string',
+      description: 'Wallet type',
+      display: 'enum',
+      options: { BO: 'BO', REWARD: 'REWARD' },
+    },
+  ],
+  reward_user_check_in: [
+    {
+      key: 'created_at',
+      type: 'number',
+      description: 'Checkin time',
+    },
+    {
+      key: 'user_id',
+      type: 'number',
+      description: 'User id',
+    },
+  ],
+}

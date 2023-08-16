@@ -1,0 +1,274 @@
+{
+  "users": [
+    {
+      "id": "56793ca5-f981-48cf-b032-9e446f023f0f",
+      "email": "admin@gmail.com",
+      "password": "$2a$10$jvx3k/wyUTmwQj4pKLpss.H7o96Vj4MpUrTabMzGivKu3QueB/vm6",
+      "username": "Admin",
+      "name": "admin",
+      "_password": "123456"
+    },
+    {
+      "id": "83c550d0-fbaf-4d8d-893a-685aab8572e4",
+      "email": "user@gmail.com",
+      "username": "User",
+      "name": "user",
+      "password": "$2a$10$bFaffzDC/EwczIPkwB9ouu0Ie1hQg0FdGAArz9D7RCpArX836ZVPi",
+      "_password": "123456"
+    }
+  ],
+  "categories": [
+    {
+      "id": "9ef9b43d-31f1-41bb-ae07-15de14ca0d34",
+      "name": "Industrial",
+      "createdAt": 1659753549564,
+      "updatedAt": 1659753549564
+    },
+    {
+      "id": "0e71b44e-a65a-4c18-a5be-837de7f0e791",
+      "name": "Home",
+      "createdAt": 1659753549564,
+      "updatedAt": 1659753549564
+    },
+    {
+      "id": "0506b02c-99c7-4f6d-a28c-290505bf98de",
+      "name": "Kids",
+      "createdAt": 1659753549565,
+      "updatedAt": 1659753549565
+    },
+    {
+      "id": "6de7ef35-17c8-4f84-9349-80ae8eb282e2",
+      "name": "Jewelery",
+      "createdAt": 1659753549565,
+      "updatedAt": 1659753549565
+    },
+    {
+      "id": "04195c64-262a-499b-ab7e-018e4030eff2",
+      "name": "Toys",
+      "createdAt": 1659753549565,
+      "updatedAt": 1659753549565
+    }
+  ],
+  "products": [
+    {
+      "id": "e1aab519-76c1-4d66-92f5-d43179faba0e",
+      "categoryID": "9ef9b43d-31f1-41bb-ae07-15de14ca0d34",
+      "name": "Rustic Granite Keyboard",
+      "color": "silver",
+      "price": 869,
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549565,
+      "updatedAt": 1659753549565
+    },
+    {
+      "id": "74d897e1-1a13-4dc3-aeef-55c5015d6f15",
+      "categoryID": "9ef9b43d-31f1-41bb-ae07-15de14ca0d34",
+      "name": "Rustic Concrete Ball",
+      "color": "purple",
+      "price": 872,
+      "description": "The Football Is Good For Training And Recreational Purposes",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "36e14d67-c318-469e-8513-2db2428c57fb",
+      "categoryID": "9ef9b43d-31f1-41bb-ae07-15de14ca0d34",
+      "name": "Refined Granite Soap",
+      "color": "olive",
+      "price": 975,
+      "description": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "c7ab7524-1def-4df0-9472-8ace001d1803",
+      "categoryID": "9ef9b43d-31f1-41bb-ae07-15de14ca0d34",
+      "name": "Gorgeous Metal Fish",
+      "color": "violet",
+      "price": 165,
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "6683d196-2e2f-4194-bfef-37aab74ea687",
+      "categoryID": "0e71b44e-a65a-4c18-a5be-837de7f0e791",
+      "name": "Awesome Metal Chips",
+      "color": "salmon",
+      "price": 363,
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "de4e294f-d1f3-4f0e-a222-65cc23846bde",
+      "categoryID": "0e71b44e-a65a-4c18-a5be-837de7f0e791",
+      "name": "Awesome Soft Computer",
+      "color": "red",
+      "price": 479,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "46196651-3d71-418c-b4c0-dd8212b68398",
+      "categoryID": "0e71b44e-a65a-4c18-a5be-837de7f0e791",
+      "name": "Fantastic Steel Soap",
+      "color": "orange",
+      "price": 221,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549566,
+      "updatedAt": 1659753549566
+    },
+    {
+      "id": "08e86924-aa4a-47a6-986a-e29008a5eb13",
+      "categoryID": "0e71b44e-a65a-4c18-a5be-837de7f0e791",
+      "name": "Incredible Frozen Bacon",
+      "color": "mint green",
+      "price": 346,
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549567,
+      "updatedAt": 1659753549567
+    },
+    {
+      "id": "61600ffc-52ee-4a81-ba5e-3dcedf5365e4",
+      "categoryID": "0506b02c-99c7-4f6d-a28c-290505bf98de",
+      "name": "Practical Metal Ball",
+      "color": "mint green",
+      "price": 750,
+      "description": "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549567,
+      "updatedAt": 1659753549567
+    },
+    {
+      "id": "f80b4a11-caa2-47be-8f7c-1807fa154fce",
+      "categoryID": "0506b02c-99c7-4f6d-a28c-290505bf98de",
+      "name": "Unbranded Cotton Mouse",
+      "color": "tan",
+      "price": 874,
+      "description": "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549567,
+      "updatedAt": 1659753549567
+    },
+    {
+      "id": "052d76e5-d6ba-4fe5-a5e2-0a6abde249ae",
+      "categoryID": "0506b02c-99c7-4f6d-a28c-290505bf98de",
+      "name": "Gorgeous Concrete Fish",
+      "color": "magenta",
+      "price": 346,
+      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549567,
+      "updatedAt": 1659753549567
+    },
+    {
+      "id": "87d5d039-5508-47c7-8d27-92920b1b183a",
+      "categoryID": "0506b02c-99c7-4f6d-a28c-290505bf98de",
+      "name": "Sleek Soft Hat",
+      "color": "black",
+      "price": 70,
+      "description": "The Football Is Good For Training And Recreational Purposes",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549567,
+      "updatedAt": 1659753549567
+    },
+    {
+      "id": "d674ea00-af5f-4bdf-b869-8c9df0bc3917",
+      "categoryID": "6de7ef35-17c8-4f84-9349-80ae8eb282e2",
+      "name": "Licensed Cotton Sausages",
+      "color": "gold",
+      "price": 165,
+      "description": "The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "114b4dc0-3bb7-49c5-b22a-135c83395208",
+      "categoryID": "6de7ef35-17c8-4f84-9349-80ae8eb282e2",
+      "name": "Awesome Steel Bike",
+      "color": "gold",
+      "price": 844,
+      "description": "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "1505812a-f398-45aa-8449-d961ac3b2dee",
+      "categoryID": "6de7ef35-17c8-4f84-9349-80ae8eb282e2",
+      "name": "Licensed Concrete Bacon",
+      "color": "grey",
+      "price": 270,
+      "description": "Andy shoes are designed to keeping in mind durability as well as trends, the most stylish range of shoes & sandals",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "88b8901b-96ca-4688-aaa8-4c482f261584",
+      "categoryID": "6de7ef35-17c8-4f84-9349-80ae8eb282e2",
+      "name": "Practical Fresh Table",
+      "color": "plum",
+      "price": 189,
+      "description": "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "f1e9f181-78c7-4f13-ac1c-0deb7f57fd58",
+      "categoryID": "04195c64-262a-499b-ab7e-018e4030eff2",
+      "name": "Tasty Wooden Salad",
+      "color": "silver",
+      "price": 944,
+      "description": "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "fd120198-20bc-4152-bb53-f81ae359a7cb",
+      "categoryID": "04195c64-262a-499b-ab7e-018e4030eff2",
+      "name": "Intelligent Fresh Hat",
+      "color": "indigo",
+      "price": 532,
+      "description": "The Apollotech B340 is an affordable wireless mouse with reliable connectivity, 12 months battery life and modern design",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "2248e835-7e21-40e0-acd4-dd73d9658851",
+      "categoryID": "04195c64-262a-499b-ab7e-018e4030eff2",
+      "name": "Small Steel Hat",
+      "color": "sky blue",
+      "price": 815,
+      "description": "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    },
+    {
+      "id": "593fb70e-d50a-476f-82e2-2b1576b0341e",
+      "categoryID": "04195c64-262a-499b-ab7e-018e4030eff2",
+      "name": "Awesome Fresh Soap",
+      "color": "red",
+      "price": 194,
+      "description": "The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J",
+      "thumbnailUrl": "http://placeimg.com/400/400",
+      "createdAt": 1659753549568,
+      "updatedAt": 1659753549568
+    }
+  ]
+}

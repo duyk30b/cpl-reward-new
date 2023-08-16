@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package tag;
+
+service GTagService {
+  rpc AddOne(AddOneRequest) returns (TagResponse);
+  rpc Add(AddRequest) returns (TagArrayResponse);
+  rpc FindByIds(FindByIdsRequest) returns (TagArrayResponse);
+  rpc Update(UpdateRequest) returns (TagResponse);
+  rpc Search(SearchRequest) returns (SearchTagResponse);
+  rpc DeleteOne(DeleteOneRequest) returns (TagResponse);
+  rpc DeleteMany(DeleteManyRequest) returns (TagResponse);
+};
+
+// REQUEST 
+message AddRequest {
+  repeated string names = 1;
+};
+
+message AddOneRequest {
+  string name = 1;
+};
+
+message FindByIdsRequest {
+  repeated uint32 ids = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  string name = 2;
+}
+
+message SearchRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteManyRequest {
+  repeated uint32 ids = 1;
+}
+
+message DeleteOneRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message Tag {
+  uint32 id = 1;
+  string name = 2;
+  bool is_existed = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message TagResponse {
+  required bool success = 1;
+  optional string message = 2;
+  optional Tag data = 3;
+}
+
+message TagArrayResponse {
+  required bool success = 1;
+  optional string message = 2;
+  repeated Tag data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated Tag items = 1;
+  optional ListMeta meta = 2;
+}
+
+
+message SearchTagResponse {
+  required bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+
+

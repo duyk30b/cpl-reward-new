@@ -1,0 +1,228 @@
+syntax = "proto3";
+
+package grpc.balance.monitor.v1;
+
+service BalanceMonitorService {
+    rpc Correct(CorrectRequest) returns (CorrectResponse);
+    rpc GetDiffBalanceCorrect(GetDiffBalanceCorrectRequest) returns (GetDiffBalanceCorrectResponse);
+    rpc CheckBalanceInvalid(CheckBalanceInvalidRequest) returns (CheckBalanceInvalidResponse);
+    rpc GetAbnormalBalanceUsers(GetAbnormalBalanceUsersRequest) returns (GetAbnormalBalanceUsersResponse);
+    rpc GetAbnormalBalanceAccounts(GetAbnormalBalanceAccountsRequest) returns (GetAbnormalBalanceAccountsResponse);
+    rpc GetAbnormalBalanceHistories(GetAbnormalBalanceHistoriesRequest) returns (GetAbnormalBalanceHistoriesResponse);
+}
+//////////// ENUM /////////////////
+
+enum TransactionType {
+    UNKNOWN = 0;
+    TRADING_FEE = 1;
+    WITHDRAW = 2;
+    WITHDRAW_FEE = 3;
+    DEPOSIT = 4;
+    DEPOSIT_FEE = 5; 
+    TRANSFER = 6;
+    TRANSFER_FEE = 7;
+    AFFILIATE = 8;
+    MANUALLY = 9;
+    BO_TRADING = 10;
+    BO_TRADING_WIN = 11;
+    REWARD = 12;
+    BO_TRANSFER = 13;
+    BO_TRANSFER_FEE = 14;
+    DIVIDEND = 15;
+    COMMISSION = 16;
+    CAMPAIGN = 17;
+    TRADING = 18;
+    SWAP = 19;
+    CORRECT = 20;
+    DIVIDEND_ROLLBACK = 21;
+    BO_TRADING_ODD = 22;
+    BO_TRADING_ODD_WIN = 23;
+    TRADING_FEE_ROLLBACK = 24;
+    IMPORT_EXCEL = 25;
+    IMPORT_EXCEL_ROLLBACK = 26;
+}
+
+enum CorrectedType {
+    CORRECT_BALANCE_ACCOUNT_TO_TRANSACTION = 1;
+    CORRECT_BALANCE_TRANSACTION_TO_ACCOUNT = 2;
+}
+
+enum BalanceType {
+    UNKNOWN = 0;
+    CASHBACK = 1;
+    BO = 2;
+    EXCHANGE = 3;
+    REWARD = 4;
+    FUTURES = 5;
+}
+
+enum RunCheckBalanceType {
+    RUN_ALL = 1;
+    RUN_NEXT_HISTORY = 2;
+}
+
+//////////// END ENUM /////////////////
+
+message AbnormalBalanceAccountEntity {    
+    string id = 1;
+    string balance_account_id = 2;
+    string before_balance_history_id = 3;
+    string balance_history_id = 4;
+    string balance_transaction_id = 5;
+    string on_hold_transaction_id = 6;
+    string user_id = 7;
+    string corrected_by = 8;
+    BalanceType balance_type = 9;
+    string currency = 10;
+    string change_actual_balance = 11;
+    string change_available_balance = 12;
+    string fixed_actual_balance = 13;
+    string fixed_available_balance = 14;
+    string reason = 15;
+    string data = 16;
+    string status = 17;
+    string created_at = 18;
+    string updated_at = 19;
+}
+
+//////// Correct //////////
+
+message CorrectRequest {
+    string user_id = 1;
+    string currency = 2;
+    BalanceType balance_type = 3;
+    CorrectedType corrected_type = 4;
+    string corrected_by = 5;
+    optional string diff_actual_balance = 6;
+    optional string diff_available_balance = 7;
+    string reason = 8;
+
+}
+
+message CorrectResponse {
+    string user_id = 1;
+    string currency = 2;
+    BalanceType balance_type = 3;
+    CorrectedType corrected_type = 4;
+    string corrected_by = 5;
+    optional string diff_actual_balance = 6;
+    optional string diff_available_balance = 7;
+    optional string to_balance_history_id = 8;
+    optional string from_balance_history_id = 9;
+}
+
+////// Get diff balance correct request ///////
+message GetDiffBalanceCorrectRequest {
+    string user_id = 1;
+    string currency = 2;
+    BalanceType balance_type = 3;
+}
+
+message GetDiffBalanceCorrectResponse {
+    string user_id = 1;
+    string currency = 2;
+    string balance_type = 3;
+    string current_actual_balance = 4;
+    string current_available_balance = 5;
+    string total_amount_transaction = 6;
+    string total_on_hold_transaction = 7;
+    string diff_actual_balance = 8;
+    string diff_available_balance = 9;
+}
+
+////// Check balance invalid ///////
+
+message CheckBalanceInvalidRequest {
+    string user_id = 1;
+    optional string currency = 2;
+    optional BalanceType balance_type = 3;
+    RunCheckBalanceType run_type = 4;
+}
+
+message CheckBalanceInvalidResponse {
+    CheckBalanceInvalidRequest data = 1;
+}
+
+message GetAbnormalBalanceUsersRequest {
+    optional uint32 page = 1;
+    optional uint32 size = 2;
+    repeated string user_ids = 3;
+}
+
+message GetAbnormalBalanceUsersResponse {
+    repeated GetAbnormalBalanceUsersData data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message GetAbnormalBalanceUsersData {
+    string user_id = 1;
+    string created_at = 2;
+}
+
+message GetAbnormalBalanceAccountsRequest {
+    string user_id = 1;
+}
+
+message GetAbnormalBalanceAccountsResponse {
+    repeated AbnormalBalanceAccountListItem data = 1;
+}
+
+message AbnormalBalanceAccountListItem {
+    string id = 1;
+    string user_id = 2;
+    string currency = 3;
+    string type = 4;
+    string actual_balance = 5;
+    bool is_abnormal_actual_balance = 6;
+    string available_balance = 7;
+    bool is_abnormal_available_balance = 8;
+    string created_at = 9;
+    string updated_at = 10;
+}
+
+message GetAbnormalBalanceHistoriesRequest {
+    string user_id = 1;
+    optional string currency = 2;
+    optional BalanceType balance_type = 3;
+    optional TransactionType transaction_type = 4;
+    optional GetAbnormalBalanceHistoriesData.Status status = 5;
+    optional uint32 page = 6;
+    optional uint32 size = 7;
+    optional string sort = 8;
+    optional string sort_type = 9;
+    optional bool get_all = 10;
+    string start_date = 11;
+    string end_date = 12;
+}
+
+message GetAbnormalBalanceHistoriesResponse {
+    repeated GetAbnormalBalanceHistoriesData data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message GetAbnormalBalanceHistoriesData {
+    enum Status {
+        ALL = 0;
+        NG = 1;
+        OK = 2;
+        CORRECTED = 3;
+    }
+    string id = 1;
+    AbnormalBalanceAccountEntity abnormal_balance_account = 2;
+    string balance_type = 3;
+    string currency = 4;
+    string actual_balance_change = 5;
+    string actual_balance = 6;
+    string available_balance_change = 7;
+    string available_balance = 8;
+    string transaction_type = 9;
+    string reference_id = 10;
+    string status = 11;
+    string created_at = 12;
+}
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

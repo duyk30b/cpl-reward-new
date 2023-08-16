@@ -1,0 +1,15 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content 
+  div(class="mb-10") #{name} 様
+
+  div(class="mb-10") システムは、#{email}のログインリクエストを受信しました。
+
+  div(class="mb-10") 以下のコードを入力して、システムへのログイン認証を完了してください。
+
+  div(class="mb-10") メール認証コード
+
+  div(class="mb-10 otp-div")
+    span #{code}
+
+  div(class="mb-10") 上記認証コードは#{ttl / 60 / 60}時間有効です。

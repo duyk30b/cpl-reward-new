@@ -1,0 +1,91 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package pair_category;
+
+message PairItem {
+  string coin = 1;
+  string currency = 2;
+  int32 status = 3;
+}
+
+message Category {
+  string id = 1;
+  repeated PairItem pairs = 2;
+  int32 status = 3;
+  string language_key = 4;
+  string parent_id = 5;
+  int32 index = 6;
+}
+
+message PairCategorySettingItem {
+  string id = 1;
+  repeated Category sub_category = 2;
+  int32 status = 3;
+  string language_key = 4;
+  int32 index = 5;
+}
+
+message InsertPairCategorySettingItem {
+  string language_key = 1;
+  int32 status = 2;
+  int32 index = 3;
+}
+
+message UpdatePairCategorySettingItem {
+  string id = 1;
+  int32 status = 2;
+  string language_key = 3;
+  int32 index = 5;
+}
+
+message DeletePairCategoryRequest { string id = 1; }
+
+message GetPairCategoryByIdRequest { string id = 1; }
+
+message PairSettingResponse { repeated PairCategorySettingItem data = 2; }
+
+message PairCategorySettingResponse { bool status = 1; }
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message PairCategorySettingPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated PairCategorySettingItem data = 2;
+}
+
+message UpdateOrderCategoryRequest {
+  message Data {
+    string id = 1;
+    int32 index = 2;
+  }
+  repeated Data data = 1;
+}
+
+message UpdateOrderCategoryResponse { bool status = 1; }
+
+service PairCategorySettingService {
+  rpc GetPairCategorySetting(google.protobuf.Empty)
+      returns (PairSettingResponse) {}
+  rpc GetPairCategorySettingById(GetPairCategoryByIdRequest)
+      returns (PairCategorySettingItem);
+  rpc GetPairCategorySettingByPagination(PaginationRequest)
+      returns (PairCategorySettingPaginationResponse) {}
+  rpc InsertPairCategorySetting(InsertPairCategorySettingItem)
+      returns (PairCategorySettingItem) {}
+  rpc UpdatePairCategorySetting(UpdatePairCategorySettingItem)
+      returns (PairCategorySettingResponse) {}
+  rpc DeletePairCategorySetting(DeletePairCategoryRequest)
+      returns (PairCategorySettingResponse) {}
+  rpc UpdateOrderCategory(UpdateOrderCategoryRequest)
+      returns (UpdateOrderCategoryResponse);
+}

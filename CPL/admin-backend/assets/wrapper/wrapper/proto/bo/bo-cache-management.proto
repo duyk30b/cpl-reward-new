@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package bo_cache_management;
+
+service BOCacheManagementService {
+  rpc Delete(DeleteRequest) returns (BOCacheManagementResponse);
+};
+
+message DeleteRequest {
+  string key = 1;
+}
+
+
+// RESPONSE
+message BOCacheManagementResponse {
+  bool success = 1;
+  string message = 2;
+}

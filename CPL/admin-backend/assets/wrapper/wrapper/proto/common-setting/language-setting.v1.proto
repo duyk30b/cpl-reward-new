@@ -1,0 +1,87 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package language;
+
+message GetLanguagePackRequest {
+  string language = 1;
+}
+
+
+message LanguagePack {
+  string language = 1;
+  map<string, string> translates = 2;
+}
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional string key = 3;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message ListTranslatesResponse {
+  PaginationResponse pagination = 1;
+  repeated TranslateAdmin data = 2;
+}
+
+message TranslateAdmin {
+  string key = 1;
+  map<string, string> translates = 2;
+}
+
+message TranslatesAdmin {
+  repeated TranslateAdmin data = 1;
+}
+
+message AdminTranslateByKeysRequest {
+  repeated string keys = 1;
+}
+
+message AdminTranslateByKeysResponse {
+  repeated TranslateAdmin data = 1;
+}
+
+message LanguageSetting {
+  string language_code = 1;
+  string icon = 2;
+  string name = 3;
+  string last_update_time = 4;
+  bool default_language = 5;
+  bool is_active = 6;
+}
+
+message LanguagesSettingResponse {
+  PaginationResponse pagination = 1;
+  repeated LanguageSetting data = 2;
+}
+
+message LanguagesByTypeRequest {
+  string type = 1;
+}
+
+message LanguagesByTypeResponse {
+  repeated LanguageSetting data = 1;
+}
+
+message KeyNameLanguageCodeResponse {
+  map<string, string> data = 1;
+}
+
+service LanguageSettingService {
+  rpc GetLanguagePack(GetLanguagePackRequest) returns (LanguagePack) {}
+  rpc GetTranslates(PaginationRequest) returns (ListTranslatesResponse) {}
+  rpc SetTranslate(TranslateAdmin) returns (TranslateAdmin) {}
+  rpc SetTranslates(TranslatesAdmin) returns (TranslatesAdmin) {}
+  rpc GetAdminTranslateByKeys(AdminTranslateByKeysRequest) returns (AdminTranslateByKeysResponse) {}
+  rpc GetAllAdminTranslates(google.protobuf.Empty) returns (AdminTranslateByKeysResponse) {}
+  rpc GetLanguagesSetting(PaginationRequest) returns (LanguagesSettingResponse) {}
+  rpc SetLanguageSetting(LanguageSetting) returns (LanguageSetting) {}
+  rpc GetLanguagesByType(LanguagesByTypeRequest) returns (LanguagesByTypeResponse) {}
+  rpc GetKeyNameLanguageCode(google.protobuf.Empty) returns (KeyNameLanguageCodeResponse) {}
+  rpc GetPairCategoriesKey(google.protobuf.Empty) returns (AdminTranslateByKeysResponse) {}
+}

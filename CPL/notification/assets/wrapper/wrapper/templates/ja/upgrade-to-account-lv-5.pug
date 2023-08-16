@@ -1,0 +1,23 @@
+extends ../layouts/normal/ja/layout.pug
+
+block content 
+  div(class="mb-10") 平素よりbitcastleをご利用いただき、誠にありがとうございます。
+
+  div(class="mb-10")
+    div 本人確認書類の二次審査が終了したことにより、#{name} 様のアカウントレベルがレベル5にランクアップしたことをお知らせいたします。
+    div アカウントレベルがレベル5になったことで、bitcastleのExchangeでの出金を含めたすべての機能をご利用いただけるようになりました。
+    div アカウントレベルの詳細については以下で確認することができます。
+
+  div(class="mb-10")
+    div #[a(href=`${accountLvLink}`) #{accountLvLink}]
+
+  div(class="mb-10") 
+    div 以上をもちまして、#{name} 様がbitcastleをご利用される上で必要なすべての手続きが終了いたしました。
+    div bitcastleスタッフ一同、心よりお礼申し上げます。
+    div 引き続きbitcastleのサービスをお楽しみください。
+
+  div(class="mb-10") 今後ともbitcastleをよろしくお願いいたします。
+
+  div(class="mb-10") 
+    div このメールは送信専用アドレスより送信しております。
+    div そのため返信頂いても内容の確認ができません。

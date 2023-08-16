@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package email_change_history;
+
+import "common.proto";
+
+service EmailChangeHistoryService {
+  rpc GetListEmailChangeHistory (EmailChangeHistoryFilter) returns (ListEmailChangeHistoryResponse);
+};
+
+message ListEmailChangeHistoryResponse {
+  repeated EmailChangeHistory data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message EmailChangeHistory {
+  string id = 1;
+  string user_id = 2;
+  string old_email = 3;
+  string new_email = 4;
+  bool is_modified_by_user = 5;
+  string created_at = 6;
+}
+
+message EmailChangeHistoryFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  bool is_modified_by_user = 3;
+  string search_field = 4;
+  string search_text = 5;
+  string sort = 6;
+  string sort_type = 7;
+  string user_id = 8;
+}

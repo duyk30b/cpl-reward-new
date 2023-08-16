@@ -1,0 +1,193 @@
+syntax = "proto3";
+
+package admin_campaign;
+
+service GrpcAdminCampaignService {
+  rpc Create(CreateCampaignRequest) returns (Campaign);
+  rpc Update(UpdateCampaignRequest) returns (UpdateCampaignResult);
+  rpc Cancel(DeleteCampaignRequest) returns (DeleteCampaignResult);
+  rpc FindOne(FindOneCampaignRequest) returns (Campaign);
+  rpc List(PaginationCampaignRequest) returns (PaginationCampaignResponse);
+  rpc GetMissingRewards(PaginationRewardHistoryRequest) returns (PaginationRewardHistoryResponse);
+  rpc UpdateRewardLog(UpdateRewardHistoryRequest) returns (UpdateRewardHistoryResponse);
+  rpc CountRewardLog(CountRewardHistoryRequest) returns (CountRewardHistoryResponse);
+}
+
+message PaginationCampaignResponse {
+  repeated Campaign data = 1;
+  Pagination pagination = 2;
+  Links links = 3;
+  repeated Price prices = 4;
+}
+
+message Price {
+  string currency = 1;
+  string price = 2;
+}
+
+message Links {
+  string first = 1;
+  string prev = 2;
+  string next = 3;
+  string last = 4;
+}
+
+message Pagination {
+  int32 total = 1;
+  int32 size = 2;
+  int32 page = 3;
+}
+
+message PaginationCampaignRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string search_field = 3;
+  string search_text = 4;
+  string sort = 5;
+  string sort_type = 6; // ASC / DESC
+}
+
+message DeleteCampaignRequest {
+  int32 id = 1; // ben client la campaign_id
+}
+
+message DeleteCampaignResult {
+  int32 affected = 1;
+}
+
+message Empty {}
+
+message InitResult {
+  int32 id = 1;
+}
+
+message FindOneCampaignRequest {
+  int32 id = 1;
+}
+
+message Campaign {
+  int32 id = 1;
+  string title = 2;
+  string title_ja = 3;
+  string description = 4;
+  string description_ja = 5;
+  int32 start_date = 6; // example: 1642668896
+  int32 end_date = 7;
+  string notification_link = 8;
+  string notification_link_ja = 9;
+  string campaign_image = 10;
+  string campaign_image_ja = 11;
+  int32 priority = 12; // default: 0
+  int32 type = 13; // default: 0, order campaign: 3
+  int32 is_active = 14; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 15; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  int32 created_at = 16;
+  int32 updated_at = 17;
+  repeated RewardRuleResult reward_rules = 18;
+  string reset_time = 19;
+  int32 is_lock = 20;
+  int32 is_hidden = 21;
+}
+
+message UpdateCampaignRequest {
+  int32 id = 1;
+  string title = 2;
+  string title_ja = 3;
+  string description = 4;
+  string description_ja = 5;
+  int32 start_date = 6; // example: 1642668896
+  int32 end_date = 7;
+  string notification_link = 8;
+  string notification_link_ja = 9;
+  string campaign_image = 10;
+  string campaign_image_ja = 11;
+  int32 priority = 12; // default: 0
+  int32 type = 13; // default: 0, order campaign: 3
+  int32 is_active = 14; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 15; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  int32 is_hidden = 16; // default: 1 (HIDDEN) / 0 (UNHIDDEN)
+  string reset_time = 19;
+}
+
+message CreateCampaignRequest {
+  string title = 1;
+  string title_ja = 2;
+  string description = 3;
+  string description_ja = 4;
+  int32 start_date = 5; // example: 1642668896
+  int32 end_date = 6;
+  string notification_link = 7;
+  string notification_link_ja = 8;
+  string campaign_image = 9;
+  string campaign_image_ja = 10;
+  int32 priority = 11; // default: 0
+  int32 type = 12; // default: 0, order campaign: 3
+  int32 is_active = 13; // default: 1 (ACTIVE) / 0 (INACTIVE)
+  int32 status = 14; // default: 1 (RUNNING) / 2 (OUT_OF_BUDGET) / 3 (ENDED) / 4 (COMING_SOON)
+  string reset_time = 19;
+  int32 is_hidden = 20;
+}
+
+message RewardRuleResult {
+  int32 created_at = 1;
+  int32 updated_at = 2;
+  int32 id = 3;
+  string key = 4;
+  string currency = 5;
+  string limit_value = 6; // example: 12.443
+  string release_value = 7; // example: 12.443
+  string type_rule = 8; // mission / campaign
+}
+
+message PaginationRewardHistoryResponse {
+  repeated RewardHistory data = 1;
+  Pagination pagination = 2;
+}
+
+message RewardHistory {
+  int32 id = 1;
+  int32 campaign_id = 2;
+  int32 mission_id = 3;
+  int32 user_id = 4;
+  string amount = 5; // ben client la: moneyEarned
+  string note = 6;
+  string currency = 7;
+  string user_type = 8;
+  string wallet = 9;
+  int32 status = 10;
+  int32 created_at = 11;
+  string reference_id = 12;
+  string balance_response = 13;
+}
+
+message PaginationRewardHistoryRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string sort = 3;
+  string sort_type = 4; // ASC / DESC
+}
+
+message UpdateRewardHistoryRequest {
+  int32 id = 1;
+  int32 status = 2;
+}
+
+message UpdateRewardHistoryResponse {
+  bool success = 1;
+}
+
+message CountRewardHistoryRequest {
+  int32 status = 1;
+  int32 from_time = 2;
+  int32 to_time = 3;
+}
+
+message CountRewardHistoryResponse {
+  int32 count = 1;
+}
+
+message UpdateCampaignResult {
+  bool success = 1;
+  string message = 2;
+  Campaign campaign = 3;
+}

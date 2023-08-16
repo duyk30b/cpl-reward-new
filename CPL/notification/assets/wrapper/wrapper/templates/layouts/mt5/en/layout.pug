@@ -1,0 +1,14 @@
+html
+  head
+    title 
+      block title
+    style
+      include ../style.css
+    block css
+  body
+    div(id="body")
+      div(id="wrapper")
+        include ../header.pug
+        div(id="content")
+          block content
+        include footer.pug

@@ -1,0 +1,12 @@
+.idea
+.env
+node_modules
+dist
+/jwt_key/*.*
+.vscode
+health
+.DS_Store
+
+docker-compose.local.yml
+docker-compose.app.yml
+start_stop_services.sh

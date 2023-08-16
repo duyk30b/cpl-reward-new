@@ -1,0 +1,95 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+package futures.v1;
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional string coin = 3;
+  optional string currency = 4;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message FuturesSetting {
+  string coin = 1;
+  string currency = 2;
+  optional string pair_name = 3;
+
+  string crawler_external_price_scale = 4;
+  string crawler_external_amount_scale = 5;
+  string crawler_adjustment_rate = 6;
+  string crawler_min_amount = 7;
+
+  string ob_external_limit_orders = 8;
+  string ob_external_max_amount = 9;
+  string ob_external_min_amount = 10;
+  string ob_default_price_scale = 11;
+  repeated string ob_list_price_scale = 12;
+  string ob_amount_scale = 13;
+  string ob_min_total = 14;
+  string ob_max_total = 15;
+
+  string order_fee_rate = 16;
+  string insurance_fee_rate = 17;
+  string position_fee_rate = 18;
+  string margin_fee_rate = 19;
+  string maintenance_margin_rate = 20;
+  string funding_rate = 21;
+
+  string mark_price_threshold_adjustment = 22;
+  string mark_price_random_oscillation = 23;
+  string mark_price_avg_time = 24;
+
+  string trading_max_amount = 25;
+  string trading_min_amount = 26;
+  string trading_max_total = 27;
+  string trading_min_total = 28;
+  string trading_price_scale = 29;
+  string trading_amount_scale = 30;
+  repeated string trading_list_leverage = 31;
+  map<string, string> trading_max_margin_by_leverage = 32;
+  string trading_min_short_rate = 33;
+  string trading_max_long_rate = 34;
+
+  optional int32 status = 35;
+}
+
+message FuturesSettingParams {
+  string coin = 1;
+  string currency = 2;
+}
+
+message SettingResponse {
+  PaginationResponse pagination = 1;
+  repeated FuturesSetting data = 2;
+}
+
+message SingleSettingResponse {
+  FuturesSetting data = 2;
+}
+
+message DeleteSettingResponse {
+  int32 deleted = 1;
+}
+
+message UpdateStatusParams {
+  map<string, int32> status_pairs = 1;
+}
+
+message UpdateStatusResponse {
+  int32 updated = 1;
+}
+
+service FuturesSettingService {
+  rpc GetSettings(PaginationRequest) returns (SettingResponse) {}
+  rpc GetSingleSetting(FuturesSettingParams) returns (SingleSettingResponse) {}
+  rpc SetFuturesSetting(FuturesSetting) returns (FuturesSetting) {}
+  rpc DeleteFuturesSetting(FuturesSettingParams) returns (DeleteSettingResponse) {}
+  rpc UpdateStatusSetting(UpdateStatusParams) returns (UpdateStatusResponse) {}
+}

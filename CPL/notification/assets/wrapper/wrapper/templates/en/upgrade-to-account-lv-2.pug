@@ -1,0 +1,18 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+  div(class="mb-10") Dear trader,
+
+  div(class="mb-10")
+    div Your account level has been upgraded to Level 2.
+    div Please complete the Identity Document Verification process in order to upgrade your account to Level 3.
+
+  div(class="mb-10") You can check the below link for the details of your account level:
+  
+  div(class="mb-10")
+    div #[a(href=`${accountLvLink}`) #{accountLvLink}]
+
+  div(class="mb-10") Thank you for your continued support of bitcastle.
+
+  div(class="mb-10") 
+    div *This e-mail has been sent from our send-only email address, please do not reply to this message.

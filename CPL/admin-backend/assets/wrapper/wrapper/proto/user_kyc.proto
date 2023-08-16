@@ -1,0 +1,288 @@
+syntax = "proto3";
+
+package user_kyc;
+
+import "common.proto";
+
+service UserKycService {
+  rpc FindKycByUserId (DataByUserId) returns (UserKycResponse);
+  rpc FindEnterpriseInfoByUserId (DataByUserId) returns (EnterpriseInfoResponse);
+  rpc FindCynopsisByKycHistoryId (DataByKycHistoryId) returns (UserKycCynopsisResponse);
+  rpc ReviewOcr(ReviewOcrRequest) returns (common.PostResponse);
+  rpc ReviewRisk(ReviewRiskRequest) returns (common.PostResponse);
+  rpc CheckDuplicateIdDocumentNo(CheckDuplicateIdDocumentNoRequest) returns (CheckDuplicateIdDocumentNoResponse);
+  rpc RenewCynopsisData (DataByKycHistoryId) returns (common.PostResponse);
+  rpc FindAdminDecisionByUserId (DataByUserId) returns (ListAdminDecisionResponse);
+
+  rpc GetImageProcessResultsByKycHistoryId(DataByKycHistoryId) returns (ImageProcessResults);
+
+  rpc FindRekognitionInfoHistoryByKycHistoryId (DataByKycHistoryId) returns (RekognitionInfoHistoryResponse);
+  rpc FindRekognitionInfoHistoryDetail(DataByRekognitionInfoHistoryId) returns (RekognitionInfoHistoryDetailResponse);
+  rpc FindRelatedFaces(FindRelatedFacesRequest) returns (FindRelatedFacesResponse);
+  rpc FindRekognitionInfoHistoryWithUserInfo(FindRekognitionInfoHistoryWithUserInfoFilter) returns (RekognitionInfoHistoryWithUserInfoResponse);
+  
+  rpc GetSumsubFileMapByKycHistoryId(DataByKycHistoryId) returns (FileMap);
+  rpc GetSumsubDetailByKycHistoryId(DataByKycHistoryId) returns (SumsubDetail);
+
+  rpc RejectKyc(RejectKycRequest) returns (common.PostResponse);
+};
+
+message DataByUserId {
+  string user_id = 1;
+};
+
+message DataByKycHistoryId {
+  string user_kyc_history_id = 1;
+};
+
+message DataByRekognitionInfoHistoryId {
+  string rekognition_info_history_id = 1;
+}
+
+message RejectionReason {
+  int32 reason_category_id = 1;
+  string reason_category_name_en = 2;
+  string reason_category_name_ja = 3;
+  int32 rejection_reason_id = 4;
+  string rejection_reason_name_en = 5;
+  string rejection_reason_name_ja = 6;
+}
+
+message KycFile {
+  string id = 1;
+  string name = 2;
+  string path = 3;
+  string metadata = 4;
+  bool is_image = 5;
+}
+
+message UserKyc {
+  string id = 1;
+  string user_id = 2;
+  string user_kyc_history_id = 3;
+  int32 status = 4;
+  int32 type = 5;
+  string provider = 6;
+  repeated KycFile files = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  int32 id_document_type = 10;
+  string id_document_no = 11;
+  int32 risk_rating = 12;
+  int32 compare_document_type = 13;
+  int32 compare_liveness_selfie = 14;
+  int32 compare_birthday = 15;
+  int32 compare_name = 16;
+  repeated RejectionReason rejection_reasons = 17;
+  string remark = 18;
+  int32 country_id = 19;
+  repeated int32 image_providers = 21;
+  repeated int32 risk_scan_providers = 22;
+}
+
+message UserKycResponse {
+  UserKyc data = 1;
+}
+
+message EnterpriseInfo {
+  string id = 1;
+  string user_id = 2;
+  string applicant_name = 3;
+  string company_name = 4;
+  int32 company_register_country = 5;
+  string contact_number = 6;
+  string login_email = 7;
+  string company_location = 8;
+  string applicant_job_title = 9;
+  string funding_currency = 10;
+  string url_website = 11;
+  string entity_type = 12;
+  string registered_date = 13;
+  string ownership_structure_layer = 14;
+  string incorporation_number = 15;
+  string reason_apply = 16;
+  string created_at = 17;
+  string updated_at = 18;
+  string user_related_parties = 19;
+  string sources_funding = 20;
+}
+
+message EnterpriseInfoResponse {
+  EnterpriseInfo data = 1;
+}
+
+message UserKycCynopsis {
+  string id = 1;
+  int32 ocr_status = 2;
+  int32 artemis_status = 3;
+  string history_id = 4;
+  int32 customer_id = 5;
+  int32 record_id = 6;
+  int32 crp_id = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  string cynopsis_data = 10;
+}
+
+message UserKycCynopsisResponse {
+  UserKycCynopsis data = 1;
+}
+
+message ReviewOcrRequest {
+  string user_id = 1;
+  int32 status = 2;
+  int32 compare_birthday = 3;
+  int32 compare_document_type = 4;
+  int32 compare_liveness_selfie = 5;
+  int32 compare_name = 6;
+  string id_document_no = 7;
+  repeated RejectionReason rejection_reasons = 8;
+  string admin_id = 9;
+}
+
+message CheckDuplicateIdDocumentNoRequest {
+  string id_document_no = 1; 
+  int32 id_document_type = 2;
+  int32 country_id = 3;
+  string except_user_id = 4;
+}
+
+message CheckDuplicateIdDocumentNoResponse {
+  bool valid = 1;
+}
+
+message ReviewRiskRequest {
+  string user_id = 1;
+  int32 status = 2;
+  int32 risk_rating = 3;
+  repeated RejectionReason rejection_reasons = 4;
+  string admin_id = 5;
+}
+
+message UserKycAdminDecision {
+  string id = 1;
+  string user_kyc_history_id = 2;
+  int32 status = 3;
+  int32 risk_rating = 4;
+  int32 compare_document_type = 5;
+  int32 compare_liveness_selfie = 6;
+  int32 compare_birthday = 7;
+  int32 compare_name = 8;
+  repeated RejectionReason rejection_reasons = 9;
+  string user_id = 10;
+  string created_at = 11;
+  bool is_auto = 12;
+  string admin_id = 13;
+}
+
+message ListAdminDecisionResponse {
+  repeated UserKycAdminDecision data = 1;
+}
+
+message RekognitionInfoHistory {
+  string id = 1;
+  string user_id = 2;
+  string user_kyc_history_id = 3;
+  string image = 4;
+  int32 compare_status = 5;
+  string face_id = 6;
+  int32 duplicate_status = 7;
+  string created_at = 8;
+  string image_url = 9;
+}
+
+message RekognitionInfoHistoryResponse {
+  RekognitionInfoHistory data = 1;
+}
+
+message RekognitionInfoHistoryDetail {
+  string id = 1;
+  string user_kyc_rekognition_info_id = 2;
+  string compare_response = 3;
+  string related_faces_response = 4;
+  string face_index_response = 5;
+  string compare_error = 6;
+  string related_faces_error = 7;
+  string face_index_error = 8;
+}
+
+message RekognitionInfoHistoryDetailResponse {
+  RekognitionInfoHistoryDetail data = 1;
+}
+
+message ImageProcessResults {
+  repeated ImageProcessResult data = 1;
+}
+
+message ImageProcessResult {
+  int32 provider = 1;
+  int32 compare_status = 2;
+  int32 duplicate_status = 3;
+  int32 liveness_status = 4;
+  int32 identity_document_verification_status = 5;
+  int32 result_status = 6;
+  string result_text = 7; 
+}
+
+message FindRelatedFacesRequest {
+  string face_id = 1;
+  string except_user_id = 2;
+  int32 page = 3;
+  int32 limit = 4;
+}
+
+message RelatedFace {
+  string face_id = 1;
+  string image_url = 2;
+  string similarity = 3;
+  string detail = 4;
+  string detected_at = 5;
+}
+
+message FindRelatedFacesResponse {
+  repeated RelatedFace data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message FindRekognitionInfoHistoryWithUserInfoFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  string search_field = 3;
+  string search_text = 4;
+  string sort = 5;
+  string sort_type = 6;
+  string face_id = 7;
+  string except_user_id = 8;
+}
+
+message RekognitionInfoHistoryWithUserInfo {
+  string user_kyc_history_id = 1;
+  string user_id = 2;
+  string face_id = 3;
+  string email = 4;
+  string detected_at = 5;
+}
+
+message RekognitionInfoHistoryWithUserInfoResponse {
+  repeated RekognitionInfoHistoryWithUserInfo data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message RejectKycRequest {
+  string user_id = 1;
+  repeated RejectionReason rejection_reasons = 2;
+  string admin_id = 3;
+}
+
+message FileMap {
+  map<string, string> data = 1;
+}
+
+message SumsubDetail {
+  string user_kyc_history_id = 1;
+  string inspection_response = 2;
+  string applicant_docs_status_response = 3;
+  string applicant_status_response = 4;
+  string applicant_response = 5;
+  string similar_applicants_response = 6;
+}

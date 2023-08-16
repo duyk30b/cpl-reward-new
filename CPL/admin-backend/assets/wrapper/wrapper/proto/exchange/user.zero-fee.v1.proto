@@ -1,0 +1,61 @@
+syntax = "proto3";
+package exchange.user.zero_fee.admin;
+
+service ExchangeUserZeroFeeService {
+  rpc GetUserZeroFee(GetUserZeroFeeRequest)
+      returns (UserZeroFeePaginationResponse) {}
+  rpc UpdateUserZeroFee(UpdateUserZeroFeeRequest)
+      returns (UpdateUserZeroFeeResponse) {}
+  rpc CheckUserIsZeroFee(CheckUserIsZeroFeeRequest)
+      returns (CheckUserIsZeroFeeResponse) {};
+}
+
+message CheckUserIsZeroFeeRequest { 
+    string user_id = 1;
+    string coin = 2;
+    string currency = 3;
+}
+
+message CheckUserIsZeroFeeResponse { bool is_zero_fee = 1; }
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message UpdateUserZeroFeeResponse {
+  int32 status = 1;
+}
+
+message UserZeroFeeItem {
+  string user_id = 1;
+  string email = 2;
+  optional string create_time = 3;
+  optional string pairs = 4;
+}
+
+message UserZeroFeePairItem {
+  string coin = 1;
+  string currency = 2;
+}
+
+message UserZeroFeePaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated UserZeroFeeItem data = 2;
+}
+
+message GetUserZeroFeeRequest {
+  optional int32 page = 1;
+  optional int32 per_page = 2;
+  optional int32 sort_type = 3;
+  optional string sort_by = 4;
+  optional string keyword = 5;
+  optional string search_by_field = 6;
+}
+
+message UpdateUserZeroFeeRequest {
+  string user_id = 1;
+  string email = 2;
+  repeated UserZeroFeePairItem pairs = 3;
+}

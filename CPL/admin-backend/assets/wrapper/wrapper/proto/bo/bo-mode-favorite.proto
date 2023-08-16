@@ -1,0 +1,90 @@
+syntax = "proto3";
+
+package bo_mode_favorite;
+
+import "google/protobuf/empty.proto";
+
+service BOModeFavoriteService {
+  rpc Add(AddRequest) returns (BOModeFavoriteResponse);
+  rpc FindOne(ID) returns (BOModeFavoriteResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOModeFavoriteResponse);
+  rpc Delete(DeleteRequest) returns (BOModeFavoriteResponse);
+};
+
+message BOModeFavorite {
+  string id = 1;
+  string mode_id = 2;
+  string balance_id = 3;
+  string pair_id = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  uint32 mode_id = 1;
+  uint32 balance_id = 2;
+  uint32 pair_id = 3;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  uint32 mode_id = 2;
+  uint32 balance_id = 3;
+  uint32 pair_id = 4;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message BOModeFavoriteResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOModeFavorite data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOModeFavorite items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOModeFavoriteResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

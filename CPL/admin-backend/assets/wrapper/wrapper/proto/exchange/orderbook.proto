@@ -1,0 +1,42 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package exchange.orderbook.admin;
+
+message GetOrderbookRequest {
+  string coin = 1;
+  string currency = 2;
+  optional uint32 take = 3;
+  string precision = 4;
+  optional string sort = 5;
+}
+
+message OrderbookItem {
+  string id = 1;
+  string coin = 2;
+  string currency = 3;
+  string precision = 4;
+  string price = 5;
+  string volume = 6;
+}
+
+message OrderbookItemResponse {
+  repeated OrderbookItem asks = 1;
+  repeated OrderbookItem bids = 2;
+}
+
+message OrderbookData {
+  string coin = 1;
+  string currency = 2;
+  string precision = 3;
+  OrderbookItemResponse orderbook = 4;
+  string current_price = 5;
+}
+
+message GetOrderbookResponse {
+  OrderbookData data = 1;
+  string last_update = 2;
+}
+
+service GrpcOrderbookService {
+  rpc GetOrderbook(GetOrderbookRequest) returns (GetOrderbookResponse);
+}

@@ -1,0 +1,236 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?a2cvxy');
+  src:  url('fonts/icomoon.eot?a2cvxy#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?a2cvxy') format('truetype'),
+    url('fonts/icomoon.woff?a2cvxy') format('woff'),
+    url('fonts/icomoon.svg?a2cvxy#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bars-solid:before {
+  content: "\e900";
+}
+.bed-pulse-solid:before {
+  content: "\e901";
+}
+.bell-regular:before {
+  content: "\e902";
+}
+.bell-slash-solid:before {
+  content: "\e903";
+}
+.bell-solid:before {
+  content: "\e904";
+}
+.bookmark-regular:before {
+  content: "\e905";
+}
+.bookmark-solid:before {
+  content: "\e906";
+}
+.book-medical-solid:before {
+  content: "\e907";
+}
+.brand-facebook:before {
+  content: "\e908";
+}
+.brand-messenger:before {
+  content: "\e909";
+}
+.brand-zalo .path1:before {
+  content: "\e90a";
+  color: rgb(253, 254, 254);
+}
+.brand-zalo .path2:before {
+  content: "\e90b";
+  margin-left: -1.0537109375em;
+  color: rgb(1, 128, 199);
+}
+.brand-zalo .path3:before {
+  content: "\e90c";
+  margin-left: -1.0537109375em;
+  color: rgb(1, 114, 177);
+}
+.brand-zalo .path4:before {
+  content: "\e90d";
+  margin-left: -1.0537109375em;
+  color: rgb(1, 128, 199);
+}
+.brand-zalo .path5:before {
+  content: "\e90e";
+  margin-left: -1.0537109375em;
+  color: rgb(1, 128, 199);
+}
+.brand-zalo .path6:before {
+  content: "\e90f";
+  margin-left: -1.0537109375em;
+  color: rgb(253, 254, 254);
+}
+.calendar-regular:before {
+  content: "\e910";
+}
+.caret-right-solid:before {
+  content: "\e911";
+}
+.cart-shopping-solid:before {
+  content: "\e912";
+}
+.check-solid:before {
+  content: "\e913";
+}
+.circle-check-regular:before {
+  content: "\e914";
+}
+.circle-check-solid:before {
+  content: "\e915";
+}
+.circle-exclamation-solid:before {
+  content: "\e916";
+}
+.circle-half-stroke-solid:before {
+  content: "\e917";
+}
+.circle-minus-solid:before {
+  content: "\e918";
+}
+.circle-plus-solid:before {
+  content: "\e919";
+}
+.circle-question-regular:before {
+  content: "\e91a";
+}
+.circle-question-solid:before {
+  content: "\e91b";
+}
+.circle-right-regular:before {
+  content: "\e91c";
+}
+.circle-right-solid:before {
+  content: "\e91d";
+}
+.circle-xmark-regular:before {
+  content: "\e91e";
+}
+.circle-xmark-solid:before {
+  content: "\e91f";
+}
+.clock-regular:before {
+  content: "\e920";
+}
+.cloud-arrow-up-solid:before {
+  content: "\e921";
+}
+.comment-dots-regular:before {
+  content: "\e922";
+}
+.download-solid:before {
+  content: "\e923";
+}
+.envelope-solid:before {
+  content: "\e924";
+}
+.exclamation-solid:before {
+  content: "\e925";
+}
+.floppy-disk-solid:before {
+  content: "\e926";
+}
+.gift-solid:before {
+  content: "\e927";
+}
+.heart-regular:before {
+  content: "\e928";
+}
+.heart-solid:before {
+  content: "\e929";
+}
+.key-solid:before {
+  content: "\e92a";
+}
+.lightbulb-solid:before {
+  content: "\e92b";
+}
+.location-dot-solid:before {
+  content: "\e92c";
+}
+.magnifying-glass-solid:before {
+  content: "\e92d";
+}
+.mask-ventilator-solid:before {
+  content: "\e92e";
+}
+.minus-solid:before {
+  content: "\e92f";
+}
+.other-shield-tick:before {
+  content: "\e930";
+}
+.pen-to-square-solid:before {
+  content: "\e931";
+}
+.phone-solid:before {
+  content: "\e932";
+}
+.plus-solid:before {
+  content: "\e933";
+}
+.shop-solid:before {
+  content: "\e934";
+}
+.star-regular:before {
+  content: "\e935";
+}
+.star-solid:before {
+  content: "\e936";
+}
+.tag-solid:before {
+  content: "\e937";
+}
+.thumbs-up-regular:before {
+  content: "\e938";
+}
+.thumbs-up-solid:before {
+  content: "\e939";
+}
+.trash-can-solid:before {
+  content: "\e93a";
+}
+.trash-solid:before {
+  content: "\e93b";
+}
+.truck-medical-solid:before {
+  content: "\e93c";
+}
+.user-doctor-solid:before {
+  content: "\e93d";
+}
+.user-nurse-solid:before {
+  content: "\e93e";
+}
+.user-solid:before {
+  content: "\e93f";
+}
+.vials-solid:before {
+  content: "\e940";
+}
+.xmark-solid:before {
+  content: "\e941";
+}

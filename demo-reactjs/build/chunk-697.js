@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmh_reactjs=self.webpackChunkmh_reactjs||[]).push([[697],{697:(e,t,r)=>{r.r(t),r.d(t,{default:()=>c});var s=r(294);const c=function(){return s.createElement("div",null,"Register")}}}]);

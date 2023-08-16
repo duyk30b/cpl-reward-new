@@ -1,0 +1,21 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+  div(class="mb-10") Dear trader,
+
+  div(class="mb-10") Thanks for uploading the identity document on bitcastle.
+
+  div(class="mb-10")
+    div Your account level has been upgraded to Level 3. bitcastle will now review the identification documents that you have submitted.
+    div There are two phases in the Identity Document Verification process, so it may take some time to be completed.
+
+  div(class="mb-10") We will get back to you after your identity document verification is completed.
+
+  div(class="mb-10") You can check the below link for the details of your account level:
+
+  div(class="mb-10")
+    div #[a(href=`${accountLvLink}`) #{accountLvLink}]
+
+  div(class="mb-10") *This e-mail has been sent from our send-only email address, please do not reply to this message.
+
+  div(class="mb-10") Thank you for your continued support of bitcastle.

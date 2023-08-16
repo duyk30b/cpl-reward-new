@@ -1,0 +1,15 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+  div(class="mb-10") To #{name}
+
+  div(class="mb-10") The system has received a login request for #{email}
+
+  div(class="mb-10") Please enter the following code to complete the login verification for the system.
+
+  div(class="mb-10") Email verification code
+
+  div(class="mb-10 otp-div")
+    span #{code}
+
+  div(class="mb-10") The above verification code is valid for #{ttl / 60 / 60} hours.

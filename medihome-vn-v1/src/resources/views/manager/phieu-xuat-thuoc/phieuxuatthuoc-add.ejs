@@ -1,0 +1,468 @@
+<%- include('../../layouts/main-before') %>
+<style>
+	#search-drugs {
+		position: relative;
+	}
+	.autocomplete-items {
+		position: absolute;
+		z-index: 99;
+		top: 100%;
+		left: 15px;
+		right: 15px;
+		border: 1px solid #d4d4d4;
+	}
+	.autocomplete-items > div {
+		position: relative;
+		padding: 8px;
+		cursor: pointer;
+		background-color: #fff;
+		border-bottom: 1px solid #d4d4d4;
+	}
+	.autocomplete-items > div:hover {
+		background-color: #e9e9e9;
+	}
+	.autocomplete-active {
+		background-color: DodgerBlue !important;
+		color: #ffffff;
+	}
+</style>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<form id="form-so-luong-thuoc">
+					<div style="float: left; width: 70%" class="row pr-4">
+						<div class="col-9 form-group">
+							<input
+								name="XuatThuoc.TenThuoc"
+								id="ip-tim-thuoc"
+								placeholder="Nhập Tên Thuốc..."
+								type="text"
+								class="form-control form-control-lg"
+							/>
+						</div>
+
+						<div class="col-3 form-group position-relative" style="padding-left: 0">
+							<input
+								name="XuatThuoc.SoLuong"
+								type="number"
+								class="form-control form-control-lg"
+								placeholder="Số lượng..."
+							/>
+						</div>
+						<div class="col-12 position-relative form-group">
+							<label for="XuatThuoc.CachDung" class="">Cách dùng: </label>
+							<input name="XuatThuoc.CachDung" type="text" class="form-control" />
+						</div>
+					</div>
+				</form>
+				<div id="div-loai-thuoc" style="float: left; width: 30%; padding: 0"></div>
+
+				<div class="clearfix"></div>
+				<div class="row justify-content-center">
+					<button id="btn-them-thuoc" class="btn btn-success btn-lg">Cho vào đơn thuốc</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<div class="row mb-1">
+					<div class="col-xl-2 col-md-3 col-4 mb-1">
+						<select id="select-rows-page" name="select-rows-page" class="form-control">
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
+					</div>
+					<div class="input-group col-5 ml-auto mb-1">
+						<h6>
+							<span>Tổng tiền: </span>
+							<span id="tong-thanh-toan"> </span>
+							<span>vnđ </span>
+						</h6>
+	
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12">
+						<table id="mytable" class="mb-0 table table-bordered">
+							<thead>
+								<tr>
+									<th>
+										<input id="checkbox-item-all" type="checkbox" />
+										&nbsp;#
+									</th>
+									<th>Tên Thuốc</th>
+									<th>Số Lượng</th>
+									<th>Giá Bán Lẻ</th>
+									<th>Thành Tiền</th>
+									<th>Cách Dùng</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<nav class="float-right" aria-label="Page navigation example">
+							<ul class="pagination justify-content-end" id="pagination">
+								<li class="page-item">
+									<a class="page-link" aria-label="Previous"
+										><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a
+									>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item">
+									<a class="page-link" aria-label="Next"
+										><span aria-hidden="true">»</span><span class="sr-only">Next</span></a
+									>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<button id="btn-tao-phieu" class="mb-2 mr-2 btn btn-primary btn-lg active">Thanh Toán</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('../../layouts/main-after') %>
+
+<script>
+	let ipTimThuoc = document.getElementById('ip-tim-thuoc'),
+		formSoLuong = document.getElementById('form-so-luong-thuoc'),
+		ipSoLuong = document.querySelectorAll('input[name="XuatThuoc.SoLuong"]')[0],
+		ipCachDung = document.querySelectorAll('input[name="XuatThuoc.CachDung"]')[0],
+		divLoaiThuoc = document.getElementById('div-loai-thuoc'),
+		btnThemThuoc = document.getElementById('btn-them-thuoc'),
+		btnTaoPhieu = document.getElementById('btn-tao-phieu');
+
+	let danhsachThuoc = [];
+	let selectDrug;
+
+	MyFetch.fetch({
+		url: '/manager/tu-thuoc/list',
+		succ: (resp) => {
+			danhsachThuoc = resp.data;
+		},
+	});
+
+	let actionSearch = {
+		currentFocus: -1,
+		createContainDiv: (val) => {
+			let contain = document.createElement('div');
+			contain.setAttribute('id', ipTimThuoc.id + '-autocomplete-list');
+			contain.setAttribute('class', 'autocomplete-items');
+			ipTimThuoc.parentNode.appendChild(contain);
+			for (let i = 0, count = 0; i < danhsachThuoc.length; i++) {
+				if (actionSearch.logicSearch(danhsachThuoc[i], val)) {
+					actionSearch.drawContainSearch(danhsachThuoc[i], contain, val);
+					count++;
+				}
+				if (count == 8) break;
+			}
+		},
+		removeContainDiv: (elm) => {
+			let list = document.getElementsByClassName('autocomplete-items');
+			for (let i = 0; i < list.length; i++) {
+				if (elm != list[i] && elm != ipTimThuoc) {
+					list[i].remove();
+				}
+			}
+		},
+		drawContainSearch: (item, contain, val) => {
+			item.HangTon.forEach((x, index) => {
+				let elm = document.createElement('div');
+				elm.innerHTML = `<strong style="display: inline-block; width: 40%">${item['TenThuoc']}</strong>
+						<span  style="display: inline-block; width: 20%"><b>${x.SoLuong}</b> ${item.PhanLoai.DangThuoc}</span>
+						<span > - HSD: ${MyDateTime.format(x.HanSuDung, 'dd/MM/YYYY')} </span><br />
+						<span>${item.ThanhPhan}</span>`;
+
+				let temp = {
+					_id: item._id,
+					TenThuoc: item.TenThuoc,
+					GiaBan: item.GiaBan,
+					DonViBan: item.PhanLoai.DangThuoc,
+
+					TongSo: x.SoLuong,
+					GiaMua: x.GiaMua,
+					HanSuDung: x.HanSuDung,
+				};
+
+				elm.setAttribute('data-item', JSON.stringify(temp));
+
+				elm.addEventListener('click', function (e) {
+					let itemJson = elm.getAttribute('data-item');
+					let t = JSON.parse(itemJson);
+					actionSearch.completeSearch(t);
+					actionSearch.removeContainDiv();
+				});
+				contain.appendChild(elm);
+			});
+		},
+		reset: () => {
+			selectDrug = null;
+			divLoaiThuoc.innerHTML = '';
+
+			// giadangban.innerHTML = '--';
+			// hienco.innerHTML = '--';
+			// ipDonViLe.disabled = false;
+			// for (let i = 0; i < txtDonViBan.length; i++) {
+			// 	txtDonViBan[i].innerHTML = 'đơn vị';
+			// }
+		},
+		logicSearch: (item, key) => {
+			if (MyString.search(item['TenThuoc'], key)) {
+				return true;
+			}
+			if (MyString.search(item['ThanhPhan'], key)) {
+				return true;
+			}
+			return false;
+		},
+		completeSearch: (item) => {
+			ipTimThuoc.value = item.TenThuoc;
+			selectDrug = item;
+			actionSearch.drawDetailDrug(item);
+		},
+		drawDetailDrug: (item) => {
+			divLoaiThuoc.innerHTML = `<table class="table"><tbody>
+				<tr><td>Giá Bán</td><td>${item.GiaBan.toFixed(3)} / ${item.DonViBan}</td></tr>
+				<tr><td>Tồn Kho</td><td>${item.TongSo} ${item.DonViBan}</td></tr>
+				<tr><td>Hạn Sử Dụng</td><td>${MyDateTime.format(item.HanSuDung, 'dd/MM/YYYY')}</td></tr>`;
+
+			// giadangban.innerHTML = '&emsp;' + item.GiaBan.toFixed(3) + '/' + item.PhanLoai.DangThuoc;
+			// for (let i = 0; i < txtDonViBan.length; i++) {
+			// 	txtDonViBan[i].innerHTML = item.PhanLoai.DangThuoc;
+			// }
+			// ipDonViLe.disabled = item.PhanLoai.DongHop == 1;
+		},
+		addActive: (div) => {
+			let index = actionSearch.currentFocus;
+			if (!div) return false;
+			for (let i = 0; i < div.length; i++) {
+				div[i].classList.remove('autocomplete-active');
+			}
+			div[index].classList.add('autocomplete-active');
+			let itemJson = div[index].getAttribute('data-item');
+			let item = JSON.parse(itemJson);
+			actionSearch.drawDetailDrug(item);
+		},
+	};
+
+	ipTimThuoc.addEventListener('input', function (e) {
+		actionSearch.currentFocus = -1;
+		actionSearch.removeContainDiv();
+		actionSearch.reset();
+		let val = this.value;
+		if (!val) return;
+		actionSearch.createContainDiv(val);
+	});
+
+	ipTimThuoc.addEventListener('keydown', function (e) {
+		let contain = document.getElementById(ipTimThuoc.id + '-autocomplete-list');
+		let list;
+		if (contain) list = contain.querySelectorAll(':scope > div');
+		if (e.keyCode == 40) {
+			e.preventDefault();
+			actionSearch.currentFocus++;
+			actionSearch.childFocus = 0;
+			if (actionSearch.currentFocus >= list.length) actionSearch.currentFocus = 0;
+			actionSearch.addActive(list);
+		} else if (e.keyCode == 38) {
+			e.preventDefault();
+			actionSearch.currentFocus--;
+			actionSearch.childFocus = 0;
+			if (actionSearch.currentFocus < 0) actionSearch.currentFocus = list.length - 1;
+			actionSearch.addActive(list);
+		} else if (e.keyCode == 13) {
+			e.preventDefault();
+			if (actionSearch.currentFocus >= 0) {
+				if (list) list[actionSearch.currentFocus].click();
+			}
+		} else if (e.keyCode == 9) {
+			if (actionSearch.currentFocus >= 0) {
+				if (list) list[actionSearch.currentFocus].click();
+			} else if (actionSearch.currentFocus < 0) {
+				if (list) actionSearch.removeContainDiv();
+			}
+		}
+	});
+	document.addEventListener('click', function (e) {
+		actionSearch.removeContainDiv(e.target);
+	});
+	document.addEventListener('keydown', function (e) {
+		if (e.keyCode == 27) {
+			e.preventDefault();
+			actionSearch.removeContainDiv();
+		}
+	});
+
+	let soluongCol = (data) => {
+		let col = data.SoXuat.reduce((acc, item) => {
+			acc += `<li>
+				- Số Lượng: ${item.SoLuong} 
+				- HSD: ${MyDateTime.format(item.HanSuDung, 'dd/MM/YYYY')}
+				</li>`;
+			return acc;
+		}, '');
+		return `<ul>${col}</ul>`;
+	};
+	let thanhtienCol = (data) => {
+		let sl = data.SoXuat.reduce((acc, item) => {
+			return acc += item.SoLuong;
+		}, 0);
+		return (sl*data.GiaBan).toFixed(3);
+	};
+
+	let phieuXuatThuoc = new MyTable({
+		elm: {
+			table: document.getElementById('mytable'),
+			ipSearch: document.getElementById('input-search'),
+			pagination: document.getElementById('pagination'),
+			slRowsPerPage: document.getElementById('select-rows-page'),
+			slSearch: document.getElementById('select-search'),
+		},
+		contents: {
+			rowMain: [
+				'TenThuoc',
+				soluongCol,
+				(item) => item.GiaBan.toFixed(3),
+				thanhtienCol,
+				'CachDung',
+				(data) => {
+					return `<a onclick="removeThuoc(this)">
+		                       		<i class="fas fa-trash-alt" style="color: red"></i>
+		                   		</a>`;
+				},
+			],
+			rowPlus: (item) => {
+				return `<table class="table"><tbody>
+		                       </tbody></table>`;
+			},
+		},
+	});
+
+	let removeThuoc = function (elm) {
+		let id = elm.closest('tr').getAttribute('data-id');
+		phieuXuatThuoc.removeItemData(id);
+		phieuXuatThuoc.drawData.removeRow(id);
+	};
+
+	let findExistsDrug = (data, drug) => {
+		for (let i = 0; i < data.length; i++) {
+			if ((data[i]._id === drug._id && data[i].HanSuDung === drug.HanSuDung)) {
+				return data[i];
+			}
+		}
+		return null;
+	};
+
+	btnThemThuoc.addEventListener('click', function (e) {
+		e.preventDefault();
+		if (!selectDrug) return;
+
+		console.log(selectDrug);
+
+		let itemSend = {
+			_id: selectDrug._id,
+			TenThuoc: selectDrug.TenThuoc,
+			GiaBan: selectDrug.GiaBan,
+			SoXuat: [
+				{
+					SoLuong: Number(ipSoLuong.value),
+					GiaMua: selectDrug.GiaMua,
+					HanSuDung: selectDrug.HanSuDung,
+				},
+			],
+			CachDung: ipCachDung.value
+		};
+		console.log(itemSend);
+
+		let indexFound = null;
+		for (let i = 0; i < phieuXuatThuoc.data.length; i++) {
+			if (phieuXuatThuoc.data[i]._id == itemSend._id) {
+				indexFound = i;
+				break;
+			}
+		}
+
+		if (indexFound != null) {
+			let hsdFound = null;
+			for (let i = 0; i < phieuXuatThuoc.data[indexFound].SoXuat.length; i++) {
+					if (phieuXuatThuoc.data[indexFound].SoXuat[i].HanSuDung == itemSend.SoXuat[0].HanSuDung) {
+						hsdFound = i;
+						break;
+					}
+				}
+
+				console.log(hsdFound);
+				if (hsdFound != null) {
+					alert('Chú ý!!!, trong phiếu đã có loại thuốc này, số lượng sẽ được cộng dồn');
+					phieuXuatThuoc.data[indexFound].SoXuat[hsdFound].SoLuong += itemSend.SoXuat[0].SoLuong;
+					phieuXuatThuoc.reloadNewData();
+				} else {
+					phieuXuatThuoc.data[indexFound].SoXuat.push(itemSend.SoXuat[0]);
+					phieuXuatThuoc.reloadNewData();
+				}
+		}
+		else {
+			phieuXuatThuoc.data.push(itemSend);
+			phieuXuatThuoc.drawData.addRow(phieuXuatThuoc.elm.tbody, itemSend);
+			phieuXuatThuoc.reloadLinks(1);
+		}
+
+
+		let t = document.getElementById('tong-thanh-toan');
+		t.innerHTML = phieuXuatThuoc.data.reduce((acc,item) =>{
+			let sl = 0;
+			for (let i = 0; i < item.SoXuat.length; i++) {
+				sl+= item.SoXuat[i].SoLuong;
+			}
+			return acc+=(item.GiaBan * sl);
+		},0).toFixed(3);
+
+		formSoLuong.reset();
+		selectDrug = null;
+		ipTimThuoc.focus();
+	});
+
+	let addDonThuoc = () => {
+		let newRequest = {};
+		newRequest.DanhSach = phieuXuatThuoc.data;
+		MyFetch.fetch({
+			url: '/manager/phieu-xuat-thuoc/add',
+			succ: (resp) => {
+				console.log(resp);
+			},
+			config: {
+				method: 'POST',
+				body: JSON.stringify(newRequest),
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+		});
+	};
+
+	btnTaoPhieu.addEventListener('click', function (e) {
+		e.preventDefault();
+		if (phieuXuatThuoc.data.length == 0) return;
+		let a = `Xác nhận tạo đơn thuốc.
+		Chú ý !!! Hành động này là không thể hoàn trả lại được !!!`;
+		if (!confirm(a)) return;
+		addDonThuoc();
+		location.reload();
+	});
+</script>

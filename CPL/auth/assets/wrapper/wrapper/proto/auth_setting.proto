@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package auth;
+
+import "google/protobuf/empty.proto";
+
+service GAuthSettingService {
+  rpc GetAllCountry(google.protobuf.Empty) returns (CountryCodeSettingResponse);
+  rpc GetCountryByCode(GetCountryByCodeRequest) returns (CountryCodeResponse);
+  rpc GetCountryById(GetCountryByIdRequest) returns (CountryCodeResponse);
+};
+
+// REQUEST
+message GetCountryByCodeRequest {
+  string code = 1;
+}
+
+message GetCountryByIdRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message CountryCodeSettingResponse {
+  repeated CountryCodeResponse data = 1;
+};
+
+message CountryCodeResponse {
+  uint32 id = 1;
+  string name = 2;
+  string code = 3;
+  string name_artemis = 4;
+  string image_link = 5;
+};

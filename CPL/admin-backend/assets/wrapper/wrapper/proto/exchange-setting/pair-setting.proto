@@ -1,0 +1,126 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package exchange_v2;
+
+message PairSettingItem {
+  string coin = 1;
+  string currency = 2;
+  int32 obm_active = 3;
+  repeated string precisions = 4;
+  string default_precision = 5;
+  string minimum_amount = 6;
+  string minimum_total = 7;
+  string decimal_of_price = 8;
+  string decimal_of_amount = 9;
+  string init_price = 10;
+  string n_day_amount_limit = 11;
+  string n_day_total_limit = 12;
+  int32 limit_span = 13;
+  string buy_fee = 14;
+  string buy_fee_currency = 15;
+  int32 buy_fee_type = 16;
+  string sell_fee = 17;
+  string sell_fee_currency = 18;
+  int32 sell_fee_type = 19;
+  repeated string precisions_obm = 26;
+  int32 status = 27;
+  string created_at = 28;
+  string init_time = 29;
+  int32 charge_by = 30;
+}
+
+message SetPairSettingItem {
+  string coin = 1;
+  string currency = 2;
+  int32 status = 3;
+  repeated string precisions = 4;
+  string default_precision = 5;
+  string minimum_amount = 6;
+  string minimum_total = 7;
+  string decimal_of_price = 8;
+  string decimal_of_amount = 9;
+  string init_price = 10;
+  string n_day_amount_limit = 11;
+  string n_day_total_limit = 12;
+  int32 limit_span = 13;
+  string buy_fee = 14;
+  string buy_fee_currency = 15;
+  int32 buy_fee_type = 16;
+  string sell_fee = 17;
+  string sell_fee_currency = 18;
+  int32 sell_fee_type = 19;
+  string user_id = 26;
+  string init_time = 27;
+  int32 charge_by = 28;
+}
+
+message PairSettingResponse {
+  string name = 1;
+  repeated PairSettingItem data = 2;
+}
+
+message PairSettingParams {
+  string coin = 1;
+  string currency = 2;
+}
+
+message DeletePairSettingParams {
+  string coin = 1;
+  string currency = 2;
+  string user_id = 3;
+}
+
+message GetPairSettingByConditionRequest {
+  optional string coin = 1;
+  optional string currency = 2;
+}
+
+message SinglePairSettingResponse {
+  string name = 1;
+  PairSettingItem data = 2;
+}
+
+message PaginationRequest {
+  optional int32 per_page = 1;
+  optional int32 page = 2;
+  optional int32 sort_type = 3;
+  optional string coin = 4;
+  optional string currency = 5;
+  optional int32 pair_status = 6;
+}
+
+message PaginationResponse {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+message PairSettingPaginationResponse {
+  PaginationResponse pagination = 1;
+  repeated PairSettingItem data = 2;
+}
+
+message GetPairSettingHistoryRequest {
+  string coin = 1;
+  string currency = 2;
+  string created_at = 3;
+}
+
+message GetListPairNameResponse {
+  string name = 1;
+  repeated PairSettingParams data = 2;
+}
+
+service PairSettingV2Service {
+  rpc GetListPairName(google.protobuf.Empty) returns (GetListPairNameResponse);
+  rpc GetPairSetting(GetPairSettingByConditionRequest)
+      returns (PairSettingResponse) {}
+  rpc GetPairSettingByPagination(PaginationRequest)
+      returns (PairSettingPaginationResponse) {}
+  rpc GetSinglePairSetting(PairSettingParams)
+      returns (SinglePairSettingResponse) {}
+  rpc GetPairSettingHistory(GetPairSettingHistoryRequest)
+      returns (PairSettingItem) {}
+  rpc SetPairSetting(SetPairSettingItem) returns (PairSettingItem) {}
+  rpc DeletePairSetting(DeletePairSettingParams) returns (PairSettingParams) {}
+}

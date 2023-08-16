@@ -1,0 +1,1 @@
+export const MAX_AMOUNT_ORDER_IMPORT_ORDER_BOOK = 80

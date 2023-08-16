@@ -1,0 +1,5 @@
+export * from './rekognition-info-history.service'
+export * from './rekognition-info.service'
+export * from './rekognition-index.service'
+export * from './rekognition-related-face.service'
+export * from './rekognition-response.service'

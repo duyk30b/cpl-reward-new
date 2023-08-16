@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package bo_unlimited_user;
+
+import "google/protobuf/empty.proto";
+
+service BOUnlimitedUserService {
+  rpc Add(AddRequest) returns (BOUnlimitedUserResponse);
+  rpc FindOne(FindOneRequest) returns (BOUnlimitedUserResponse);
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc FindAllVerified(ListRequest) returns (ListDataResponse);
+  rpc Update(UpdateRequest) returns (BOUnlimitedUserResponse);
+  rpc Delete(DeleteRequest) returns (BOUnlimitedUserResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+};
+
+message BOUnlimitedUser {
+  string id = 1;
+  string user_id = 2;
+  string email = 3;
+  string name = 4;
+  string last_login = 5;
+  string updated_at = 6;
+  string created_at = 7;
+}
+
+
+// LIST REQUEST
+message AddRequest {
+  uint32 user_id = 1;
+};
+
+message ID {
+  int32 id = 1;
+}
+
+message UpdateRequest {
+  uint32 id = 1;
+  uint32 user_id = 2;
+}
+
+message FindOneRequest {
+  optional uint32 id = 1;
+  optional uint32 user_id = 2;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string lang = 8;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOUnlimitedUserResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOUnlimitedUser data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOUnlimitedUser items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message SearchBOUnlimitedUserResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}

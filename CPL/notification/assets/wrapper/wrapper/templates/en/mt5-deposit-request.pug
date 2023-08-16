@@ -1,0 +1,27 @@
+extends ../layouts/mt5/en/layout.pug
+
+block content 
+	div(class="title mb-32") Create Deposit Request Successful!
+
+	div(class="paragraph mb-32") 
+		div Dear #{name},
+		div Your deposit has been created.
+
+	div(class="card paragraph mb-32")
+		div(class="d-flex mb-16")
+			div(class="mr-auto") Deposit Amount:
+			div #{totalAmount} #{baseCurrency}
+		if baseCurrency != "JPY"
+			div(class="d-flex mb-16")
+				div(class="mr-auto") To MT5 Account:
+				div #{login}
+			div(class="d-flex mb-16")
+				div(class="mr-auto") Exchange Rate:
+				div 1 #{baseCurrency} = #{exchangeRate} #{quoteCurrency}
+			div(class="d-flex")
+				div(class="mr-auto") Estimated Amount Receivable:
+				div #{totalAmount} #{quoteCurrency}
+		else 
+			div(class="d-flex")
+				div(class="mr-auto") To MT5 Account:
+				div #{login}

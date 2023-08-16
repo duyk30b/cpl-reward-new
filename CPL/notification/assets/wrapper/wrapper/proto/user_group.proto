@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package user_group;
+
+import "common.proto";
+
+message UserGroupFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  string search_field = 5;
+  string search_text = 6;
+  string sort = 8;
+  string sort_type = 9;
+};
+
+message UserGroup {
+  string id = 1;
+  string name = 2;
+  string created_at = 3;
+}
+
+message ListUserGroup {
+  repeated UserGroup data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+service UserGroupService {
+  rpc GetList(UserGroupFilter) returns (ListUserGroup);
+}

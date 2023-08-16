@@ -1,0 +1,3 @@
+export const MISSION_CURRENCY_CASHBACK_LIST = ['USDT']
+
+export const DEFAULT_CURRENCY = 'USDT'

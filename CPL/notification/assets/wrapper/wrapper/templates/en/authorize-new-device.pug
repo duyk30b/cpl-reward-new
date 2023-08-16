@@ -1,0 +1,25 @@
+extends ../layouts/normal/en/layout.pug
+
+block content 
+	div(class="mb-10") Dear trader,
+
+	div(class="mb-10") We have recognized new device that has not registered.
+
+	div(class="mb-10") 
+		div IP Address: #{ip}
+		div Browser: #{browser}
+		div OS: #{os}
+		div Login Detection date: #{time} (UTC)
+
+	div(class="mb-10") Please enter the following code to complete the login verification for the system.
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") The above verification code is valid for #{ttl / 60} minutes once this email is sent.
+
+	div(class="mb-10") 
+		div *If this was done by you, please ignore this email
+		div *If you did not initiate this request, please change your password or contact us immediately
+
+	div(class="mb-10") Thank you for your continued support of bitcastle.

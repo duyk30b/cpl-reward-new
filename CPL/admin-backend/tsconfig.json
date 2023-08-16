@@ -1,0 +1,138 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "@app/mysql": [
+        "libs/mysql/src"
+      ],
+      "@app/mysql/*": [
+        "libs/mysql/src/*"
+      ],
+      "@lib/admin": [
+        "libs/admin/src"
+      ],
+      "@lib/admin/*": [
+        "libs/admin/src/*"
+      ],
+      "@lib/util": [
+        "libs/util/src"
+      ],
+      "@lib/util/*": [
+        "libs/util/src/*"
+      ],
+      "@lib/authorization": [
+        "libs/authorization/src"
+      ],
+      "@lib/authorization/*": [
+        "libs/authorization/src/*"
+      ],
+      "@lib/campaign": [
+        "libs/campaign/src"
+      ],
+      "@lib/campaign/*": [
+        "libs/campaign/src/*"
+      ],
+      "@lib/grpc-client": [
+        "libs/grpc-client/src"
+      ],
+      "@lib/grpc-client/*": [
+        "libs/grpc-client/src/*"
+      ],
+      "@lib/otp": [
+        "libs/otp/src"
+      ],
+      "@lib/otp/*": [
+        "libs/otp/src/*"
+      ],
+      "@lib/redis": [
+        "libs/redis/src"
+      ],
+      "@lib/redis/*": [
+        "libs/redis/src/*"
+      ],
+      "@lib/role-permission": [
+        "libs/role-permission/src"
+      ],
+      "@lib/role-permission/*": [
+        "libs/role-permission/src/*"
+      ],
+      "@lib/coins": [
+        "libs/coins/src"
+      ],
+      "@lib/coins/*": [
+        "libs/coins/src/*"
+      ],
+      "@lib/log": [
+        "libs/log/src"
+      ],
+      "@lib/log/*": [
+        "libs/log/src/*"
+      ],
+      "@lib/external-bce": [
+        "libs/external-bce/src"
+      ],
+      "@lib/external-bce/*": [
+        "libs/external-bce/src/*"
+      ],
+      "@lib/ban-user-history": [
+        "libs/ban-user-history/src"
+      ],
+      "@lib/ban-user-history/*": [
+        "libs/ban-user-history/src/*"
+      ],
+      "@lib/upload-file": [
+        "libs/upload-file/src"
+      ],
+      "@lib/upload-file/*": [
+        "libs/upload-file/src/*"
+      ],
+      "@lib/queue": [
+        "libs/queue/src"
+      ],
+      "@lib/queue/*": [
+        "libs/queue/src/*"
+      ],
+      "@app/market-maker": [
+        "libs/market-maker/src"
+      ],
+      "@app/market-maker/*": [
+        "libs/market-maker/src/*"
+      ],
+      "@app/import-file": [
+        "libs/import-file/src"
+      ],
+      "@app/import-file/*": [
+        "libs/import-file/src/*"
+      ],
+      "@lib/kafka": [
+        "libs/kafka/src"
+      ],
+      "@lib/kafka/*": [
+        "libs/kafka/src/*"
+      ],
+      "@lib/user-note": [
+        "libs/user-note/src"
+      ],
+      "@lib/user-note/*": [
+        "libs/user-note/src/*"
+      ]
+    }
+  }
+}

@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package bo_user_balance;
+
+import "google/protobuf/empty.proto";
+
+service BOUserBalanceService {
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+  rpc Summary(google.protobuf.Empty) returns (BOUserBalanceSummaryResponse);
+  rpc ListTransfers(ListRequest) returns (ListDataTransferResponse);
+  rpc ExportListTransfers(ListRequest) returns (ListDataTransferResponse);
+  rpc ListExport(ListRequest) returns (ListExportResponse);
+};
+
+message BOUserBalanceSummary {
+  optional BOUserBalanceSummaryDetail bcast = 1;
+  optional BOUserBalanceSummaryDetail cashback = 2;
+  optional BOUserBalanceSummaryDetail usdt = 3;
+}
+
+message BOUserBalanceSummaryDetail {
+  string total = 1;
+  string currency = 2;
+}
+
+message BOUserBalance {
+  string id = 1;
+  string bcast = 2;
+  string cashback = 3;
+  string usdt = 4;
+  string email = 5;
+  string user_id = 6;
+  string updated_at = 7;
+}
+
+message Swap {
+  string id = 1;
+  string user_id = 2;
+  string type = 3;
+  string from = 4;
+  string to = 5;
+  string coin = 6;
+  string currency = 7;
+  string price = 8;
+  string amount = 9;
+  string fee = 10;
+  string receive = 11;
+  string status = 12;
+  string data_raw = 13;
+  string transfer_id = 14;
+  string createdAt = 15;
+  string updatedAt = 16;
+}
+
+message BOUserTransferBalance {
+  string id = 1;
+  string email = 2;
+  string transfer_reference_id = 3;
+  string user_id_from = 4;
+  string user_id_to = 5;
+  string currency = 6;
+  string balance_type_from = 7;
+  string balance_type_to = 8;
+  string amount = 9;
+  string status = 10;
+  string user_id = 11;
+  string updated_at = 12;
+  string transfer_amount = 13;
+  optional Swap swap = 14;
+}
+
+message ID {
+  int32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 4;
+  optional string search_text = 5;
+  optional string sort = 6;
+  optional string sort_type = 7;
+  optional string size = 8;
+  optional string start_date = 9;
+  optional string end_date = 10;
+  optional string currency = 11;
+  optional string from = 12;
+  optional string status = 13;
+  optional string lang = 14;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+// RESPONSE
+message BOUserBalanceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOUserBalance data = 3;
+}
+
+message BOUserBalanceSummaryResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOUserBalanceSummary data = 3;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message ListDataTransferResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListTransferData data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+  uint32 page = 6;
+  uint32 size = 7;
+  uint32 total = 8;
+}
+
+message ListData {
+  repeated BOUserBalance items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListTransferData {
+  repeated BOUserTransferBalance items = 1;
+  optional ListMeta meta = 2;
+}
+
+message SearchBOUserBalanceResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message Export {
+  optional string no = 1;
+  optional string name = 2;
+  optional string link = 3;
+  optional string time = 4;
+}
+
+message ListExportResponse {
+  bool success = 1;
+  optional string message = 2;
+  repeated Export data = 3;
+}

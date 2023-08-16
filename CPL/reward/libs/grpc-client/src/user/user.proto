@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/empty.proto";
+
+message PaginationMeta {
+  int32 page = 1;
+  int32 size = 2;
+  int32 total = 3;
+}
+
+service UserService {
+  rpc GetListUserForManagement(UserFilter) returns (ListUserForManagement);
+  rpc GetListUserForMarketing(UserFilterMarketingRequest) returns (ListUserForMarketingResponse);
+  rpc FindOne (UserById) returns (User);
+  rpc BanUser (BanUser) returns (ResponseString);
+  rpc DeleteUser (UserById) returns (ResponseString);
+  rpc GetUsersExport (google.protobuf.Empty) returns (UsersExportResponse);
+  rpc CreateUsersExport (UserFilter) returns (CreateUsersExportResponse);
+};
+
+
+message ResponseString {
+  string response = 1;
+}
+
+message UserFilter {
+  int32 page = 1;
+  int32 per_page = 2;
+  int32 is_banned = 3;
+  string search_field = 4;
+  string search_text = 5;
+  string account_lv = 6;
+  string risk_rating = 7;
+  string registered_channel = 8;
+  string sort = 9;
+  string sort_type = 10;
+  int32 kyc_status = 11;
+  int32 kyc_type = 12;
+  string level_status = 13;
+};
+
+message UserFilterMarketingRequest {
+  uint32 page = 1;
+  uint32 per_page = 2;
+  string search_field = 3;
+  string search_text = 4;
+  string referral_email = 5;
+  string account_lv = 6;
+  string risk_rating = 7;
+  string registered_channel = 8;
+  repeated string tag_ids = 9;
+  string sort = 10;
+  string sort_type = 11;
+  string from_date = 12;
+  string to_date = 13;
+};
+
+
+message UserById {
+  string id = 1;
+};
+
+message BanUser {
+  string id = 1;
+  string note = 2;
+  int32 hour = 3;
+};
+
+message User {
+  string id = 1;
+  string uuid = 2;
+  string name = 3;
+  string email = 6;
+  string type = 7;
+  string status = 11;
+  string referrer_code = 13;
+  string referred_by_id = 14;
+  string fb_id = 15;
+  string gg_id = 16;
+  string checkpoint = 17;
+  string last_login = 18;
+  string phone_verify_at = 19;
+  string email_verify_at = 20;
+  string authenticator_verify_at = 21;
+  string created_at = 22;
+  string updated_at = 23;
+  string bce_updated_at = 24;
+  string email_verify_status = 25;
+  string authenticator_verify_status = 26;
+  string kyc_verify_status = 27;
+  string user_info_status = 28;
+  string last_password_change = 29;
+  string account_lv = 30;
+  string apple_id = 31;
+  int32 channel_id = 32;
+}
+
+message UserForManagement {
+  string user_id = 1;
+  string full_name = 2;
+  string email = 3;
+  string authenticator_verify_status = 4;
+  string user_info_status = 5;
+  string account_lv = 6;
+  string last_login = 7;
+  string created_at = 8;
+  string risk_rating = 9;
+  string kyc_status = 10;
+  string referral_email = 11;
+  int32 is_banned = 12;
+  int32 kyc_type = 13;
+  string level_status = 14;
+  int32 social_link = 15;
+  string registered_channel = 16;
+}
+
+message ListUserForManagement {
+  repeated UserForManagement data = 1;
+  PaginationMeta pagination = 2;
+}
+
+
+message UserForMarketing {
+  string user_id = 1;
+  string full_name = 2;
+  string email = 3;
+  string account_lv = 4;
+  string created_at = 5;
+  string risk_rating = 6;
+  string referral_email = 7;
+  int32 social_link = 8;
+  string channel_name = 9;
+  repeated string tags = 10;
+}
+
+message ListUserForMarketingResponse {
+  repeated UserForMarketing data = 1;
+  PaginationMeta pagination = 2;
+}
+
+message UsersExport {
+  bool is_empty = 1;
+  int32 status = 2;
+  string link = 3;
+  string created_at = 4;
+  string finished_at = 5;
+}
+
+message UsersExportResponse {
+  string status = 1;
+  string message = 2;
+  UsersExport data = 3;
+}
+
+message SuccessResponse {
+  bool success = 1;
+}
+
+message CreateUsersExportResponse {
+  string status = 1;
+  string message = 2;
+  SuccessResponse data = 3;
+}

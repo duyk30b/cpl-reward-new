@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+package user;
+
+import "common.proto";
+
+service UserService {
+  rpc SearchByFilter(UserFilter) returns (UserList);
+  rpc FindOne (UserById) returns (User);
+  rpc BanUser (BanUser) returns (ResponseString);
+  rpc DeleteUser (UserById) returns (ResponseString);
+};
+
+message ResponseString {
+  string response = 1;
+}
+
+message UserById {
+  string id = 1;
+};
+
+message BanUser {
+  string id = 1;
+  string note = 2;
+  int32 hour = 3;
+};
+
+message UserList {
+  repeated User data = 1;
+  common.PaginationMeta pagination = 2;
+}
+
+message User {
+  string id = 1;
+  string uuid = 2;
+  string name = 3;
+  string email = 6;
+  string type = 7;
+  string status = 11;
+  string referrer_code = 13;
+  string referred_by_id = 14;
+  string fb_id = 15;
+  string gg_id = 16;
+  string checkpoint = 17;
+  string last_login = 18;
+  string phone_verify_at = 19;
+  string email_verify_at = 20;
+  string authenticator_verify_at = 21;
+  string created_at = 22;
+  string updated_at = 23;
+  string bce_updated_at = 24;
+  string email_verify_status = 25;
+  string authenticator_verify_status = 26;
+  string kyc_verify_status = 27;
+  string user_info_status = 28;
+  string last_password_change = 29;
+  string account_lv = 30;
+}
+
+message UserFilter {
+  int32 page = 1;
+  int32 limit = 2;
+  repeated string ids = 3;
+  int32 type = 4;
+  repeated int32 statuses = 5;
+  repeated int32 kyc_verify_statuses = 6;
+  repeated int32 authenticator_verify_statuses = 7;
+  repeated int32 user_info_statuses = 8;
+  int32 account_lv_from = 9;
+  int32 account_lv_to = 10;
+  string created_at_from = 11;
+  string created_at_to = 12;
+  string last_login_from = 13;
+  string last_login_to = 14;
+  string email = 15; 
+  string sort = 16;
+  string sort_type = 17;
+};

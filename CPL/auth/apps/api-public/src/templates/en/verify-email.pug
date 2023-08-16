@@ -1,0 +1,19 @@
+extends ../layouts/layout.pug
+
+block content 
+	div(class="mb-10") Thank you for registering with bitcastle.
+
+	div(class="mb-10") Registration has not been completed, please click the link below to complete verification:
+
+	div(class="mb-10 otp-div")
+		span #{otp}
+
+	div(class="mb-10") For security reason, this code will be expired within #{ttl / 60 / 60} hours of receiving this email.
+
+	div(class="mb-10") 
+		div 5 Security Tips:
+		div * DO NOT give your password to anyone!
+		div * DO NOT call any phone number for someone claiming to be Bitcastle Support!
+		div * DO NOT send any money to anyone claiming to be a member of Bitcastle!
+		div * Enable Google Two Factor Authentication!
+		div If this activity is not your own operation, please contact us immediately.

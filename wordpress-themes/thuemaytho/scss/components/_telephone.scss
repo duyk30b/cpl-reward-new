@@ -1,0 +1,136 @@
+.telephone-ring {
+    position: fixed;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    border-radius: 99px;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    &.mobile {
+        bottom: 50px;
+        left: 40px;
+        border: 1px solid #009900;
+        .phone {
+            .wrap {
+                background-color: #fff;
+                .image {
+                    background-color: #009900;
+                    color: #fff;
+                }
+            }
+            .ring {
+                border: 2px solid#009900;
+            }
+        }
+    }
+
+    &.zalo {
+        bottom: 140px;
+        left: 40px;
+        .phone {
+            .wrap {
+                .image {
+                    border: 1px solid #0180c7;
+                    background-color: #fff;
+                }
+            }
+            .ring {
+                background-color: #0180c7;
+            }
+        }
+    }
+    .phone {
+        position: relative;
+        .wrap {
+            padding: 2px;
+            border-radius: 100%;
+            .image {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 100%;
+                position: relative;
+                animation: 1.2s ease-in-out 0s normal none infinite running animation-image;
+                font-size: 22px;
+            }
+        }
+
+        .ring {
+            z-index: -1;
+            position: absolute;
+            opacity: 0.5;
+            height: 80px;
+            width: 80px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 100%;
+            animation: 1.2s ease-in-out 0s normal none infinite running animation-ring;
+        }
+    }
+    .number {
+        padding: 0 10px;
+        font-size: 20px;
+        line-height: 40px;
+        font-weight: bold;
+        color: #f00;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    .telephone-ring {
+        &.mobile {
+            bottom: 20px;
+            left: 10px;
+        }
+        &.zalo {
+            bottom: 100px;
+            left: 10px;
+        }
+    }
+}
+
+@keyframes animation-ring {
+    0% {
+        opacity: 0.1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    30% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes animation-image {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(-25deg);
+    }
+    20% {
+        transform: rotate(25deg);
+    }
+    30% {
+        transform: rotate(-25deg);
+    }
+    40% {
+        transform: rotate(25deg);
+    }
+    50% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

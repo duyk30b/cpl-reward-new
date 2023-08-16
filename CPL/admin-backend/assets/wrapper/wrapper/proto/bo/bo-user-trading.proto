@@ -1,0 +1,319 @@
+syntax = "proto3";
+
+package bo_user_trading;
+
+import "google/protobuf/empty.proto";
+
+service BOUserTradingService {
+  rpc List(ListRequest) returns (ListDataResponse);
+  rpc Export(ListRequest) returns (ListDataResponse);
+  rpc StatisticSummary(StatisticRequest) returns (BOStatisticSummaryResponse);
+  rpc ExportStatisticSummary(StatisticRequest) returns (ListDataResponse);
+  rpc StatisticDetail(StatisticRequest) returns (BOStatisticDetailResponse);
+  rpc ExportStatisticDetail(StatisticRequest) returns (ListDataResponse);
+  rpc StatisticUser(StatisticRequest) returns (BOStatisticUserResponse);
+  rpc ExportStatisticUser(StatisticRequest) returns (ListDataResponse);
+  rpc UsersTradingLimit(ListRequest) returns (ListUserTradingLimitResponse);
+  rpc ExportUsersTradingLimit(ListRequest) returns (ListDataResponse);
+  rpc SuspensionUsers(ListRequest) returns (ListUserTradingLimitResponse);
+  rpc SuspensionModes(ListRequest) returns (ListUserTradingLimitResponse);
+  rpc SuspensionPairs(ListRequest) returns (ListUserTradingLimitResponse);
+  rpc ExportSuspensionCommon(ListRequest) returns (ListDataResponse);
+  rpc ExportSuspensionTradeMode(ListRequest) returns (ListDataResponse);
+  rpc ExportSuspensionMarket(ListRequest) returns (ListDataResponse);
+};
+
+message BOUserTrading {
+  string id = 1;
+  string user_id = 2;
+  string balance_id = 3;
+  string mode_id = 4;
+  string pair_id = 5;
+  string strike = 6;
+  string trade_type = 7;
+  string invest = 8;
+  string bcast_use = 9;
+  string buy_time = 10;
+  string payout = 11;
+  string start_time = 12;
+  string end_time = 13;
+  string expire_time = 14;
+  string closing_rate = 15;
+  string expire_payout = 16;
+  string profit = 17;
+  string rank_payout = 18;
+  string decimal_part = 19;
+  string buy_payout = 20;
+  string sell_payout = 21;
+  string status = 22;
+  string is_banned = 23;
+  string created_at = 24;
+  string updated_at = 25;
+  string resell_expire = 26;
+  string allow_resell = 27;
+  string odds_mode = 28;
+  string odds_fee = 29;
+  string pair_index = 30;
+  string frame_active = 31;
+  string is_demo = 32;
+  string ignore_flag = 33;
+  string client_time = 34;
+  string server_time = 35;
+  string cashback_transaction_id = 36;
+  string cashback_recovery_transaction_id = 37;
+  string cashback_profit = 38;
+  string mode = 41;
+  string period = 42;
+  string symbol = 43;
+  string email = 44;
+}
+
+
+// LIST REQUEST
+message ID {
+  int32 id = 1;
+}
+
+message ListRequest {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_field = 3;
+  optional string search_text = 4;
+  optional string sort = 5;
+  optional string sort_type = 6;
+  optional string win_lose = 7;
+  optional string status = 8;
+  optional string mode = 9;
+  optional string period = 10;
+  optional string pair = 11;
+  optional string start_date = 12;
+  optional string end_date = 13;
+  optional string lang = 14;
+}
+
+message DeleteRequest {
+  uint32 id = 1;
+}
+
+
+// RESPONSE
+message BOUserTradingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional BOUserTrading data = 3;
+}
+
+message ListMeta {
+  uint32 total_items = 1;
+  uint32 item_count = 2;
+  uint32 items_per_page = 3;
+  uint32 total_pages = 4;
+  uint32 current_page = 5;
+}
+
+message ListData {
+  repeated BOUserTrading items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListDataResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+
+message SearchBOUserTradingResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+//Statistic
+message StatisticRequest {
+  optional string start_date = 1;
+  optional string end_date = 2;
+  optional int32 user_id = 3;
+  optional string sort = 4;
+  optional string sort_type = 5;
+  optional string lang = 6;
+}
+
+//----------StatisticSummary--------------
+message StatisticSummary {
+  string number_of_users = 1;
+  string active_users = 2;
+  string winning_users = 3;
+  string losing_users = 4;
+  string operating_profit = 5;
+  string number_of_withdrawal_times = 6;
+  string number_of_withdrawers = 7;
+  string acumulative_amount = 8;
+  string average_withdrawal_amount = 9;
+  string withdrawal_ratio = 10;
+  string acumulative_deposit_amount = 11;
+  string total_user_balance = 12;
+  string order_times = 13;
+  string user_wins = 14;
+  string user_loses = 15;
+  string user_win_rate = 16;
+  string in = 17;
+  string out = 18;
+  string payout_rate = 19;
+  string bcast_rank_one = 20;
+  string bcast_rank_two = 21;
+  string bcast_rank_three = 22;
+  string order_limit_users = 23;
+  string number_of_depositors = 24;
+}
+
+message BOStatisticSummaryResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional StatisticSummary data = 3;
+}
+
+//----------StatisticDetail--------------
+message StatisticDetail {
+  string in = 1;
+  string mode = 2;
+  string operating_profit = 3;
+  string order_times = 4;
+  string out = 5;
+  string payout_rate = 6;
+  string period = 7;
+  string user_loses = 8;
+  string user_win_rate = 9;
+  string user_wins = 10;
+}
+
+message BOStatisticDetailResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListBOStatisticDetail data = 3;
+}
+
+message ListBOStatisticDetail {
+  repeated StatisticDetail items = 1;
+}
+
+//----------StatisticUser--------------
+message StatisticUser {
+  string average_withdrawal_amount = 1;
+  string bcast_amount = 2;
+  string bcast_rank = 3;
+  string acumulative_amount = 4;
+  string acumulative_deposit_amount = 5;
+  string in = 6;
+  string lose_times = 7;
+  string number_of_withdrawal_times = 8;
+  string operating_profit = 9;
+  string order_limit_user = 10;
+  string order_times = 11;
+  string out = 12;
+  string payout_rate = 13;
+  string total_balance = 14;
+  string win_rate = 15;
+  string win_times = 16;
+  string withdrawal_ratio = 17;
+}
+
+message BOStatisticUserResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional StatisticUser data = 3;
+}
+
+//----------UserTradingLimit--------------
+message UserTradingLimit {
+  string balance_profit = 1;
+  string email = 2;
+  string investment_type = 3;
+  string sum_expire_payout = 4;
+  string sum_profit = 5;
+  string threshold_limit = 6;
+  string created_at = 7;
+  string user_id = 8;
+  string mode = 9;
+  string period = 10;
+  string stop_threshold_value = 11;
+  string symbol = 12;
+  string emergency_threshold = 13;
+}
+
+message ListUserTradingLimitData {
+  repeated UserTradingLimit items = 1;
+  optional ListMeta meta = 2;
+}
+
+message ListUserTradingLimitResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListUserTradingLimitData data = 3;
+}
+
+message BOHistoryOrder {
+  string id = 1;
+  string balance_id = 2;
+  string mode_id = 3;
+  string mode = 4;
+  string symbol = 5;
+  string email = 53;
+  string period = 55;
+  string pair_id = 6;
+  string strike = 7;
+  string trade_type = 11;
+  string invest = 13;
+  string bcast_use = 14;
+  string buy_time = 15;
+  string payout = 16;
+  string start_time = 17;
+  string end_time = 18;
+  string expire_time = 19;
+  string closing_rate = 20;
+  string expire_payout = 21;
+  string profit = 22;
+  string rank_payout = 23;
+  string decimal_part = 24;
+  string buy_payout = 25;
+  string sell_payout = 26;
+  string status = 27;
+  string is_banned = 28;
+  string created_at = 29;
+  string updated_at = 30;
+  string resell_expire = 31;
+  string allow_resell = 32;
+  string odds_mode = 33;
+  string odds_fee = 34;
+  string pair_index = 35;
+  string frame_active = 36;
+  string is_demo = 37;
+  string ignore_flag = 38;
+  string client_time = 39;
+  string server_time = 40;
+  string cashback_transaction_id = 41;
+  string cashback_recovery_transaction_id = 42;
+  string cashback_profit = 43;
+}
+
+message BOHistoryOrderResponse {
+  bool success = 1;
+  optional string message = 2;
+  optional ListData data = 3;
+}
+
+message HistoryOrder {
+  optional uint32 page = 1;
+  optional uint32 limit = 2;
+  optional string search_text = 3;
+  optional string search_field = 4;
+  optional string sort = 5;
+  optional string sort_type = 6;
+  optional string status = 7;
+  optional string win_lose = 8;
+  optional string mode = 9;
+  optional string pair = 10;
+  optional string period = 11;
+  optional string start_date = 12;
+  optional string end_date = 13;
+}

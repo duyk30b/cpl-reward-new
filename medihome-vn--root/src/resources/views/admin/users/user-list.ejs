@@ -1,0 +1,204 @@
+<%- include('../../layouts/main-before') %>
+
+<div class="app-page-title">
+	<div class="page-title-wrapper">
+		<div class="page-title-heading">
+			<div class="page-title-icon">
+				<i class="pe-7s-car icon-gradient bg-mean-fruit"></i>
+			</div>
+			<div>
+				Quản lý Users
+				<div class="page-title-subheading">
+					This is an example dashboard created using build-in elements and components.
+				</div>
+			</div>
+		</div>
+		<div class="page-title-actions">
+			<a
+				class="btn btn-primary btn-lg active mr-5"
+				type="button"
+				data-action="ADD"
+				data-toggle="modal"
+				data-target="#infoUserModal"
+			>
+				<i class="fas fa-plus-square"></i> Thêm mới
+			</a>
+			<a class="btn btn-secondary" href="/admin/users/trash" id="link-trash" type="button">
+				<i class="fas fa-trash-alt"></i> Thùng rác
+			</a>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<div class="row mb-1">
+					<div class="col-xl-1 col-md-2 col-4 mb-1">
+						<select id="select-rows-page" name="select-rows-page" class="form-control">
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
+					</div>
+
+					<div class="col row col-4 mb-1" id="action-list" style="display:none">
+						<select id="select-action-list" class="form-control col-6 mr-2">
+							<option value="" selected>Hành động</option>
+							<option value="REMOVE-LIST">Xóa hàng loạt</option>
+						</select>
+						<button class="btn btn-danger" id="btn-action-list" class="col-6" style="display: none">
+							<i class="fas fa-radiation"></i> Thực hiện
+						</button>
+					</div>
+
+					<div class="input-group col-6 ml-auto mb-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-search"></i></span>
+						</div>
+						<input id="input-search" placeholder="Search..." type="text" class="form-control" />
+						<div class="input-group-append">
+							<select id="select-search" class="form-control">
+								<option value="" selected>Tất cả</option>
+								<option value="Gmail">Gmail</option>
+								<option value="Info.Name">Họ Tên</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12">
+						<table id="mytable" class="mb-0 table table-bordered">
+							<thead>
+								<tr>
+									<th>
+										<input id="checkbox-item-all" type="checkbox" />
+										&nbsp;#
+									</th>
+									<th>Gmail</th>
+									<th>Name</th>
+									<th>Phone</th>
+									<th>Role</th>
+									<th>Quản Lý</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<nav class="float-right" aria-label="Page navigation example">
+							<ul class="pagination justify-content-end" id="pagination">
+								<li class="page-item">
+									<a class="page-link" aria-label="Previous"
+										><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a
+									>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item">
+									<a class="page-link" aria-label="Next"
+										><span aria-hidden="true">»</span><span class="sr-only">Next</span></a
+									>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<%- include('../../layouts/main-after') %> <%- include('./user-modal') %>
+<script>
+	let listElement = {
+		table: document.getElementById('mytable'),
+		ipSearch: document.getElementById('input-search'),
+		pagination: document.getElementById('pagination'),
+		slRowsPerPage: document.getElementById('select-rows-page'),
+		actionList: document.getElementById('action-list'),
+		slSearch: document.getElementById('select-search'),
+		checkboxThead: document.getElementById('checkbox-item-all'),
+		actionForm: document.getElementById('infoUserForm'),
+	};
+	let listFetcher = {
+		'LIST': () => {
+			return window.location.pathname + '/list';
+		},
+		'ADD': () => {
+			return window.location.pathname + '/add';
+		},
+		'EDIT': (id) => {
+			return window.location.pathname + '/find/' + id;
+		},
+		'UPDATE': (id) => {
+			return window.location.pathname + '/update/' + id;
+		},
+		'REPLACE': (id) => {
+			return window.location.pathname + '/replace/' + id;
+		},
+		'REMOVE': (id) => {
+			return window.location.pathname + '/remove/' + id;
+		},
+		'REMOVE-LIST': () => {
+			return window.location.pathname + '/remove-list';
+		},
+	};
+
+	let actionCol = (data) => {
+		return `<a onclick="showDetailRow(this)" class="show-detail-row">
+                        <i class="fas fa-plus-square style="color: blue;""></i>
+                    </a>
+                    <a href="" class="mx-2" data-action="EDIT" 
+						data-toggle="modal" data-target="#infoUserModal">
+                        <i class="fas fa-edit" style="color: green;"></i>
+                    </a>
+					<a href="" class="mr-2" data-action="REPLACE" 
+						data-toggle="modal" data-target="#jsonUserModal">
+                        <i class="fas fa-calendar-week"></i>
+                    </a>
+                    <a href="" data-action="REMOVE" data-toggle="modal"
+                         data-target="#removeUserModal">
+                        <i class="fas fa-trash-alt" style="color: red"></i>
+                    </a>`;
+	};
+	let showDetailRow = (elm) => {
+		let id = elm.closest('tr').getAttribute('data-id');
+		let show = bangUser.event.toggleDetailRow(id);
+		if (show) {
+			elm.innerHTML = '<i class="fas fa-minus-square"></i>';
+		} else {
+			elm.innerHTML = '<i class="fas fa-plus-square"></i>';
+		}
+	};
+	let bangUser = new MyTable({
+		elm: listElement,
+		fetch: listFetcher,
+		contents: {
+			dataSrc: 'data',
+			rowMain: ['Gmail', 'Info.Name', 'Info.Phone', 'Role', 'QuanLy', actionCol],
+			rowPlus: (item) => {
+				return `<table class="table"><tbody>
+                        <tr>
+							<td>Ngày Sinh:</td><td> ${MyDateTime.format(item.Info.NgaySinh, 'dd/MM/YYYY')}</td>
+							<td>Phòng Khám ID:</td><td> ${item.PhongKhamID}</td></tr>
+                        <tr>
+							<td>Giới Tính:</td><td> ${item.Info.GioiTinh}</td>
+							<td>Status:</td><td> ${item.Status}</td></tr>
+                        <tr>
+                            <td>Địa Chỉ:</td><td> ${item.Info.DiaChi}</td>
+                            <td>createdAt:</td><td> ${MyDateTime.format(item.createdAt, 'dd/MM/YYYY')}</td>
+                        </tr>
+                        <tr>
+                            <td>Chức Danh:</td><td> ${item.Info.ChucDanh}</td>
+                            <td>updatedAt:</td><td> ${MyDateTime.format(item.updatedAt, 'dd/MM/YYYY')}</td>
+                        </tr>
+                        <tr><td>MK:</td><td> ${item.Password}</td></tr>
+                        </tbody></table>`;
+			},
+		},
+	});
+</script>

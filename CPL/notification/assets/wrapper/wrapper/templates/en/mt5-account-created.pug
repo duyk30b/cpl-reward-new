@@ -1,0 +1,39 @@
+extends ../layouts/mt5/en/layout.pug
+
+block content 
+	div(class="title mb-32") Thank you for registering a MT5 account with bitcastle!
+
+	div(class="paragraph mb-32") Dear client!
+
+	div(class="paragraph mb-32") You have registered successfully a MT5 account with bitcastle. Please save your account detail and use it to trade with MT5 by bitcastle.
+
+	div(class="card paragraph mb-32")
+		div(class="d-flex mb-16")
+			div(class="mr-auto") ID: 
+			div #{id}
+		div(class="d-flex mb-16")
+			div(class="mr-auto") Password:
+			div #{password}
+		div(class="d-flex mb-16")
+			div(class="mr-auto") Server:
+			div #{server}
+		div(class="d-flex mb-16")
+			div(class="mr-auto") Account Type:
+			div #{accountType}
+		div(class="d-flex")
+			div(class="mr-auto") Balance:
+			div #{balance}
+
+	div(class="paragraph mb-32") If you haven’t had the MT5 tool, you can download it here:
+
+	a(href=`${mt5TerminalUrl}` class="btn btn-primary d-block text-light paragraph mb-32") Download MT5 Terminal
+
+	div(class="paragraph mb-32") Or use the WebTrader:
+
+	a(href=`${webTraderUrl}` class="btn btn-primary d-block text-light paragraph mb-32") Go to the WebTrader
+
+	div(class="divider mb-32")
+
+	div(class="title mb-32") Deposit your account and trade now!
+
+	a(href=`${depositUrl}` class="btn btn-light d-block text-dark paragraph") Deposit your account

@@ -1,0 +1,30 @@
+#down-currency-modal {
+  .modal-content {
+    .modal-header {
+      .modal-title {
+        text-transform: uppercase;
+      }
+    }
+
+    .modal-body {
+      .form-group {
+        margin-bottom: 2rem;
+        label {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .token-type {
+        font-size: 1.2rem;
+      }
+
+      .token-notice {
+        color: #dc3545;
+      }
+    }
+
+    .modal-footer {
+      justify-content: space-around;
+    }
+  }
+}

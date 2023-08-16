@@ -1,0 +1,136 @@
+syntax = "proto3";
+
+package grpc.balance.history.v1;
+
+service BalanceHistoryService {
+    rpc Show(ShowRequest) returns (ShowResponse);
+    rpc List(ListRequest) returns (ListResponse);
+}
+
+message ShowRequest {
+    BalanceAccountRequest request = 1;
+    Pagination pagination = 2;
+}
+
+message BalanceAccountRequest {
+    string user_id = 1;
+    BalanceType type = 2;
+    string currency = 3;
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+    }
+}
+
+message ShowResponse {
+    repeated BalanceHistoryItem data = 1;
+    PaginationResult pagination = 2;
+}
+
+message PaginationResult {
+    Pagination next = 1;
+    Pagination prev = 2;
+}
+
+message Pagination {
+    int32 limit = 1;
+    optional string from_id = 2;
+    optional string to_id = 3;
+}
+
+message BalanceHistoryItem {
+    string id = 1;
+    string balance_account_id = 2;
+    string resource_id = 3;
+    int32 resource_type = 4;
+    string actual_balance = 5;
+    string available_balance = 6;
+    string created_at = 7;
+}
+
+
+////////////
+
+message ListRequest {
+    optional string currency = 1;
+    string user_id = 2;
+    optional TransactionType transaction_type = 3;
+    optional string search_field = 4;
+    optional string search_text = 5;
+    optional uint32 page = 6;
+    optional uint32 size = 7;
+    optional string sort = 8;
+    optional string sort_type = 9;
+    optional BalanceType balance_type = 10;
+    optional string start_date = 11;
+    optional string end_date = 12;
+    optional bool get_all = 13;
+
+    enum BalanceType {
+        UNKNOWN = 0;
+        CASHBACK = 1;
+        BO = 2;
+        EXCHANGE = 3;
+        REWARD = 4;
+        FUTURES = 5;
+    }
+
+    enum TransactionType {
+        UNKNOWN = 0;
+        TRADING_FEE = 1;
+        WITHDRAW = 2;
+        WITHDRAW_FEE = 3;
+        DEPOSIT = 4;
+        DEPOSIT_FEE = 5; 
+        TRANSFER = 6;
+        TRANSFER_FEE = 7;
+        AFFILIATE = 8;
+        MANUALLY = 9;
+        BO_TRADING = 10;
+        BO_TRADING_WIN = 11;
+        REWARD = 12;
+        BO_TRANSFER = 13;
+        BO_TRANSFER_FEE = 14;
+        DIVIDEND = 15;
+        COMMISSION = 16;
+        CAMPAIGN = 17;
+        TRADING = 18;
+        SWAP = 19;
+        CORRECT = 20;
+        DIVIDEND_ROLLBACK = 21;
+        BO_TRADING_ODD = 22;
+        BO_TRADING_ODD_WIN = 23;
+        TRADING_FEE_ROLLBACK = 24;
+        IMPORT_EXCEL = 25;
+        IMPORT_EXCEL_ROLLBACK = 26;
+    }
+}
+
+message ListResponse {
+    repeated BalanceHistoryResponse data = 1;
+    optional MetaPagination pagination = 2;
+}
+
+message BalanceHistoryResponse {
+    string id = 1;
+    string balance_type = 2;
+    string currency = 3;
+    string actual_balance_change = 4;
+    string actual_balance = 5;
+    string available_balance_change = 6;
+    string available_balance = 7;
+    string transaction_type = 8;
+    string reference_id = 9;
+    string created_at = 10;
+    string version = 11;
+}
+
+message MetaPagination {
+    uint32 page = 1;
+    uint32 size = 2;
+    uint32 total = 3;
+}

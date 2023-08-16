@@ -1,0 +1,404 @@
+<%- include('../../layouts/main-before') %>
+<style>
+	#search-drugs {
+		position: relative;
+	}
+	.autocomplete-items {
+		position: absolute;
+		z-index: 99;
+		top: 100%;
+		left: 15px;
+		right: 5px;
+		border: 1px solid #d4d4d4;
+	}
+	.autocomplete-items div {
+		padding: 10px;
+		cursor: pointer;
+		background-color: #fff;
+		border-bottom: 1px solid #d4d4d4;
+	}
+</style>
+
+<div class="row">
+	<div class="col">
+		<div class="main-card mb-3 card">
+			<div class="card-body">
+				<div class="row mb-1">
+					<div class="col-xl-1 col-md-2 col-4 mb-1">
+						<select id="select-rows-page" name="select-rows-page" class="form-control">
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+						</select>
+					</div>
+
+					<div class="input-group col-6 ml-auto mb-1">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-search"></i></span>
+						</div>
+						<input id="input-search" placeholder="Search..." type="text" class="form-control" />
+						<div class="input-group-append">
+							<select id="select-search" class="form-control">
+								<option value="" selected>Tất cả</option>
+								<option value="TenThuoc">Tên Thuốc</option>
+								<option value="ThanhPhan">Thành Ph</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="row mb-2">
+					<div class="col-12">
+						<table id="mytable" class="mb-0 table table-bordered">
+							<thead>
+								<tr>
+									<th>
+										<input id="checkbox-item-all" type="checkbox" />
+										&nbsp;#
+									</th>
+									<th>Tên Thuốc</th>
+									<th>Thành Phần</th>
+									<th>Số Lượng</th>
+									<th>Giá Mua</th>
+									<th>Giá Bán</th>
+									<th>Hạn Sử Dụng</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<nav class="float-right" aria-label="Page navigation example">
+							<ul class="pagination justify-content-end" id="pagination">
+								<li class="page-item">
+									<a class="page-link" aria-label="Previous"
+										><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a
+									>
+								</li>
+								<li class="page-item"><a class="page-link" href="#">1</a></li>
+								<li class="page-item">
+									<a class="page-link" aria-label="Next"
+										><span aria-hidden="true">»</span><span class="sr-only">Next</span></a
+									>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-8 row">
+						<div class="col-12 mb-3 input-group">
+							<input id="search-drugs" placeholder="Search Drugs..." type="text" class="form-control form-control-lg" />
+						</div>
+						<div class="col-4 mb-2 input-group">
+							<input name="SoLuong[0].DonVi" type="number" class="form-control" placeholder="Số lượng" />
+							<div class="input-group-append">
+								<span class="input-group-text">Hộp</span>
+							</div>
+						</div>
+						<div class="col-4 mb-2">
+							<input
+								name="SoLuong[0].GiaMua"
+								data-money="vnd"
+								type="number"
+								class="form-control"
+								onfocusout="MyForm.autoCompleteMoney(this)"
+								placeholder="Giá mua"
+							/>
+						</div>
+						<div class="col-4 mb-2">
+							<input
+								name="SoLuong[0].GiaBan"
+								data-money="vnd"
+								type="number"
+								class="form-control"
+								onfocusout="MyForm.autoCompleteMoney(this)"
+								placeholder="Giá bán"
+							/>
+						</div>
+						<div class="col-4 mb-2">
+							<input name="SoLuong[0].HanSuDung" type="date" min="2021-01-01" class="form-control" placeholder="Hạn sử dụng" />
+						</div>
+						<div class="col-12">
+							<button type="button" class="btn btn-success" onclick="removeField(this)">Thêm</button>
+						</div>
+					</div>
+					<div class="col-4"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<%- include('../../layouts/main-after') %>
+
+<script>
+	let tuthuoc = [];
+	// MyFetch.fetch({
+	// 	url: '/admin/tu-thuoc/list',
+	// 	succ: (data) => {
+	// 		tuthuoc = data;
+	// 		console.log(tuthuoc);
+	// 	},
+	// });
+
+	let ipSearch = document.getElementById('search-drugs');
+	let closeAllLists = () => {
+		let list = document.getElementsByClassName('autocomplete-items');
+		for (let i = 0; i < list.length; i++) {
+			list[i].remove();
+		}
+	};
+
+	tuthuoc = [
+		'Afghanistan',
+		'Albania',
+		'Algeria',
+		'Andorra',
+		'Angola',
+		'Anguilla',
+		'Antigua & Barbuda',
+		'Argentina',
+		'Armenia',
+		'Aruba',
+		'Australia',
+		'Austria',
+		'Azerbaijan',
+		'Bahamas',
+		'Bahrain',
+		'Bangladesh',
+		'Barbados',
+		'Belarus',
+		'Belgium',
+		'Belize',
+		'Benin',
+		'Bermuda',
+		'Bhutan',
+		'Bolivia',
+		'Bosnia & Herzegovina',
+		'Botswana',
+		'Brazil',
+		'British Virgin Islands',
+		'Brunei',
+		'Bulgaria',
+		'Burkina Faso',
+		'Burundi',
+		'Cambodia',
+		'Cameroon',
+		'Canada',
+		'Cape Verde',
+		'Cayman Islands',
+		'Central Arfrican Republic',
+		'Chad',
+		'Chile',
+		'China',
+		'Colombia',
+		'Congo',
+		'Cook Islands',
+		'Costa Rica',
+		'Cote D Ivoire',
+		'Croatia',
+		'Cuba',
+		'Curacao',
+		'Cyprus',
+		'Czech Republic',
+		'Denmark',
+		'Djibouti',
+		'Dominica',
+		'Dominican Republic',
+		'Ecuador',
+		'Egypt',
+		'El Salvador',
+		'Equatorial Guinea',
+		'Eritrea',
+		'Estonia',
+		'Ethiopia',
+		'Falkland Islands',
+		'Faroe Islands',
+		'Fiji',
+		'Finland',
+		'France',
+		'French Polynesia',
+		'French West Indies',
+		'Gabon',
+		'Gambia',
+		'Georgia',
+		'Germany',
+		'Ghana',
+		'Gibraltar',
+		'Greece',
+		'Greenland',
+		'Grenada',
+		'Guam',
+		'Guatemala',
+		'Guernsey',
+		'Guinea',
+		'Guinea Bissau',
+		'Guyana',
+		'Haiti',
+		'Honduras',
+		'Hong Kong',
+		'Hungary',
+		'Iceland',
+		'India',
+		'Indonesia',
+		'Iran',
+		'Iraq',
+		'Ireland',
+		'Isle of Man',
+		'Israel',
+		'Italy',
+		'Jamaica',
+		'Japan',
+		'Jersey',
+		'Jordan',
+		'Kazakhstan',
+		'Kenya',
+		'Kiribati',
+		'Kosovo',
+		'Kuwait',
+		'Kyrgyzstan',
+		'Laos',
+		'Latvia',
+		'Lebanon',
+		'Lesotho',
+		'Liberia',
+		'Libya',
+		'Liechtenstein',
+		'Lithuania',
+		'Luxembourg',
+		'Macau',
+		'Macedonia',
+		'Madagascar',
+		'Malawi',
+		'Malaysia',
+		'Maldives',
+		'Mali',
+		'Malta',
+		'Marshall Islands',
+		'Mauritania',
+		'Mauritius',
+		'Mexico',
+		'Micronesia',
+		'Moldova',
+		'Monaco',
+		'Mongolia',
+		'Montenegro',
+		'Montserrat',
+		'Morocco',
+		'Mozambique',
+		'Myanmar',
+		'Namibia',
+		'Nauro',
+		'Nepal',
+		'Netherlands',
+		'Netherlands Antilles',
+		'New Caledonia',
+		'New Zealand',
+		'Nicaragua',
+		'Niger',
+		'Nigeria',
+		'North Korea',
+		'Norway',
+		'Oman',
+		'Pakistan',
+		'Palau',
+		'Palestine',
+		'Panama',
+		'Papua New Guinea',
+		'Paraguay',
+		'Peru',
+		'Philippines',
+		'Poland',
+		'Portugal',
+		'Puerto Rico',
+		'Qatar',
+		'Reunion',
+		'Romania',
+		'Russia',
+		'Rwanda',
+		'Saint Pierre & Miquelon',
+		'Samoa',
+		'San Marino',
+		'Sao Tome and Principe',
+		'Saudi Arabia',
+		'Senegal',
+		'Serbia',
+		'Seychelles',
+		'Sierra Leone',
+		'Singapore',
+		'Slovakia',
+		'Slovenia',
+		'Solomon Islands',
+		'Somalia',
+		'South Africa',
+		'South Korea',
+		'South Sudan',
+		'Spain',
+		'Sri Lanka',
+		'St Kitts & Nevis',
+		'St Lucia',
+		'St Vincent',
+		'Sudan',
+		'Suriname',
+		'Swaziland',
+		'Sweden',
+		'Switzerland',
+		'Syria',
+		'Taiwan',
+		'Tajikistan',
+		'Tanzania',
+		'Thailand',
+		"Timor L'Este",
+		'Togo',
+		'Tonga',
+		'Trinidad & Tobago',
+		'Tunisia',
+		'Turkey',
+		'Turkmenistan',
+		'Turks & Caicos',
+		'Tuvalu',
+		'Uganda',
+		'Ukraine',
+		'United Arab Emirates',
+		'United Kingdom',
+		'United States of America',
+		'Uruguay',
+		'Uzbekistan',
+		'Vanuatu',
+		'Vatican City',
+		'Venezuela',
+		'Vietnam',
+		'Virgin Islands (US)',
+		'Yemen',
+		'Zambia',
+		'Zimbabwe',
+	];
+
+	ipSearch.addEventListener('input', function (e) {
+		closeAllLists();
+		let val = this.value;
+		if (!val) return;
+
+		let div = document.createElement('div');
+		div.setAttribute('id', 'autocomplete-list');
+		div.setAttribute('class', 'autocomplete-items');
+		this.parentNode.appendChild(div);
+
+		for (let i = 0; i < tuthuoc.length; i++) {
+			if (tuthuoc[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+				console.log('true');
+				let item = document.createElement('div');
+				item.innerHTML = '<strong>' + tuthuoc[i].substr(0, val.length) + '</strong>';
+				item.innerHTML += tuthuoc[i].substr(val.length);
+				div.appendChild(item);
+			}
+		}
+
+		console.log(this.value);
+	});
+</script>

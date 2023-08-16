@@ -1,0 +1,308 @@
+syntax = "proto3";
+package obm_v2;
+
+service ObmSettingV2Service {
+  rpc GetOBMPairSetting(PairOBMParams) returns (PairGetResponse) {}
+  rpc GetOBMPairActive(SystemParams) returns (OBMGetResponse) {}
+  rpc UpdatePairs (PairsBody) returns (PairsUpdateResponse);
+  rpc GetExchange (ExchangeParams) returns (ExchangeGetResponse);
+  rpc UpdateExchange (ExchangeBody) returns (ExchangeUpdateResponse);
+  rpc GetSystemTarget (SystemParams) returns (SystemGetResponse);
+  rpc GetBalance (ExchangeParams) returns (BalanceGetResponse);
+  rpc GetBot (ObmBotParams) returns (BotGetResponse);
+  rpc GetThreshold (ThresholdGetParams) returns (ThresholdGetResponse);
+  rpc UpdatePairExchange (UpdatePairExchangeParams) returns (UpdatePairExchangeResponse);
+  rpc GetTradingPairStatus (GetTradingStatusParams) returns (GetTradingStatusResponse);
+  rpc DeletePairInExchange (DeletePairParams) returns (DeletePairRes);
+}
+
+message GetTradingStatusParams {}
+
+message GetTradingStatusResponse {
+  map<string,int32> status = 1;
+}
+
+message ModuleValue {
+  string key = 1;
+  string name = 2;
+  string value = 3;
+  string type = 4;
+}
+
+// delete pair
+message DeletePairParams {
+  string exchange = 1;
+  string coin = 2;
+  string currency = 3;
+}
+
+message DeletePairRes {
+  string response = 1;
+}
+
+// UpdatePairExchange
+message UpdatePairExchangeParams {
+  enum ExchangeStatus {
+    UNDEFINED = 0;
+    ACTIVE = 1;
+    INACTIVE = 2;
+  }
+  ExchangeStatus status = 1;
+  string user_id= 2;
+}
+
+message UpdatePairExchangeResponse {
+  message PairStatus {
+    string coin = 1;
+    string currency = 2;
+    int32 status = 3;
+    string updated_by = 4;
+  }
+  repeated PairStatus items = 1;
+}
+// UpdatePairExchange
+
+// Get admin
+message PairOBMParams {
+  optional string coin = 1;
+  optional string currency = 2;
+  string exchange = 3;
+  string module = 4;
+  optional string time = 5;
+}
+
+message PairGetResponse {
+  string data = 1;
+  string name = 2;
+}
+// end get admin
+
+// Get OBM
+message OBMGetResponse {
+  message OBMData {
+    string coin = 1;
+    string currency = 2;
+    int32 obmActive = 3;
+    repeated string precisions = 4;
+  }
+  string name = 1;
+  repeated OBMData data = 2;
+}
+// end get OBM
+
+// Get threshold
+message ThresholdGetParams {
+  optional string coin = 1;
+  optional string currency = 2;
+  optional string time = 4;
+}
+
+message ThresholdGetResponse {
+  message PairData {
+    ModuleValue min = 1;
+    ModuleValue max = 2;
+  }
+  string name = 1;
+  map<string,PairData> data = 2;
+}
+// end get threshold
+
+// Get bot
+message ObmBotParams {
+  optional string coin = 1;
+  optional string currency = 2;
+  string module = 3;
+  optional string time = 4;
+}
+
+message BotExchangeItem {
+  string exchange = 1;
+  int32 priority = 2;
+}
+
+message BotIds {
+  string bot_a = 1;
+  string bot_p = 2;
+  string gatekeeper = 3;
+}
+
+message BotGetResponse {
+  message DataModule {
+    string bot_a = 1;
+    string bot_p = 2;
+    string crawler = 3;
+    string merge_orderbook = 4;
+  }
+  DataModule data = 1;
+  string name = 2;
+  BotIds uid = 3;
+}
+// end get bot
+
+// Get balance
+message BalanceGetResponse {
+  message BalanceExchange {
+    message BalanceToken {
+      ModuleValue alert = 1;
+      ModuleValue stop = 2;
+      ModuleValue adjust_balance_percent = 3;
+    }
+    map<string,BalanceToken> binance = 1;
+    map<string,BalanceToken> ftx = 2;
+    map<string,BalanceToken> kucoin = 3;
+  }
+  BalanceExchange data = 1;
+  string name = 2;
+}
+// end get balance
+
+// Get SystemTarget
+message SystemParams {
+  optional string exchange = 1;
+  optional string coin = 2;
+  optional string currency = 3;
+  optional string time = 4;
+}
+
+message SystemItem {
+  message PairSysData {
+    string exchange = 1;
+    int32 order = 2;
+    int32 status = 3;
+  }
+  int32 status = 2;
+  repeated PairSysData data = 3;
+}
+
+message SystemGetResponse {
+  map<string,SystemItem> data = 1;
+  string name = 2;
+}
+// end get SystemTarget
+
+// update exchange
+message BalancesExchangeDto {
+  string token = 1;
+  optional string alert = 2;
+  optional string stop = 3;
+  optional string adjust_balance_percent = 4;
+}
+
+message ExchangeBody {
+  message ExchangeUpdateDto {
+    string exchange = 1;
+    optional int32 status = 2;
+    string update_by = 3;
+    repeated BalancesExchangeDto balances = 4;
+  }
+  repeated ExchangeUpdateDto data = 1;
+  string name = 2;
+}
+
+message ExchangeItemRes {
+  string exchange = 1;
+}
+
+message ExchangeUpdateResponse {
+  repeated ExchangeItemRes data = 1;
+  string name = 2;
+}
+// end update exchange
+
+// Get exchange
+message ExchangeParams {
+  optional string exchange = 1;
+  optional string time = 2;
+}
+
+message BalancesExchangeItem {
+  string token = 1;
+  string alert = 2;
+  string stop = 3;
+  string adjust_balance_percent = 4;
+}
+
+message ExchangeGetResponse {
+  message ExchangeItem {
+    int32 id = 1;
+    string exchange = 2;
+    int32 status = 3;
+    repeated BalancesExchangeItem balances = 4;
+  }
+  repeated ExchangeItem data = 1;
+  string name = 2;
+}
+// end get exchange
+
+// update pairs
+message BotADto {
+  optional string min_amount = 1;
+  optional string max_amount = 2;
+  optional string min_total = 3;
+  optional string max_total = 4;
+}
+
+message BotPDto {
+  optional string min_amount = 1;
+  optional string max_amount = 2;
+  optional string min_total = 3;
+  optional string max_total = 4;
+  optional int32 action = 5;
+  optional double volume_scale = 6;
+  optional int32 order_period = 7;
+  optional string skip_min_amount_rate = 8;
+}
+
+message CrawlerDto {
+  optional double adjustment_rate = 1;
+  optional double commission_fee = 2;
+  optional int32 round_digits = 3;
+}
+
+message MergeOrderbookDto {
+  optional string default_precision = 1;
+  optional string min_amount = 2;
+  optional string max_amount = 3;
+  optional string decimal = 4;
+  optional int32 limit_order = 5;
+  optional int32 threshold_price_buy = 6;
+  optional int32 threshold_price_sell = 7;
+  optional string threshold_volume_buy = 8;
+  optional string threshold_volume_sell = 9;
+  repeated string precisions = 10;
+}
+
+message ThresholdDto {
+  optional string min = 1;
+  optional string max = 2;
+}
+
+message PairsBody {
+  message PairsUpdateDto {
+    string coin = 1;
+    string currency = 2;
+    optional string exchange = 3;
+    optional int32 exchange_priority = 4;
+    optional int32 status = 5;
+    string update_by = 6;
+    optional BotADto bot_a = 7;
+    optional BotPDto bot_p = 8;
+    optional CrawlerDto crawler = 9;
+    optional MergeOrderbookDto merge_orderbook = 10;
+    optional ThresholdDto notification_threshold = 11;
+  }
+  repeated PairsUpdateDto data = 1;
+  string name = 2;
+}
+
+message PairItemResponse {
+  string coin = 1;
+  string currency = 2;
+  string exchange = 3;
+}
+
+message PairsUpdateResponse {
+  repeated PairItemResponse data = 1;
+  string name = 2;
+}
+// end update pairs

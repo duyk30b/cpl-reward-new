@@ -1,0 +1,22 @@
+
+main {
+    & > .category-page {
+        & > .container {
+            margin-top: 32px;
+            margin-bottom: 32px;
+            & > h1.category-title {
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 26px;
+                text-transform: uppercase;
+                color: var(--color-text-head);
+            }
+            .category-grid {
+                .post-detail-box-wrap {
+                    padding: 10px;
+                    border: 1px dotted #cdcdcd;
+                }
+            }
+        }
+    }
+}
